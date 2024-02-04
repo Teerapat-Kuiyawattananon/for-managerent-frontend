@@ -1,0 +1,50 @@
+.demo-logo-vertical {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
+  
+  /* Media queries for responsiveness */
+  @media screen and (max-width: 767px) {
+    .demo-logo-vertical {
+      display: none;
+    }
+  
+    .ant-layout-sider {
+      width: 0 !important;
+      overflow: hidden;
+      flex: 0 !important;
+      transition: width 0.3s ease;
+    }
+  
+    .ant-layout-sider-collapsed {
+      width: 80px !important;
+    }
+  
+    .ant-layout-sider-collapsed .ant-layout-sider-trigger {
+      left: 80px !important;
+    }
+  
+    .ant-layout-header,
+    .ant-breadcrumb,
+    .ant-layout-content,
+    .ant-layout-footer {
+      transition: margin-left 0.3s ease;
+    }
+  
+    .ant-layout-header {
+      padding: 0 16px;
+    }
+  
+    .ant-breadcrumb {
+      margin: 8px 0;
+    }
+  
+    .ant-layout-content {
+      margin: 0 16px;
+    }
+  
+    .ant-layout-footer {
+      padding: 0 16px;
+    }
+  }
