@@ -8,6 +8,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import './navbar.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -61,12 +62,15 @@ const Navbar: React.FC = () => {
         breakpoint="md"  // ตั้ง breakpoint เมื่อขนาดหน้าจอลดลงถึง md (medium)
         collapsedWidth="0" // ตั้งค่าความกว้างเมื่อพับลงเป็น 0
         onCollapse={(value) => setCollapsed(value)}
+        width={270}
+        style={{ background: '#253141' }}
       >
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} style={{ background: '#253141' }}>
+        </Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background:   colorBgContainer }} />
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
