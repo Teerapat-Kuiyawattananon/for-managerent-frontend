@@ -115,7 +115,7 @@ const Register = () => {
           <div className="justify-self-center text-3xl font-extrabold">
             Create Your Account
           </div>
-          <div className="pt-10 pb-2">
+          <div className="pt-10 ">
           <Form 
             name="basic"
             layout='vertical'
@@ -235,7 +235,9 @@ const Register = () => {
         </Form>
             
           </div>
-
+                 <div className='text-center text-gray-500'>
+                  already have an account? <Link to="/login" className="text-purple-theme hover:text-blue-300">Login</Link>
+                 </div>
         
         </div>
       </section>
