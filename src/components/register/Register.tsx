@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Input, Form, Button, Flex, Checkbox, message } from 'antd'
 import axios from 'axios'
 import './Register.css'
+import AuthService from '../../services/auth.service'
 
 interface RegisterFormData {
     full_name: string;
@@ -63,7 +64,7 @@ const Register = () => {
     
         try {  
         formData.username = formData.email;
-          const response = await axios.post('http://localhost:3232/test', formData); // Replace with your API endpoint
+          const response = await AuthService.register(formData) // Replace with your API endpoint
           if (response.status === 200) {
             console.log('Registration successful:', response.data);
             message.success('You have successfully registered your account!');

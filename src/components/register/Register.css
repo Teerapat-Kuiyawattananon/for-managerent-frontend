@@ -3,7 +3,7 @@
 }
 
 .ant-input:hover {
-    border-color: #711DB0;
+    border-color: #711DB0 !important;
 }
 
 .ant-input-password:focus {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css'
+import AuthService from '../../services/auth.service';
 
 interface LoginFormData {
     username: string;
@@ -30,9 +31,12 @@ const Login = () => {
     
     const handleSubmit = async () => {
         try {  
-              const response = await axios.post('http://localhost:3232/login', formData); // Replace with your API endpoint
+            //   const response = await axios.post('http://localhost:3232/login', formData); // Replace with your API endpoint
+            console.log(formData)
+            const response = await AuthService.login(formData);
               if (response.status === 200) {
                 console.log('Login successful:', response.data);
+                // console.log('Test full_name', response.data['user']['full_name']);
                 message.success('You have successfully registered your account!');
 
                 // Handle successful registration (e.g., clear form, store token, redirect)
@@ -46,7 +50,7 @@ const Login = () => {
                     duration: 8
                   });
             }
-            console.log('Failed:', formData);
+            // console.log('Failed:', formData);
     }
 
   return (
