@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/components/pageAdmin", "src/components/pageRentel", "src/components/pageStaff"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
