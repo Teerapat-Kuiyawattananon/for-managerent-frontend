@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
-import { Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import { Breadcrumb, Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
+import AuthService from './services/auth.service';
 import './navbar.css';
 
 // Import หน้าต่างๆ
-import HomePage from './pageStaff/home-page/homePage';
-import RoomListPage from './pageStaff/roomList-page/roomListPage';
-import BillPage from './pageStaff/bill-page/billPage';
-import DashBoardPage from './pageStaff/dashboard-page/dashboard';
-import AnouncePage from './pageStaff/annouce-page/annoncePage';
-import PacketPage from './pageStaff/packet-page/packetPage';
+import HomePage from './components/pageStaff/home-page/homePage';
+import RoomListPage from './components/pageStaff/roomList-page/roomListPage';
+import BillPage from './components/pageStaff/bill-page/billPage';
+import DashBoardPage from './components/pageStaff/dashboard-page/dashboard';
+import AnouncePage from './components/pageStaff/annouce-page/annoncePage';
+import PacketPage from './components/pageStaff/packet-page/packetPage';
 
-import YourBillPage from './pageRentel/yourBill-page/yourBillPage';
-import ReportPage from './pageRentel/report-page/report';
-import YourpacketPage from './pageRentel/yourPacket-page/yourPacket';
+import YourBillPage from './components/pageRentel/yourBill-page/yourBillPage';
+import ReportPage from './components/pageRentel/report-page/report';
+import YourpacketPage from './components/pageRentel/yourPacket-page/yourPacket';
 
-import RentPage from './pageAdmin/rent-page/rentPage';
-import ManageUserPage from './pageAdmin/manageUser-page/manageUserPage';
-import PermissionPage from './pageAdmin/permission-page/permissionPage';
-import SettingPage from './pageAdmin/setting-Page/settingPage';
+import RentPage from './components/pageAdmin/rent-page/rentPage';
+import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPage';
+import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
+import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
 const { Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
@@ -64,12 +65,13 @@ const items: MenuItem[] = [
 const Navbar: React.FC = () => {
   const [_collapsed, setCollapsed] = useState(false);
   const [urlPath, setUrlPath] = useState('');
-  // const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
 
   } = theme.useToken();
-
+  // const navigate = useNavigate();
+  // const history = useNavigate();
+  const currentUser = AuthService.getCurrentUser();
 
   const handleSearch = (value: string) => {
     console.log('Searching for:', value);
@@ -85,61 +87,97 @@ const Navbar: React.FC = () => {
     });
   };
 
+  // useEffect(() => {
+  //   if (url.includes('/home')) {
+  //     setPageTitle('หน้าหลัก');
+  //   } else if (url.includes('/roomlist')) {
+  //     setPageTitle('รายการห้องเช่า');
+  //   } else if (url.includes('/bill')) {
+  //     setPageTitle('ใบแจ้งหนี้');
+  //   } else if (url.includes('/dashboard')) {
+  //     setPageTitle('กระดานสรุปรายงานผล');
+  //   } else if (url.includes('/anounce')) {
+  //     setPageTitle('จัดการประกาศและคำร้อง');
+  //   } else if (url.includes('/packet')) {
+  //     setPageTitle('แจ้งเตือนพัสดุและยืนยัน');
+  //   } else if (url.includes('/yourbill')) {
+  //     setPageTitle('ใบแจ้งหนี้ของคุณ');
+  //   } else if (url.includes('/report')) {
+  //     setPageTitle('แจ้งปัญหา');
+  //   } else if (url.includes('/yourPacket')) {
+  //     setPageTitle("พัสดุของคุณ");
+  //   } else if (url.includes('/rent')) {
+  //     setPageTitle('หอพักของคุณ');
+  //   } else if (url.includes('/manageUser')) {
+  //     setPageTitle('การจัดการผู้ใช้');
+  //   } else if (url.includes('/permission')) {
+  //     setPageTitle('ตั้งค่าสิทธิ์การเข้าใช้งาน');
+  //   } else if (url.includes('/setting')) {
+  //     setPageTitle('ตั้งค่าค่าใช้จ่าย');
+  //   }
+  // }, [url]);
+
   const handleMenuClick = ({ key }: { key: React.Key }) => {
     if (key === 'home') {
       setPageTitle('หน้าหลัก');
       setUrlPath('/home');
+      // console.log(url.includes('/home'));
+      // window.location.href = '/home';
     }
-    if (key === 'roomlist') {
+    else if (key === 'roomlist') {
       setPageTitle('รายการห้องเช่า');
-      setUrlPath("/roomlist")
+      setUrlPath('/roomlist'); 
     }
-    if (key === 'bill') {
+    else if (key === 'bill') {
       setPageTitle('ใบแจ้งหนี้');
       setUrlPath('/bill');
     }
-    if (key === 'dashboard') {
+    else if (key === 'dashboard') {
       setPageTitle('กระดานสรุปรายงานผล');
       setUrlPath('/dashboard');
     }
-    if (key === 'anouncn') {
+    else if (key === 'anouncn') {
       setPageTitle('จัดการประกาศและคำร้อง');
       setUrlPath('/anounce');
     }
-    if (key === 'packet') {
+    else if (key === 'packet') {
       setPageTitle('แจ้งเตือนพัสดุและยืนยัน');
       setUrlPath('/packet');
     }
-    if (key === 'yourBill') {
+    else if (key === 'yourBill') {
       setPageTitle('ใบแจ้งหนี้ของคุณ');
       setUrlPath('/yourbill');
     }
-    if (key === 'report') {
+    else if (key === 'report') {
       setPageTitle('แจ้งปัญหา');
       setUrlPath('/report');
     }
-    if (key === 'yourPacket') {
+    else if (key === 'yourPacket') {
       setPageTitle("พัสดุของคุณ");
       setUrlPath('/yourPacket');
     }
-    if (key === 'rent') {
+    else if (key === 'rent') {
       setPageTitle('หอพักของคุณ');
       setUrlPath('/rent');
     }
-    if (key === 'manageUser') {
+    else if (key === 'manageUser') {
       setPageTitle('การจัดการผู้ใช้');
       setUrlPath('/manageUser');
     }
-    if (key === 'permission') {
+    else if (key === 'permission') {
       setPageTitle('ตั้งค่าสิทธิ์การเข้าใช้งาน');
       setUrlPath('/permission');
     }
-    if (key === 'setting') {
+    else if (key === 'setting') {
       setPageTitle('ตั้งค่าค่าใช้จ่าย');
       setUrlPath('/setting');
     }
-  }; const [pageTitle, setPageTitle] = useState('');
+  };
 
+  const handlerLogout = () => {
+    AuthService.logout();
+    window.location.href = '/login';
+  }
 
 
   return (
@@ -154,10 +192,12 @@ const Navbar: React.FC = () => {
         >
           <div className="top-menu">
             <Avatar className="avatar" size={40} icon={<UserOutlined/>} />
-            <span className="username-topmenu" style={{ color: '#fff', marginLeft: 10 }}>ชื่อ นามสกุล</span>
-            <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>ตำแหน่ง</span>
+            <span className="username-topmenu" style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.full_name }</span>
+            <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.roll ? currentUser.roll: "ตำแหน่ง"}</span>
           </div>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
+          {/* <Link to={urlPath} > */}
+              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
+          {/* </Link> */}
         </Sider>
         <Layout>
           <div className="header-top">
@@ -168,7 +208,10 @@ const Navbar: React.FC = () => {
               onSearch={handleSearch}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
             />
-            <LoginOutlined className="logout-icon" style={{ color: '#fff', fontSize: '30px' }} />
+            <LoginOutlined className="logout-icon cursor-pointer hover:bg-purple-th-hov rounded" 
+              onClick={handlerLogout}
+              style={{ color: '#fff', fontSize: '30px' }} />
+            
           </div>
           <div className="divider"></div>
           <div className="header-bottom">
@@ -197,7 +240,7 @@ const Navbar: React.FC = () => {
                 <Route path="/manageUser" element={ <ManageUserPage/> } />
                 <Route path="/permission" element={ <PermissionPage/> } />
                 <Route path="/setting" element={ <SettingPage/> } />
-                <Route path="/*" element={ <Navigate to="/home"/> } />
+                {/* <Route path="/*" element={ <Navigate to="/home"/> } /> */}
               </Routes>
             </div>
           </Content>
