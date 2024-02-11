@@ -44,7 +44,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Routes>
     </Router>
     {
-      localStorage.getItem('user') ? <Navbar /> : null
+      true ? <Navbar /> : null
     }
   </React.StrictMode>,
 )
