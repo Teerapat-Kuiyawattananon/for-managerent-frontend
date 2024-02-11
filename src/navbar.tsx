@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
 import './navbar.css';
@@ -64,6 +64,7 @@ const items: MenuItem[] = [
 const Navbar: React.FC = () => {
   const [_collapsed, setCollapsed] = useState(false);
   const [urlPath, setUrlPath] = useState('');
+  // const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
 
@@ -91,7 +92,7 @@ const Navbar: React.FC = () => {
     }
     if (key === 'roomlist') {
       setPageTitle('รายการห้องเช่า');
-      setUrlPath('/roomlist'); 
+      setUrlPath("/roomlist")
     }
     if (key === 'bill') {
       setPageTitle('ใบแจ้งหนี้');
