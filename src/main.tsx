@@ -60,9 +60,23 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />
+        
         <Route path="/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
-      <Route path="/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+
+        <Route path="/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+        <Route path="/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
+        <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
+        <Route path="/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
+        
+        <Route path="/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />
+        <Route path="/report" element={<Navbar component={<ReportPage />} title={"แจ้งปัญหา"}/>} />
+        <Route path="/yourPacket" element={<Navbar component={<YourpacketPage />} title={"พัสดุของคุณ"}/>} />
+        
+        <Route path="/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+        <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
+        <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
       </Routes>
     </Router>
     {

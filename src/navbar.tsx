@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
+import { useNavigate } from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
 import AuthService from './services/auth.service';
@@ -78,43 +78,42 @@ const Navbar = ({component, title} : Page) => {
   const handleMenuClick = ({ key }: { key: React.Key }) => {
     if (key === 'home') {
       navigate('/home')
-      // console.log(url.includes('/home'));
-      // window.location.href = '/home';
     }
     else if (key === 'roomlist') {
       navigate('/roomlist')
     }
     else if (key === 'bill') {
+      navigate('/bill')
     }
     else if (key === 'dashboard') {
-      // setPageTitle('กระดานสรุปรายงานผล');
       navigate('/dashboard')
     }
     else if (key === 'anouncn') {
-
+      navigate('/anouncn')
     }
     else if (key === 'packet') {
+      navigate('/packet')
     }
     else if (key === 'yourBill') {
-      
+      navigate('/yourBill')
     }
     else if (key === 'report') {
-      
+      navigate('/report')
     }
     else if (key === 'yourPacket') {
-
+      navigate('/yourPacket')
     }
     else if (key === 'rent') {
       navigate('/create-apartment')
     }
     else if (key === 'manageUser') {
-      
+      navigate('/manageUser')
     }
     else if (key === 'permission') {
-
+      navigate('/permission')
     }
     else if (key === 'setting') {
-
+      navigate('/setting')
     }
   };
 
@@ -138,9 +137,7 @@ const Navbar = ({component, title} : Page) => {
             <span className="username-topmenu" style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.full_name }</span>
             <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.roll ? currentUser.roll: "ตำแหน่ง"}</span>
           </div>
-          {/* <Link to={urlPath} > */}
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
-          {/* </Link> */}
         </Sider>
         <Layout>
           <div className="header-top">
