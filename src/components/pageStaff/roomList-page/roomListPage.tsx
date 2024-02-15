@@ -1,94 +1,44 @@
 import React from 'react';
-import { Table } from 'antd';
-import type { TableProps } from 'antd';
-import { Tag, Space } from 'antd';
+import {  Button, Space } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { RoomListTable } from './roomListTable';
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
+
+const data = [
+  {
+    key: '1',
+    floor: '1',
+    roomName: '101',
+    tenantName: 'สมโชค',
+    roomRent: 5000,
+    roomStatus: 'ว่าง',
+  },
+  {
+    key: '2',
+    floor: '1',
+    roomName: '102',
+    tenantName: 'สมหมาย',
+    roomRent: 4500,
+    roomStatus: 'ไม่ว่าง',
+  },
+  {
+    key: '3',
+    floor: '1',
+    roomName: '103',
+    tenantName: 'สมชาย',
+    roomRent: 5000,
+    roomStatus: 'ไม่ว่าง',
+  },
+];
 
 const RoomListPage: React.FC = () => {
-  const columns: TableProps<DataType>['columns'] = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
-  ];
-
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
 
   return (
     <div>
-      <h1>รายการห้องเช่า</h1>
-      <Table columns={columns} dataSource={data} />
+      <Space style={{ marginBottom: 16 }}>
+        <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
+      </Space>
+      <RoomListTable data={data}/>
     </div>
   );
 };
