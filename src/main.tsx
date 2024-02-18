@@ -1,32 +1,3 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import Navbar from './navbar.tsx'
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Login from './components/login/Login.tsx';
-// import Register from './components/register/Register.tsx'
-// import './index.css'
-
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Router>
-//       <Routes>
-//         <Route path="/login" element={<Login />} />
-//         <Route path="/register" element={<Register />} />
-//         {/* <Route path="/test" element={<Navbar />} /> */}
-//       </Routes>
-//     </Router>
-    
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// )
-
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <React.StrictMode>
-//     <Navbar />
-//   </React.StrictMode>,
-// )
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Navbar from './navbar.tsx'
@@ -39,6 +10,8 @@ import './index.css'
 
 import HomePage from './components/pageStaff/home-page/homePage';
 import RoomListPage from './components/pageStaff/roomList-page/roomListPage';
+import RoomListPageAdd from './components/pageStaff/roomList-page/addTenant/roomListPageAdd.tsx';
+import RoomListPageDetail from './components/pageStaff/roomList-page/addTenant/roomlistPageDetail.tsx';
 import BillPage from './components/pageStaff/bill-page/billPage';
 import DashBoardPage from './components/pageStaff/dashboard-page/dashboard';
 import AnouncePage from './components/pageStaff/annouce-page/annoncePage';
@@ -64,6 +37,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
 
         <Route path="/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+        <Route path="/roomlist/add" element={<Navbar component={<RoomListPageAdd />} title={"เพิ่มผู้เช่า"} />} />
+        <Route path="/roomlist/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
+
         <Route path="/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
         <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
         <Route path="/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
@@ -77,6 +53,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
+
       </Routes>
     </Router>
     {

@@ -1,7 +1,8 @@
 import React from 'react';
-import {  Button, Space } from 'antd';
+import { Button, Space, } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { RoomListTable } from './roomListTable';
+import RoomListTable from './roomListTable';
+
 
 
 const data = [
@@ -29,17 +30,35 @@ const data = [
     roomRent: 5000,
     roomStatus: 'ไม่ว่าง',
   },
+  {
+    key: '4',
+    floor: '2',
+    roomName: '104',
+    tenantName: 'สมเพรช',
+    roomRent: 5000,
+    roomStatus: 'ไม่ว่าง',
+  },
+  {
+    key: '5',
+    floor: '3',
+    roomName: '104',
+    tenantName: 'สมเพรช',
+    roomRent: 5000,
+    roomStatus: 'ไม่ว่าง',
+  },
 ];
 
 const RoomListPage: React.FC = () => {
 
   return (
-    <div>
-      <Space style={{ marginBottom: 16 }}>
-        <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
-      </Space>
-      <RoomListTable data={data}/>
-    </div>
+    <>
+      <div>
+        <Space style={{ marginBottom: 16 }}>
+          <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
+        </Space>
+        <RoomListTable data={data}/>
+      </div>
+    </>
   );
 };
 
