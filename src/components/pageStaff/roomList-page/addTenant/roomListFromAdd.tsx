@@ -1,28 +1,11 @@
 import React from 'react';
 import { Button, message, Steps, theme } from 'antd'
 import { useState } from 'react';
-import './rentPage.css'
-import FormApartment from './formApartment/FormApartment';
-// const steps = [
-//     {
-//       title: 'กรอกรายละเอียดหอพัก',
-//       content: <FormApartment handleNext={next}/>,
-//     },
-//     {
-//       title: 'กำหนดรายละเอียดห้องพัก',
-//       content: 'Second-content',
-//     },
-//     {
-//       title: 'ช่องทางการชำระเงิน',
-//       content: 'Third-content',
-//     },
-//     {
-//         title: 'สรุปข้อมูล',
-//         content: 'Last-content',
-//     }
-//   ];
+import RoomListPageAdd1 from './roomListPageAdd1';
+import RoomListPageAdd2 from './roomListPageAdd2';
 
-const RentPage: React.FC = () => {
+
+const RoomListFromAdd : React.FC = () => {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
 
@@ -35,19 +18,19 @@ const RentPage: React.FC = () => {
     }
     const steps = [
             {
-              title: 'กรอกรายละเอียดหอพัก',
-              content: <FormApartment next={next} currentState={current} />,
+              title: 'กรอกรายละเอียด',
+              content: <RoomListPageAdd1 next={next} currentState={current} />,
             },
             {
-              title: 'กำหนดรายละเอียดห้องพัก',
-              content: 'Second-content',
+              title: 'เพิ่มบัตรประชาชน',
+              content: <RoomListPageAdd2 next={next} currentState={current} />,
             },
             {
-              title: 'ช่องทางการชำระเงิน',
+              title: 'ที่อยู่',
               content: 'Third-content',
             },
             {
-              title: 'สรุปข้อมูล',
+              title: 'สรุปผล',
               content: 'Last-content',
             }
         ];
@@ -102,4 +85,4 @@ const RentPage: React.FC = () => {
     );
 };
 
-export default RentPage;
+export default RoomListFromAdd;

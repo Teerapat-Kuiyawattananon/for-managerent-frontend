@@ -10,7 +10,8 @@ import './index.css'
 
 import HomePage from './components/pageStaff/home-page/homePage';
 import RoomListPage from './components/pageStaff/roomList-page/roomListPage';
-import RoomListPageAdd from './components/pageStaff/roomList-page/addTenant/roomListPageAdd.tsx';
+import RoomListFromAdd from './components/pageStaff/roomList-page/addTenant/roomListFromAdd.tsx';
+import RoomListPageAdd from './components/pageStaff/roomList-page/addTenant/roomListPageAdd1.tsx';
 import RoomListPageDetail from './components/pageStaff/roomList-page/addTenant/roomlistPageDetail.tsx';
 import BillPage from './components/pageStaff/bill-page/billPage';
 import DashBoardPage from './components/pageStaff/dashboard-page/dashboard';
@@ -37,7 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
 
         <Route path="/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
-        <Route path="/roomlist/add" element={<Navbar component={<RoomListPageAdd />} title={"เพิ่มผู้เช่า"} />} />
+        <Route path="/roomlist/from" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
         <Route path="/roomlist/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
 
         <Route path="/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />

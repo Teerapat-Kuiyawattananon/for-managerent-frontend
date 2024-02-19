@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
 
-interface RoomListPageAdd1Props {
+interface RoomListPageAdd2Props {
     next : () => void
     currentState: number
   }
 
-  interface RoomListPageAdd1State {
+  interface RoomListPageAdd2State {
     name: string
     lastname: string
     nickname: string
@@ -17,8 +17,8 @@ interface RoomListPageAdd1Props {
     tel: string
   }
 
-const RoomListPageAdd= ({next, currentState} : RoomListPageAdd1Props)  => {
-    const [formData, setFormData] = useState<RoomListPageAdd1State>({
+const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
+    const [formData, setFormData] = useState<RoomListPageAdd2State>({
         name: '',
         lastname: '',
         nickname: '',
@@ -80,7 +80,7 @@ const RoomListPageAdd= ({next, currentState} : RoomListPageAdd1Props)  => {
         >
           <div className='flex  justify-start'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="ชื่อจริง" label="ชื่อจริง" rules={[{ required: true }]}>
+                <Form.Item name="ชื่อจริง" label="ชื่อจริง2" rules={[{ required: true }]}>
                     <Input 
                         name='name'
                         onChange={handleChange}
@@ -90,7 +90,7 @@ const RoomListPageAdd= ({next, currentState} : RoomListPageAdd1Props)  => {
                 </Form.Item>
             </div>
             <div className='w-1/2 h-1'>
-                <Form.Item name="นามสกุล" label="นามสกุล" rules={[{ required: true }]}>
+                <Form.Item name="นามสกุล" label="นามสกุล2" rules={[{ required: true }]}>
                     <Input
                         name='lastname '
                         onChange={handleChange}
@@ -188,5 +188,4 @@ const RoomListPageAdd= ({next, currentState} : RoomListPageAdd1Props)  => {
       )
     }
   
-  export default RoomListPageAdd;
-
+  export default RoomListPageAdd2;

@@ -98,7 +98,7 @@ const RoomListTable: React.FC<RoomListTableProps> = ({ data }) => {
             render: (_, record : RoomListTableData) => (
                 <>
                     {record.roomStatus === "ว่าง" && (
-                        <Link to="/roomlist/add"> 
+                        <Link to="/roomlist/from"> 
                             <Button>
                                 <UserOutlined />
                             </Button>
