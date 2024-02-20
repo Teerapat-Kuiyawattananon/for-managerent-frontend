@@ -11,7 +11,7 @@ import './index.css'
 import HomePage from './components/pageStaff/home-page/homePage';
 import RoomListPage from './components/pageStaff/roomList-page/roomListPage';
 import RoomListFromAdd from './components/pageStaff/roomList-page/addTenant/roomListFromAdd.tsx';
-import RoomListPageAdd from './components/pageStaff/roomList-page/addTenant/roomListPageAdd1.tsx';
+import RoomListPageAdd from './components/pageStaff/roomList-page/addTenant/roomaddpage/roomListPageAdd1.tsx';
 import RoomListPageDetail from './components/pageStaff/roomList-page/addTenant/roomlistPageDetail.tsx';
 import BillPage from './components/pageStaff/bill-page/billPage';
 import DashBoardPage from './components/pageStaff/dashboard-page/dashboard';

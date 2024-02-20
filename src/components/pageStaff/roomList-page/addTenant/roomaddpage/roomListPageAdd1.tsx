@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
 
-interface RoomListPageAdd2Props {
+interface RoomListPageAdd1Props {
     next : () => void
     currentState: number
   }
 
-  interface RoomListPageAdd2State {
+  interface RoomListPageAdd1State {
     name: string
     lastname: string
     nickname: string
@@ -17,8 +17,8 @@ interface RoomListPageAdd2Props {
     tel: string
   }
 
-const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
-    const [formData, setFormData] = useState<RoomListPageAdd2State>({
+const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
+    const [formData, setFormData] = useState<RoomListPageAdd1State>({
         name: '',
         lastname: '',
         nickname: '',
@@ -32,12 +32,9 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
       const formRef = React.useRef();
       const handleNext = () => {
         console.log(currentState)
-        // next()
       }
     
       const handleChange = (e: any) => {
-        // console.log(e.target.type)
-        // console.log(e.target.value)
         setFormData({
           ...formData,
           [e.target.name]:
@@ -48,20 +45,12 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
       
     
       const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-        // console.log("test")
-        // e.preventDefault()
         try {  
-            //   const response = await axios.post('http://localhost:3232/login', formData); // Replace with your API endpoint
-            // console.log(formData)
-            // e.preventDeafault()
-            // e.preventDefault()
             console.log('Success:', formData);
             next()
-              // Handle successful registration (e.g., clear form, redirect)
             } catch (error) {
               console.log('Failed:', formData);
             }
-            // console.log('Failed:', formData);
     }
     
      const onFinishFailed = (errorInfo: any) => {
@@ -80,7 +69,7 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
         >
           <div className='flex  justify-start'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="ชื่อจริง" label="ชื่อจริง2" rules={[{ required: true }]}>
+                <Form.Item name="ชื่อจริง" label="ชื่อจริง" rules={[{ required: true }]}>
                     <Input 
                         name='name'
                         onChange={handleChange}
@@ -90,7 +79,7 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
                 </Form.Item>
             </div>
             <div className='w-1/2 h-1'>
-                <Form.Item name="นามสกุล" label="นามสกุล2" rules={[{ required: true }]}>
+                <Form.Item name="นามสกุล" label="นามสกุล" rules={[{ required: true }]}>
                     <Input
                         name='lastname '
                         onChange={handleChange}
@@ -142,7 +131,6 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
                 <Form.Item name="Line ID" label="Line ID" rules={[{ required: true }]}>
                     <Input
                         name='id_line'
-                        type='number'
                         onChange={handleChange}
                         style={{
                         width: '85%',
@@ -163,13 +151,12 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
                 </Form.Item>
             </div>
             <div className='w-1/2'>
-                <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: false }]}>
+                <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: true }]}>
                     <Input
                         name='tel'
                         onChange={handleChange}
                         style={{
                         width: '85%',
-                        // height: '120px',
                         }} placeholder='เบอร์โทรศัพท์'/>
                 </Form.Item>
             </div>
@@ -177,8 +164,6 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
     
           
           <Button type="primary" htmlType='submit' style={{
-                // background: "711DB0",
-                // backgroundColor: "yellow"
               }} 
               onClick={handleNext}
               >
@@ -188,4 +173,5 @@ const RoomListPageAdd2= ({next, currentState} : RoomListPageAdd2Props)  => {
       )
     }
   
-  export default RoomListPageAdd2;
+  export default RoomListPageAdd1;
+

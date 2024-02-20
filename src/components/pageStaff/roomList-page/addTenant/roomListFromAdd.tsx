@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, message, Steps, theme } from 'antd'
 import { useState } from 'react';
-import RoomListPageAdd1 from './roomListPageAdd1';
-import RoomListPageAdd2 from './roomListPageAdd2';
+import RoomListPageAdd1 from './roomaddpage/roomListPageAdd1';
+import RoomListPageAdd2 from './roomaddpage/roomListPageAdd2';
+import RoomListPageAdd3 from './roomaddpage/roomListPageAdd3';
+import RoomListPageAdd4 from './roomaddpage/roomListPageAdd4';
 
 
 const RoomListFromAdd : React.FC = () => {
@@ -27,11 +29,11 @@ const RoomListFromAdd : React.FC = () => {
             },
             {
               title: 'ที่อยู่',
-              content: 'Third-content',
+              content: <RoomListPageAdd3 next={next} currentState={current} />,
             },
             {
               title: 'สรุปผล',
-              content: 'Last-content',
+              content: <RoomListPageAdd4 next={next} currentState={current} />,
             }
         ];
 
