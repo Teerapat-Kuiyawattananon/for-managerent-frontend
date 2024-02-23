@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, message, Steps, theme } from 'antd'
 import { useState } from 'react';
-import RoomListPageAdd1 from './roomaddpage/roomListPageAdd1';
-import RoomListPageAdd2 from './roomaddpage/roomListPageAdd2';
-import RoomListPageAdd3 from './roomaddpage/roomListPageAdd3';
-import RoomListPageAdd4 from './roomaddpage/roomListPageAdd4';
+import RoomListPageAdd1 from './roomlistformadd1-4/roomListPageAdd1';
+import RoomListPageAdd2 from './roomlistformadd1-4/roomListPageAdd2';
+import RoomListPageAdd3 from './roomlistformadd1-4/roomListPageAdd3';
+import RoomListPageAdd4 from './roomlistformadd1-4/roomListPageAdd4';
 
 
 const RoomListFromAdd : React.FC = () => {
