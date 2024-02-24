@@ -60,7 +60,6 @@ const Navbar = ({component, title} : Page) => {
   } = theme.useToken();
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
-
   const handleSearch = (value: string) => {
     console.log('Searching for:', value);
     // ปุ่มค้นหา

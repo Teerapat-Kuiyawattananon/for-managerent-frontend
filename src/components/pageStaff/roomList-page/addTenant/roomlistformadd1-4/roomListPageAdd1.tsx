@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
+import { Button, Form, Input,  DatePicker } from 'antd';
 
 interface RoomListPageAdd1Props {
     next : () => void

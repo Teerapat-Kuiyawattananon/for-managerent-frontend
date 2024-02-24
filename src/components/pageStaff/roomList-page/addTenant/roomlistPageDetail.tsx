@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form, Input,  DatePicker , Image } from 'antd';
+import { Button, Form, Input,  DatePicker , Image , Popconfirm} from 'antd';
 import { Link } from 'react-router-dom';
 
 interface RoomListPageDetailState {
@@ -61,9 +61,14 @@ const RoomListPageDetail: React.FC = () => {
           >
             <div className='h-20  justify-start'>
             {/* ปุ่มยกเลิกเช่าด้านขวาบนสุด */}
-            <Button type="default" onClick={handleCancel} style={{ float: 'left', marginTop: '10px' }}>
-              ยกเลิกเช่า
-            </Button>
+            <Popconfirm
+                title="ลบข้อมูลผู้เช่า"
+                description="คุณแน่ใจที่จะนำผู้เช่านี้ออกจากห้องเช่าหรือไม่?"
+                 okText="ใช่"
+                cancelText="ไม่"
+                 >
+                <Button danger>ลบข้อมูลผู้เช่า</Button>
+            </Popconfirm>
             </div>
             <span> รายละเอียดผู้เช่า </span>
             <div className='flex  justify-start'>

@@ -1,2 +1,19 @@
+.dividerUnder {
+    height: 1px;
+    margin-top: 14px; 
+    background-color: rgb(0, 0, 0);
+  }
 
-
+  .dataContainer {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px; /* ระยะห่างของข้อมูลด้านใต้ divider */
+  }
+  
+  .imageContainer {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px; /* ระยะห่างของรูปภาพด้านใต้คำอธิบาย */
+  }
