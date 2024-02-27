@@ -9,12 +9,17 @@ import './index.css'
 // Import หน้าต่างๆ
 
 import HomePage from './components/pageStaff/home-page/homePage';
+
 import RoomListPage from './components/pageStaff/roomList-page/roomListPage';
 import RoomListFromAdd from './components/pageStaff/roomList-page/addTenant/roomListFromAdd.tsx';
 import RoomListPageDetail from './components/pageStaff/roomList-page/addTenant/roomlistPageDetail.tsx';
+
 import BillPage from './components/pageStaff/bill-page/billPage';
 import DashBoardPage from './components/pageStaff/dashboard-page/dashboard';
 import AnouncePage from './components/pageStaff/annouce-page/annoncePage';
+
+import ReportStatePage from './components/pageStaff/annouce-page/subtabannouce/reportState.tsx/reportStatepage.tsx';
+
 import PacketPage from './components/pageStaff/packet-page/packetPage';
 
 import YourBillPage from './components/pageRentel/yourBill-page/yourBillPage';
@@ -25,6 +30,7 @@ import RentPage from './components/pageAdmin/rent-page/rentPage';
 import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPage';
 import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -41,8 +47,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/roomlist/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
 
         <Route path="/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
-        <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
+        <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />
+
         <Route path="/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/anouncn/reportstate" element={<Navbar component={<ReportStatePage />} title={"สถานะการแก้ไข"}/>} />
+
         <Route path="/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
         
         <Route path="/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />

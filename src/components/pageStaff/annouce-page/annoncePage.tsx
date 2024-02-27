@@ -2,6 +2,10 @@ import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 
+import AllAnnouce from './subtabannouce/allAnnouce.tsx';
+
+import ReportFormRenter from './subtabannouce/reportFormRenter.tsx';
+
 const AnouncePage: React.FC = () => {
   const onChange = (key: string) => {
     console.log(key);
@@ -11,12 +15,12 @@ const AnouncePage: React.FC = () => {
     {
       key: '1',
       label: 'ประกาศทั้งหมด',
-      children: 'Content of Tab Pane 1',
+      children: <AllAnnouce/>,
     },
     {
       key: '2',
       label: 'แจ้งปัญหาจากลูกบ้าน',
-      children: 'Content of Tab Pane 2',
+      children: <ReportFormRenter/>,
     },
 
   ];
