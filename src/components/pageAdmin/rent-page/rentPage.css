@@ -11,3 +11,11 @@
 .ant-input-number:focus {
     border-color: #711DB0 !important;
 }
+
+.ant-input-select:hover {
+    border-color: #711DB0 !important;
+}
+
+.ant-input-select:focus {
+    border-color: #711DB0 !important;
+}

@@ -63,8 +63,8 @@ const Login = () => {
             <h1 className='text-4xl text-center text-white font-extrabold'>For ManageRent</h1>
           </div>
           <div className='bg-gray-500 text-center mx-5'>
-                <div>
-                    test
+                <div className=''>
+                    test.
                 </div>
           </div>
         </section>

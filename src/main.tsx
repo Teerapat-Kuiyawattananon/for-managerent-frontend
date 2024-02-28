@@ -77,6 +77,24 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
+
+
+        <Route path="/apartment/:apartId/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
+
+        <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+        <Route path="/apartment/:apartId/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
+        <Route path="/apartment/:apartId/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
+        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/apartment/:apartId/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
+
+        <Route path="/apartment/:apartId/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />
+        <Route path="/apartment/:apartId/report" element={<Navbar component={<ReportPage />} title={"แจ้งปัญหา"}/>} />
+        <Route path="/apartment/:apartId/yourPacket" element={<Navbar component={<YourpacketPage />} title={"พัสดุของคุณ"}/>} />
+
+        <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+        <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
+        <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
       </Routes>
     </Router>
     {
