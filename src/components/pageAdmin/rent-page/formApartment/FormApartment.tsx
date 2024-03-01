@@ -143,7 +143,6 @@ const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
         <div className='w-1/2 mr-3'>
             <Form.Item name="จำนวนชั้น" label="จำนวนชั้น" 
             rules={[{ required: true },
-            // {type: 'number', min: 0, max: 99}
             ]}>
         <Input  
         name='number_of_floor'

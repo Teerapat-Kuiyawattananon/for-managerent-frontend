@@ -54,7 +54,7 @@ const YourReportTap: React.FC = () => {
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
                 <Button type="primary" onClick={showModal}>
                     แจ้งปัญหา
                 </Button>

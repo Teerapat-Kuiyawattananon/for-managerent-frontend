@@ -29,6 +29,7 @@ import YourpacketPage from './components/pageRentel/yourPacket-page/yourPacket';
 import RentPage from './components/pageAdmin/rent-page/rentPage';
 import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPage';
 import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
+import PermissionSetting from './components/pageAdmin/permission-page/permissionSetting.tsx';
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
 
@@ -61,6 +62,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/permission/detail" element={<Navbar component={<PermissionSetting />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
 
       </Routes>
