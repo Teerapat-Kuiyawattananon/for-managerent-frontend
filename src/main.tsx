@@ -28,8 +28,10 @@ import YourpacketPage from './components/pageRentel/yourPacket-page/yourPacket';
 
 import RentPage from './components/pageAdmin/rent-page/rentPage';
 import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPage';
+import ManageUserDetail from './components/pageAdmin/manageUser-page/manageUserDetail.tsx';
 import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
 import PermissionSetting from './components/pageAdmin/permission-page/permissionSetting.tsx';
+
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
 
@@ -46,13 +48,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
         <Route path="/roomlist/from" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
         <Route path="/roomlist/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
-
         <Route path="/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
         <Route path="/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />
-
         <Route path="/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
         <Route path="/anouncn/reportstate" element={<Navbar component={<ReportStatePage />} title={"สถานะการแก้ไข"}/>} />
-
         <Route path="/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
         
         <Route path="/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />
@@ -61,6 +60,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         
         <Route path="/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
+        <Route path="/manageUser/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/permission/detail" element={<Navbar component={<PermissionSetting />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />

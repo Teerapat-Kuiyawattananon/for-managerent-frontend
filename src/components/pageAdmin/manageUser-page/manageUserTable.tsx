@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Button, ConfigProvider, Form , Modal ,Input} from 'antd';
+import { Table, Button, ConfigProvider, message, Popconfirm} from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
 import './manageUserTable.css';
+import { Link } from 'react-router-dom';
 
 type TableRowSelection<T> = TableProps<T>['rowSelection'];
 
-interface manageUserTableProps {
-    data: manageUserTableData[];
+interface ManageUserTableProps {
+    data: ManageUserTableData[];
 }
 
-export interface manageUserTableData {
+export interface ManageUserTableData {
     key: React.Key;
     roleName: string;
     roomName: string;
@@ -18,46 +19,37 @@ export interface manageUserTableData {
     email: string;
 }
 
-const ManageUserTable: React.FC<manageUserTableProps> = ({ data }) => {
+const ManageUserTable: React.FC<ManageUserTableProps> = ({ data }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [tableData, setTableData] = useState<manageUserTableData[]>(data);
+    const [tableData, setTableData] = useState<ManageUserTableData[]>(data);
     
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-      };
-    
-      const handleOk = () => {
-        setIsModalOpen(false);
-      };
-    
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
-    
+const cancel = () => {
+    console.log("Canceled");
+  };
 
-    const onDeleteRow = (record: manageUserTableData) => {
-        const newData = tableData.filter(item => item.key !== record.key);
-        // Update data state to re-render the table without the deleted row
-        setTableData(newData);
-    };
+  const onDeleteRow = (record: ManageUserTableData) => {
+    const newData = tableData.filter(item => item.key !== record.key);
+    setTableData(newData);
+    message.success('ลบผู้ใช้ออกแล้ว');
+  };
 
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-        // Show selected item.
-        const selectedRows = data.filter(item => newSelectedRowKeys.includes(item.key));
-        console.log('Selected Rows Data: ', selectedRows);
-    };
-    
-    const rowSelection: TableRowSelection<manageUserTableData> = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+    // Show selected item.
+    const selectedRows = data.filter(item => newSelectedRowKeys.includes(item.key));
+    console.log('Selected Rows Data: ', selectedRows);
+};
+
+const rowSelection: TableRowSelection<ManageUserTableData> = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+};
+
     
 
     
-    const columns: TableColumnsType<manageUserTableData> = [
+    const columns: TableColumnsType<ManageUserTableData> = [
         {
             title: 'ชื่อตำแหน่ง',
             dataIndex: 'roleName',
@@ -82,35 +74,28 @@ const ManageUserTable: React.FC<manageUserTableProps> = ({ data }) => {
             title: 'การกระทำ',
             dataIndex: 'action',
             key: 'action',
-            align: 'left',
             render: (_, record) => (
-                <div className="action-buttons">
-                  <Modal title="ค่าใช้จ่ายเพิ่มเติม" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <Form>
-                      <Form.Item name="ชื่อค่าใช้จ่ายเพิ่มเติม" label="ชื่อค่าใช้จ่ายเพิ่มเติม" rules={[{ required: true }]}>
-                        <Input 
-                          name='ชื่อค่าใช้จ่ายเพิ่มเติม'
-                          style={{ width: '100%' }} 
-                          placeholder='ชื่อค่าใช้จ่ายเพิ่มเติม'
-                        />
-                      </Form.Item>
-                      <Form.Item name="ราคา/บาท" label="ราคา/บาท" rules={[{ required: true }]}>
-                        <Input 
-                          name='ราคา/บาท'
-                          style={{ width: '100%' }} 
-                          placeholder='ราคา/บาท'
-                        />
-                      </Form.Item>
-                    </Form>
-                  </Modal>
-                  <Button onClick={showModal}>
-                    <FileOutlined />
-                  </Button>
-                  <Button onClick={() => onDeleteRow(record)}>
-                    <DeleteOutlined />
-                  </Button>
-                </div>
-              ),
+                <>
+                  <Link to= "/manageUser/detail"> 
+                        <Button>
+                            <FileOutlined />
+                         </Button>
+                    </Link>
+
+                    <Popconfirm
+                        title="ลบผู้ใช้"
+                        description="คุณแน่ใจที่จะลบผู้ใช้หรือไม่"
+                        onConfirm={() => onDeleteRow(record)}
+                        onCancel={cancel}
+                        okText="ลบผู้ใช้"
+                        cancelText="ยกเลิก"
+                    >
+                        <Button>
+                            <DeleteOutlined />
+                        </Button>
+                    </Popconfirm>
+                </>
+            ),
         }
     ];
 
@@ -123,7 +108,7 @@ const ManageUserTable: React.FC<manageUserTableProps> = ({ data }) => {
             }}
         >
             <div>
-                <Table columns={columns} dataSource={data} pagination={undefined} rowSelection={rowSelection} />
+                <Table columns={columns} dataSource={tableData} pagination={undefined} rowSelection={rowSelection} />
             </div>
         </ConfigProvider>
     );

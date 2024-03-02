@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, ConfigProvider, Form , Modal ,Input, message, Popconfirm } from 'antd';
+import { Table, Button, ConfigProvider, message, Popconfirm } from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
 import { Link } from 'react-router-dom';
@@ -19,16 +19,6 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [tableData, setTableData] = useState<PermissionTableData[]>(data);
     
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
-      const handleOk = () => {
-        setIsModalOpen(false);
-      };
-    
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
-    
       const cancel = () => {
         console.log("Canceled");
         message.error('Click on No');
@@ -37,6 +27,7 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
       const onDeleteRow = (record: PermissionTableData) => {
         const newData = tableData.filter(item => item.key !== record.key);
         setTableData(newData);
+        message.success('ลบหน้าที่ออกแล้ว');
       };
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -65,26 +56,6 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
             key: 'action',
             render: (_, record) => (
                 <>
-                    <Modal title="ค่าใช้จ่ายเพิ่มเติม" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <Form>
-                            <Form.Item name="ชื่อค่าใช้จ่ายเพิ่มเติม" label="ชื่อค่าใช้จ่ายเพิ่มเติม" rules={[{ required: true }]}>
-                                <Input 
-                                name='ชื่อค่าใช้จ่ายเพิ่มเติม'
-                                // onChange={handleChange}
-                                style={{ width: '100%' }} 
-                                placeholder='ชื่อค่าใช้จ่ายเพิ่มเติม'
-                                />
-                            </Form.Item>
-                            <Form.Item name="ราคา/บาท" label="ราคา/บาท" rules={[{ required: true }]}>
-                                <Input 
-                                    name='ราคา/บาท'
-                                    // onChange={handleChange}
-                                    style={{ width: '100%' }} 
-                                    placeholder='ราคา/บาท'
-                                />
-                            </Form.Item>
-                         </Form>
-                    </Modal>
                     <Link to= "/permission/detail"> 
                         <Button>
                             <FileOutlined />
@@ -96,7 +67,7 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
                         description="คุณแน่ใจที่จะลบตำแหน่งของคุณหรือไม่"
                         onConfirm={() => onDeleteRow(record)}
                         onCancel={cancel}
-                        okText="ลบตำแหน่ง"
+                        okText="ลบตำแหน่ง" 
                         cancelText="ยกเลิก"
                     >
                         <Button>

@@ -2,10 +2,6 @@ import React, {useState} from 'react'
 import { Button, Form, Input,  List, Checkbox} from 'antd';
 import './permissionSetting.css'
 
-interface PermissionSettingProps {
-    next : () => void
-    currentState: number
-  }
 
   interface PermissionSettingState {
     name: string
@@ -18,7 +14,7 @@ interface PermissionSettingProps {
     tel: string
   }
 
-const PermissionSetting = ({next} : PermissionSettingProps)  => {
+const PermissionSetting : React.FC = () => {
     const [formData, setFormData] = useState<PermissionSettingState>({
         name: '',
         lastname: '',
@@ -58,14 +54,7 @@ const PermissionSetting = ({next} : PermissionSettingProps)  => {
     
       
     
-      const handleSubmit = async (_: React.FormEvent<HTMLInputElement>) => {
-        try {  
-            console.log('Success:', formData);
-            next()
-            } catch (error) {
-              console.log('Failed:', formData);
-            }
-    }
+
     
      const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo);
@@ -78,7 +67,6 @@ const PermissionSetting = ({next} : PermissionSettingProps)  => {
         layout="vertical" 
         autoComplete="off"
         form={formRef.current}
-        onFinish={handleSubmit}
         onFinishFailed={onFinishFailed}
         >
           <div className='flex  justify-start'>
