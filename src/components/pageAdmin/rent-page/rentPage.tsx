@@ -183,6 +183,7 @@ const RentPage: React.FC = () => {
       <Steps current={current} items={items} />
       <div className='h-0.5 text-center bg-purple-theme my-3 w-full'>
         
+
       </div>
       {/* <FormApartment handleNext={next} /> */}
       <div style={contentStyle}>{steps[current].content}</div>
