@@ -117,9 +117,8 @@ const FormRoomCreate = ({next, currentState, valueData} : FormRoomCreateProps) =
         {FLOORS.map((item, indexFloor) => (
             <Collapse
             key={indexFloor}
-            items={[{ key: '1', label: 'ชั้น ' +  item.floor_name, 
-            children: <div> 
-                <div className="relative overflow-x-auto">
+            items={[{ key: '1', label: 'ชั้น ' +  item.floor_name, children: <div> 
+                  <div className="relative overflow-x-auto">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-700">
                         {/* Added dark: prefix for dark mode classes */}
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-100 rounded dark:text-gray-700">

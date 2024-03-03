@@ -33,7 +33,7 @@ const PermissionSetting : React.FC = () => {
         'กระดานสรุปรายงานผล',
         'เขียนประกาศ',
         'แจ้งเตือนพัสดุและ สิ่งของ',
-        'ใบแจ้งหนี้ขงอคุณ',
+        'ใบแจ้งหนี้ของคุณ',
         'แจ้งปัญหา',
         'พัสดุและ สิ่งของตกค้าง',
         'หอพักของคุณ',
@@ -71,6 +71,7 @@ const PermissionSetting : React.FC = () => {
         >
           <div className='flex  justify-start'>
             <div className='w-1/2 mr-3'>
+            <div className='mr-3'>
                 <Form.Item name="ชื่อตำแหน่ง" label="ชื่อตำแหน่ง" rules={[{ required: true }]}>
                     <Input 
                         name='ชื่อตำแหน่ง'
@@ -79,6 +80,18 @@ const PermissionSetting : React.FC = () => {
                         width: '85%',
                         }} placeholder='ชื่อตำแหน่ง'/>
                 </Form.Item>
+            </div>
+            <div className=' mr-3'>
+                <Form.Item name="คำอธิบายตำแหน่ง" label="คำอธิบายตำแหน่ง" rules={[{ required: true }]}>
+                    <Input.TextArea 
+                        name='คำอธิบายตำแหน่ง'
+                        onChange={handleChange}
+                        placeholder='คำอธิบายตำแหน่ง'
+                        style={{
+                        width: '85%',
+                    }} />
+                </Form.Item>
+            </div>
             </div>
             <div className='w-1/2' >
                 <List
@@ -97,7 +110,7 @@ const PermissionSetting : React.FC = () => {
           </div>
 
           <div className=' justify-start mt4'>
-            <div className='w-1/2 mr-3'>
+            {/* <div className='w-1/2 mr-3'>
                 <Form.Item name="คำอธิบายตำแหน่ง" label="คำอธิบายตำแหน่ง" rules={[{ required: true }]}>
                     <Input.TextArea 
                         name='คำอธิบายตำแหน่ง'
@@ -107,10 +120,10 @@ const PermissionSetting : React.FC = () => {
                         width: '85%',
                     }} />
                 </Form.Item>
-            </div>
+            </div> */}
           </div>
           
-            <div className='flex justify-between'>
+          <div className='flex justify-between' style={{ marginTop: "30px" }}>
               {/* ปุ่มย้อนกลับด้านล่างซ้าย */}
                 <Button type="primary">
                    ย้อนกลับ

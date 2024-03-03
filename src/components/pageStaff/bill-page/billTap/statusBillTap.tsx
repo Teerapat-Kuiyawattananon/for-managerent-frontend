@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashBoardPage: React.FC = () => {
+const StatusBillTap: React.FC = () => {
     return (
         <div>
             <h1>เร็วนี้ๆ </h1>
@@ -9,4 +9,4 @@ const DashBoardPage: React.FC = () => {
     );
 };
 
-export default DashBoardPage;
+export default StatusBillTap

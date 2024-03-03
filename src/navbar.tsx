@@ -184,7 +184,7 @@ const Navbar = ({component, title} : Page) => {
         </Layout>
       </Layout>
       {(apartId === "0" || apartId === undefined ) && (window.location.pathname !== '/create-apartment') ?
-      <Modal title="ท่านยังไม่ได้สร้างพอพัก" open={true} onOk={() => {return false}} onCancel={() => {return false} }
+      <Modal title="ท่านยังไม่ได้สร้างพอพัก" open={false} onOk={() => {return false}} onCancel={() => {return false} }
       footer={[
           <Link to="/create-apartment">
           <Button key="submit" type="primary">
