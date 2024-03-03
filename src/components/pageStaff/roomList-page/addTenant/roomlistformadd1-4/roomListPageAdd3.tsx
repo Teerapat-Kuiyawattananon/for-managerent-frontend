@@ -1,235 +1,139 @@
-import React, { useState } from 'react';
-import { Button, Form, Input } from 'antd';
-import { FormInstance } from 'antd/lib/form';
+import React, {useState} from 'react'
+import {  InboxOutlined } from '@ant-design/icons';
+import { Button, Form,  Upload, message, UploadProps } from 'antd';
+import type { UploadFile } from 'antd';
+import axios from 'axios';
+interface RoomListPageAdd2Props {
+    next : () => void
+    currentState: number
+    valueData : any
+  }
 
-interface RoomListPageAdd3Props {
-  next: () => void;
-  currentState: number;
-}
+  interface RoomListPageAdd2State {
+  }
 
-interface RoomListPageAdd3State {
-  address_p1: string;
-  address_p2: string;
-  province_p: string;
-  district_p: string;
-  county_p: string;
-  zipcode_p: string;
-
-  address_h1: string;
-  address_h2: string;
-  province_h: string;
-  district_h: string;
-  county_h: string;
-  zipcode_h: string;
-}
-
-const RoomListPageAdd3 = ({ next, currentState }: RoomListPageAdd3Props) => {
-  const [formData, setFormData] = useState<RoomListPageAdd3State>({
-    address_p1: '',
-    address_p2: '',
-    province_p: '',
-    district_p: '',
-    county_p: '',
-    zipcode_p: '',
-
-    address_h1: '',
-    address_h2: '',
-    province_h: '',
-    district_h: '',
-    county_h: '',
-    zipcode_h: '',
-  });
-
-  const handleCopyAddress = () => {
-    const newFormData = formData
-    newFormData.address_h1 = formData.address_p1
-    setFormData(newFormData) 
-    console.log(formData)
+  const normFile = (e: any) => {
+    console.log("fileList1", e?.fileList)
+    if (Array.isArray(e)) {
+      return e;
+    }
+    console.log("fileList", e?.fileList)
+    return e?.fileList;
   };
 
-  const handleNext = () => {
-    console.log(currentState)
-  }
+const { Dragger } = Upload;
 
-  const handleChange = (e: any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]:
-        e.target.type === "number" ? Number(e.target.value) : e.target.value
-    })
-    console.log(formData)
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-    try {  
-        console.log('Success:', formData);
-        next()
-        } catch (error) {
-          console.log('Failed:', formData);
-        }
-}
-
- const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-  console.log('Failed:', formData);
-}
-
-    
-      return (
-        <Form  
-          name="validateOnly" 
-          layout="vertical" 
-          autoComplete="off"
-          onFinish={handleSubmit}
-          onFinishFailed={onFinishFailed}
-        >
-          <span> ที่อยู่ตามทะเบียนบ้าน </span>
-          <div className='flex  justify-start'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="address_p1" label="ที่อยู่ บรรทัดที่ 1" rules={[{ required: true }]}>
-                    <Input 
-                        name = "address_p1"
-                        value={formData.address_p1}
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        }} placeholder='ที่อยู่ บรรทัดที่ 1'/>
-                </Form.Item>
-            </div>
-            <div className='w-1/2 h-1'>
-                <Form.Item name="address_p2" label="ที่อยู่ บรรทัดที่ 2" rules={[{ required: true }]}>
-                    <Input
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        // height: '120px',
-                        }} placeholder='ที่อยู่ บรรทัดที่ 2'/>
-                </Form.Item>
-            </div>
-          </div>
-
-          <div className='flex  justify-start mt4'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="province_p" label="จังหวัด" rules={[{ required: true }]}>
-                    <Input 
-                        onChange={handleChange}
-                        placeholder='จังหวัด'
-                        style={{
-                        width: '85%',
-                    }} />
-                </Form.Item>
-            </div>
-            <div className='w-1/2'>
-                <Form.Item name="district_p" label="ตำบล/อำเภอ" rules={[{ required: true },]}>
-                    <Input 
-                        onChange={handleChange}
-                        placeholder='ตำบล/อำเภอ' style={{
-                        width: '85%',
-                    }}/>
-                </Form.Item>
-            </div>
-          </div>
-
-          <div className='flex  justify-start'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="county_p" label="เขต" rules={[{ required: true }, ]}>
-                    <Input  
-                        onChange={handleChange}
-                        placeholder='เขต' style={{
-                        width: '85%',
-                }}/>
-                </Form.Item>
-            </div>
-            <div className='w-1/2'>
-                <Form.Item name="zipcode_p" label="รหัสไปรษณีย์" rules={[{ required: true }]}>
-                    <Input
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        }} placeholder='รหัสไปรษณีย์'/>
-                </Form.Item>
-            </div>
-          </div>
-
-
-
-          <span> ที่อยู่ปัจุบัน
-            <Button type="primary" style={{ marginLeft: 20 }} onClick ={handleCopyAddress} >
-              คัดลอกที่อยู่ตามทะเบียนบ้าน
-            </Button>
-          </span>
-          <div className='flex  justify-start'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="address_h1" label="ที่อยู่ บรรทัดที่ 1" rules={[{ required: true }]}>
-                    <Input 
-                        name = "address_h1"
-                        value={formData.address_h1}
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        }} placeholder='ที่อยู่ บรรทัดที่ 1'/>
-                </Form.Item>
-            </div>
-            <div className='w-1/2 h-1'>
-                <Form.Item name="address_h2" label="ที่อยู่ บรรทัดที่ 2" rules={[{ required: true }]}>
-                    <Input
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        // height: '120px',
-                        }} placeholder='ที่อยู่ บรรทัดที่ 2'/>
-                </Form.Item>
-            </div>
-          </div>
-
-          <div className='flex  justify-start mt4'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="province_h" label="จังหวัด" rules={[{ required: true }]}>
-                    <Input 
-                        onChange={handleChange}
-                        placeholder='จังหวัด'
-                        style={{
-                        width: '85%',
-                    }} />
-                </Form.Item>
-            </div>
-            <div className='w-1/2'>
-                <Form.Item name="district_h" label="ตำบล/อำเภอ" rules={[{ required: true },]}>
-                    <Input 
-                        onChange={handleChange}
-                        placeholder='ตำบล/อำเภอ' style={{
-                        width: '85%',
-                    }}/>
-                </Form.Item>
-            </div>
-          </div>
-
-          <div className='flex  justify-start'>
-            <div className='w-1/2 mr-3'>
-                <Form.Item name="county_h" label="เขต" rules={[{ required: true }, ]}>
-                    <Input  
-                        onChange={handleChange}
-                        placeholder='เขต' style={{
-                        width: '85%',
-                }}/>
-                </Form.Item>
-            </div>
-            <div className='w-1/2'>
-                <Form.Item name="zipcode_h" label="รหัสไปรษณีย์" rules={[{ required: true }]}>
-                    <Input
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        }} placeholder='รหัสไปรษณีย์'/>
-                </Form.Item>
-            </div>
-          </div>
-    
-          <Button type="primary" htmlType='submit' style={{ }} onClick={handleNext} >
-              ต่อไป
-          </Button>
-      </Form>
-      )
+const props: UploadProps = {
+  name: 'file',
+  multiple: true,
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== 'uploading') {
+      console.log(info.file, info.fileList);
     }
+    if (status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+  onDrop(e) {
+    console.log('Dropped files', e.dataTransfer.files);
+  },
+};
+
+const RoomListPageAdd2= ({next, currentState, valueData} : RoomListPageAdd2Props)  => {
+    const [formData, setFormData] = useState<RoomListPageAdd2State>({
+      
+      })
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
+      const formRef = React.useRef();
+
+    const handleUpload  = async () => {
+        const formData = new FormData();
+        fileList.forEach((file : any) => {
+          formData.append('files', file.originFileObj);
+        });
+        if (valueData.form1.renter_id === undefined || valueData.form1.renter_id === 0) {
+          message.error("กรุณากรอกข้อมูลผู้เช่าให้ครบถ้วน")
+          return
+        }
+        formData.append('userId', valueData.form1.renter_id);
+        try {
+          const res = await axios.post('http://localhost:3232/test-upload', formData);
+          console.log("res", res)
+          next()
+        }
+        catch (error) {
+          console.log("error", error)
+        }
+        // console.log("formJsonData", createFormJsonData())
+        // console.log("file from FormData", createFormJsonData().getAll('files'))
+        console.log(currentState)
+      }
+    
+      // const handleChange = (e: any) => {
+      //   // console.log(e.target.type)
+      //   // console.log(e.target.value)
+      //   setFormData({
+      //     ...formData,
+      //     [e.target.name]:
+      //       e.target.type === "number" ? Number(e.target.value) : e.target.value
+      //   })
+      // }
+    
+      const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+        try {  
+            console.log('Success:', formData);
+            // next()
+            } catch (error) {
+              console.log('Failed:', formData);
+            }
+    }
+    
+     const onFinishFailed = (errorInfo: any) => {
+      console.log('Failed:', errorInfo);
+      console.log('Failed:', formData);
+    }
+
+    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+      console.log("before", fileList)
+      setFileList(newFileList);
+      console.log("fileList", fileList)
+    }
+    
+    return (
+      <Form  
+      name="validateOnly" 
+      layout="vertical" 
+      autoComplete="off"
+      form={formRef.current}
+      onFinish={handleSubmit}
+      onFinishFailed={onFinishFailed}
+      >
+        <Form.Item label="ลากไฟล์เพื่อ upload รูปภาพบัตรประชาชนหรือเปิดไฟล์ภายในเครื่อง" valuePropName="fileList" getValueFromEvent={normFile} rules={[{ required: true }]} >
+          <Dragger {...props } 
+          fileList={fileList}
+          onChange={handleChange} >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">ลากไฟล์เพื่อ Upload รูปภาพบัตรประชาชน</p>
+            <p className="ant-upload-hint">
+              หรือเปิดไฟล์ภายในเครื่อง
+            </p>
+          </Dragger>
+          </Form.Item>
+
+        <Button type="primary" htmlType='submit' style={{
+            }} 
+            onClick={handleUpload}
+            >
+              ต่อไป
+            </Button>
+    </Form>
+    )
+  }
   
-  export default RoomListPageAdd3;
+  export default RoomListPageAdd2;
+

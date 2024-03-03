@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Space, } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import RoomListTable from './roomListTable';
+import RoomService from './../../../services/room.service';
+import { useParams } from 'react-router-dom';
 
+interface Room {
+  // key: number;
+  id: number;
+  floor_name: string;
+  room_name: string;
+  rent_amount: number;
+  statue: string;
+  information: string;
+}
 
+interface RoomData {
+  key: string;
+  floor: string;
+  roomName: string;
+  tenantName: string;
+  roomRent: number;
+  roomStatus: string;
+}
 
 const data = [
   {
@@ -12,7 +31,7 @@ const data = [
     roomName: '101',
     tenantName: 'สมโชค',
     roomRent: 5000,
-    roomStatus: 'ว่าง',
+    roomStatus: 'available',
   },
   {
     key: '2',
@@ -20,7 +39,7 @@ const data = [
     roomName: '102',
     tenantName: 'สมหมาย',
     roomRent: 4500,
-    roomStatus: 'ไม่ว่าง',
+    roomStatus: 'unavailable',
   },
   {
     key: '3',
@@ -28,7 +47,7 @@ const data = [
     roomName: '103',
     tenantName: 'สมชาย',
     roomRent: 5000,
-    roomStatus: 'ไม่ว่าง',
+    roomStatus: 'unavailable',
   },
   {
     key: '4',
@@ -36,7 +55,7 @@ const data = [
     roomName: '104',
     tenantName: 'สมเพรช',
     roomRent: 5000,
-    roomStatus: 'ไม่ว่าง',
+    roomStatus: 'unavailable',
   },
   {
     key: '5',
@@ -44,20 +63,36 @@ const data = [
     roomName: '104',
     tenantName: 'สมเพรช',
     roomRent: 5000,
-    roomStatus: 'ไม่ว่าง',
+    roomStatus: 'unavailable',
   },
 ];
 
-const RoomListPage: React.FC = () => {
 
+const RoomListPage: React.FC = () => {
+  const [rooms, setRooms] = React.useState<Room[]>([]);
+  const [roomsData, setRoomsData] = React.useState<RoomData[]>([]);
+  const { apartId } = useParams()
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await RoomService.getRoomsList(Number(apartId));
+      setRoomsData(res.data);
+      console.log("After Get", roomsData)
+    }
+
+    fetchData()
+      .catch(console.error)
+  }, [])
   return (
     <>
       <div>
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
         </Space>
-        <RoomListTable data={data}/>
+        <RoomListTable data={roomsData}/>
       </div>
+
     </>
   );
 };

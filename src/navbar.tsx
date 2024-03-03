@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
 import AuthService from './services/auth.service';
@@ -53,6 +53,7 @@ const items: MenuItem[] = [
 ];
 
 const Navbar = ({component, title} : Page) => {
+  const { apartId } = useParams();
   const [_collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -76,43 +77,43 @@ const Navbar = ({component, title} : Page) => {
 
   const handleMenuClick = ({ key }: { key: React.Key }) => {
     if (key === 'home') {
-      navigate('/home')
+      navigate(`/apartment/${apartId}/home`)
     }
     else if (key === 'roomlist') {
-      navigate('/roomlist')
+      navigate(`/apartment/${apartId}/roomlist`)
     }
     else if (key === 'bill') {
-      navigate('/bill')
+      navigate(`/apartment/${apartId}/bill`)
     }
     else if (key === 'dashboard') {
-      navigate('/dashboard')
+      navigate(`/apartment/${apartId}/dashboard`)
     }
     else if (key === 'anouncn') {
-      navigate('/anouncn')
+      navigate(`/apartment/${apartId}/anouncn`)
     }
     else if (key === 'packet') {
-      navigate('/packet')
+      navigate(`/apartment/${apartId}/packet`)
     }
     else if (key === 'yourBill') {
-      navigate('/yourBill')
+      navigate(`/apartment/${apartId}/yourBill`)
     }
     else if (key === 'report') {
-      navigate('/report')
+      navigate(`/apartment/${apartId}/report`)
     }
     else if (key === 'yourPacket') {
-      navigate('/yourPacket')
+      navigate(`/apartment/${apartId}/yourPacket`)
     }
     else if (key === 'rent') {
-      navigate('/create-apartment')
+      navigate(`/apartment/${apartId}/create-apartment`)
     }
     else if (key === 'manageUser') {
-      navigate('/manageUser')
+      navigate(`/apartment/${apartId}/manageUser`)
     }
     else if (key === 'permission') {
-      navigate('/permission')
+      navigate(`/apartment/${apartId}/permission`)
     }
     else if (key === 'setting') {
-      navigate('/setting')
+      navigate(`/apartment/${apartId}/setting`)
     }
   };
 

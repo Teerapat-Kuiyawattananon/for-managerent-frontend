@@ -31,7 +31,7 @@ import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPag
 import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
-
+import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -63,6 +63,27 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
 
+        <Route path="/apartment/:apartId/roomlist/:roomId/form" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
+        <Route path="/apartment/:apartId/roomlist/:roomId/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
+        <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+
+        <Route path="/apartment/:apartId/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
+
+        <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+        <Route path="/apartment/:apartId/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
+        <Route path="/apartment/:apartId/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
+        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/apartment/:apartId/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
+
+        <Route path="/apartment/:apartId/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />
+        <Route path="/apartment/:apartId/report" element={<Navbar component={<ReportPage />} title={"แจ้งปัญหา"}/>} />
+        <Route path="/apartment/:apartId/yourPacket" element={<Navbar component={<YourpacketPage />} title={"พัสดุของคุณ"}/>} />
+
+        <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+        <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
+        <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
+        <Route path="/test" element={<TestUpload />} />
       </Routes>
     </Router>
     {
