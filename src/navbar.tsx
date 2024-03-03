@@ -62,7 +62,6 @@ const Navbar = ({component, title} : Page) => {
   } = theme.useToken();
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
-  const {apartId} = useParams();
 
   const handleSearch = (value: string) => {
     console.log('Searching for:', value);
