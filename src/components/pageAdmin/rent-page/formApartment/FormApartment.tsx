@@ -4,6 +4,7 @@ import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
 interface Form1ApartmentProps {
   next : () => void
   currentState: number
+  valueData : any
 }
 
 interface Form1ApartmentState {
@@ -21,21 +22,36 @@ interface Form1ApartmentState {
   late_bill_free_day: number
 }
 
-const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
-  const [formData, setFormData] = useState<Form1ApartmentState>({
-    name: '',
-    address: '',
-    contact_number: '',
-    number_of_floor: 0,
-    number_of_room: 0,
-    rent_amount: 0,
-    water_unit_price: 0,
-    information: '',
-    electricity_unit_price: 0,
-    late_bill_price: 0,
-   bill_date: new Date(),
-    late_bill_free_day: 0
-  })
+interface Room {
+  id: number;
+  floor_name: string;
+  room_name: string;
+  rent_amount: number;
+}
+
+interface Floor {
+  id: number;
+  floor_name: string;
+  rooms: Room[];
+}
+
+const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) => {
+  // const [formData, setFormData] = useState<Form1ApartmentState>({
+  //   name: '',
+  //   address: '',
+  //   contact_number: '',
+  //   number_of_floor: 0,
+  //   number_of_room: 0,
+  //   rent_amount: 0,
+  //   water_unit_price: 0,
+  //   information: '',
+  //   electricity_unit_price: 0,
+  //   late_bill_price: 0,
+  //  bill_date: new Date(),
+  //   late_bill_free_day: 0
+  // })
+
+  const [formData, setFormData] = useState<Form1ApartmentState>(valueData.form1)
 
   const formRef = React.useRef();
   const handleNext = () => {
@@ -44,13 +60,15 @@ const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
   }
 
   const handleChange = (e: any) => {
-    // console.log(e.target.type)
-    // console.log(e.target.value)
+    console.log(e.target.type)
+    console.log(e.target.value)
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "number" ? Number(e.target.value) : e.target.value
     })
+
+    console.log("valueData", valueData)
   }
 
   
@@ -63,6 +81,25 @@ const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
         // console.log(formData)
         // e.preventDeafault()
         // e.preventDefault()
+        valueData.form1 = formData
+        const FLOORS: Floor[] = [];
+        for (let i = 1; i <= valueData.form1.number_of_floor ; i++) {
+          let RoomData: Room[] = [];
+          for (let j = 1; j <= valueData.form1.number_of_room; j++) {
+              RoomData.push({
+                  id: j,
+                  floor_name: `${i}`,
+                  room_name: `${i}${j.toString().padStart(2, '0')}`,
+                  rent_amount: valueData.form1.rent_amount,
+                });
+          }
+          FLOORS.push({
+              id: i,
+              floor_name: `${i}`,
+              rooms: RoomData
+          });
+        }
+        valueData.form2 = FLOORS
         console.log('Success:', formData);
         next()
           // Handle successful registration (e.g., clear form, redirect)
@@ -75,6 +112,7 @@ const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
  const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
   console.log('Failed:', formData);
+  console.log("valueData", valueData)
 }
 
   return (
@@ -172,6 +210,7 @@ const Form1Apartment = ({next, currentState} : Form1ApartmentProps) => {
             <Form.Item name="ค่าน้ำราคาต่อหน่วย" label="ค่าน้ำราคาต่อหน่วย" rules={[{ required: true }]}>
         <Input 
         name='water_unit_price'
+        type='number'
         onChange={handleChange}
         style={{
           width: '85%',
