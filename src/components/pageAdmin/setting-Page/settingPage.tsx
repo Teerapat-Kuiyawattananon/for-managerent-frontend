@@ -48,7 +48,7 @@ const SettingPage: React.FC = () => {
       return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
-                <Button onClick={showModal} >
+                <Button type="primary" onClick={showModal} >
                     เพิ่มค่าใช้จ่าย
                 </Button>
             </div>

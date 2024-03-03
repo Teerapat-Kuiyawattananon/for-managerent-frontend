@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, ConfigProvider, Form , Modal ,Input} from 'antd';
+import { Table, Button, ConfigProvider, Form , Modal ,Input , message, Popconfirm} from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
 
@@ -32,12 +32,17 @@ const SettingTable: React.FC<SettingTableProps> = ({ data }) => {
         setIsModalOpen(false);
       };
     
+    
+      const cancel = () => {
+        console.log("Canceled");
+        message.error('Click on No');
+      };
 
-    const onDeleteRow = (record: SettingTableData) => {
+      const onDeleteRow = (record: SettingTableData) => {
         const newData = tableData.filter(item => item.key !== record.key);
-        // Update data state to re-render the table without the deleted row
         setTableData(newData);
-    };
+      };
+
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
@@ -52,7 +57,7 @@ const SettingTable: React.FC<SettingTableProps> = ({ data }) => {
         onChange: onSelectChange,
     };
     
-
+    
     
     const columns: TableColumnsType<SettingTableData> = [
         {
@@ -94,9 +99,18 @@ const SettingTable: React.FC<SettingTableProps> = ({ data }) => {
                     <Button onClick={showModal}>
                         <FileOutlined />
                     </Button>
-                    <Button onClick={() => onDeleteRow(record)}>
-                        <DeleteOutlined />
-                    </Button>
+                    <Popconfirm
+                        title="ลบค่าใช้จ่ายเพิ่มเติม"
+                        description="คุณแน่ใจที่จะลบค่าใช้จ่ายของคุณหรือไม่"
+                        onConfirm={() => onDeleteRow(record)}
+                        onCancel={cancel}
+                        okText="ลบตำแหน่ง"
+                        cancelText="ยกเลิก"
+                    >
+                        <Button>
+                            <DeleteOutlined />
+                        </Button>
+                    </Popconfirm>
                 </>
             ),
         }
