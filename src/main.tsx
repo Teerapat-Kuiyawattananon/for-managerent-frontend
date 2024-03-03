@@ -34,7 +34,7 @@ import PermissionSetting from './components/pageAdmin/permission-page/permission
 
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
-
+import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -66,6 +66,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
 
 
+        <Route path="/apartment/:apartId/roomlist/:roomId/form" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
+        <Route path="/apartment/:apartId/roomlist/:roomId/detail" element={<Navbar component={<RoomListPageDetail />} title={"รายละเอียดผู้เช่า"} />} />
+        <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
+
 
         <Route path="/apartment/:apartId/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
 
@@ -83,6 +87,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
+
+        <Route path="/test" element={<TestUpload />} />
 
       </Routes>
     </Router>

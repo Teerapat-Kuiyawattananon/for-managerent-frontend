@@ -4,33 +4,35 @@ import { Button, Form, Input,  DatePicker } from 'antd';
 interface RoomListPageAdd1Props {
     next : () => void
     currentState: number
+    valueData : any
   }
 
   interface RoomListPageAdd1State {
     name: string
-    lastname: string
-    nickname: string
-    birthday: number
-    id_card: number
-    id_line: string
+    last_name: string
+    nick_name: string
+    birth_day: Date
+    id_card_number: string
+    line_id: string
     email: string
-    tel: string
+    mobile_number: string
   }
 
-const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
+const RoomListPageAdd1= ({next, currentState, valueData} : RoomListPageAdd1Props)  => {
     const [formData, setFormData] = useState<RoomListPageAdd1State>({
         name: '',
-        lastname: '',
-        nickname: '',
-        birthday: 0,
-        id_card: 0,
-        id_line: '',
+        last_name: '',
+        nick_name: '',
+        birth_day: new Date(),
+        id_card_number: '',
+        line_id: '',
         email: '',
-        tel: '',
+        mobile_number: '',
       })
     
       const formRef = React.useRef();
       const handleNext = () => {
+        // next()
         console.log(currentState)
       }
     
@@ -41,12 +43,23 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             e.target.type === "number" ? Number(e.target.value) : e.target.value
         })
       }
+
+      const testDateTime = (e: any) => {
+        console.log(e.target.value, e.target.type)
+      }
     
       
     
-      const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+      const handleSubmit = async (values: any) => {
         try {  
+            valueData.form1.full_name = formData.name + " " + formData.last_name
+            valueData.form1.username = formData.email
+            valueData.form1.birth_day = new Date(values['วันเกิด'].format('YYYY-MM-DD'))
+            console.log('1:', valueData);
+            valueData.form1 = {...valueData.form1, ...formData}
+            console.log('2:', valueData.form1);
             console.log('Success:', formData);
+            console.log("valueData", valueData)
             next()
             } catch (error) {
               console.log('Failed:', formData);
@@ -81,7 +94,7 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             <div className='w-1/2 h-1'>
                 <Form.Item name="นามสกุล" label="นามสกุล" rules={[{ required: true }]}>
                     <Input
-                        name='lastname '
+                        name='last_name'
                         onChange={handleChange}
                         style={{
                         width: '85%',
@@ -93,9 +106,9 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
 
           <div className='flex  justify-start mt4'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="ชื่อเล่น" label="ชื่อเล่น" rules={[{ required: true }]}>
+                <Form.Item name="ชื่อเล่น" label="ชื่อเล่น" rules={[{ required: false }]}>
                     <Input 
-                        name='nickname'
+                        name='nick_name'
                         onChange={handleChange}
                         placeholder='ชื่อเล่น'
                         style={{
@@ -106,9 +119,9 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             <div className='w-1/2'>
                 <Form.Item name="วันเกิด" label="วันเกิด" rules={[{ required: true },]}>
                      <DatePicker 
-                        name='birt'
-                        type='number'
-                        onChange={handleChange}
+                        // name='birth_day'
+                        // type='date'
+                        // onChange={testDateTime}
                         placeholder='วันเกิด' style={{
                         width: '85%',
                     }}/>
@@ -120,7 +133,7 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             <div className='w-1/2 mr-3'>
                 <Form.Item name="เลขบัตรประชาชน" label="เลขบัตรประชาชน" rules={[{ required: true }, ]}>
                     <Input  
-                        name='id_card'
+                        name='id_card_number'
                         onChange={handleChange}
                         placeholder='เลขบัตรประชาชน' style={{
                         width: '85%',
@@ -130,7 +143,7 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             <div className='w-1/2'>
                 <Form.Item name="Line ID" label="Line ID" rules={[{ required: true }]}>
                     <Input
-                        name='id_line'
+                        name='line_id'
                         onChange={handleChange}
                         style={{
                         width: '85%',
@@ -153,7 +166,7 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
             <div className='w-1/2'>
                 <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: true }]}>
                     <Input
-                        name='tel'
+                        name='mobile_number'
                         onChange={handleChange}
                         style={{
                         width: '85%',
@@ -169,6 +182,7 @@ const RoomListPageAdd1= ({next, currentState} : RoomListPageAdd1Props)  => {
               >
                 ต่อไป
               </Button>
+              {/* <Button onClick={handleNext} > sss</Button> */}
       </Form>
       )
     }
