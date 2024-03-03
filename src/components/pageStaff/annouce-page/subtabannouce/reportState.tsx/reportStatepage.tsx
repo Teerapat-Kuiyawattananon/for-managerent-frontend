@@ -1,12 +1,12 @@
 import React from 'react';
 
-const DashBoardPage: React.FC = () => {
+const ReportStatePage: React.FC = () => {
     return (
         <div>
-            <h1>เร็วนี้ๆ </h1>
+            <h1>state</h1>
             {/* เนื้อหาหน้าหลัก */}
         </div>
     );
 };
 
-export default DashBoardPage;
+export default ReportStatePage;

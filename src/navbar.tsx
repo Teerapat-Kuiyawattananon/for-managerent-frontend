@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Menu, theme, Avatar, Input, notification, Button} from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Layout, Menu, theme, Avatar, Input, notification, Button, Modal} from 'antd';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
 import AuthService from './services/auth.service';
@@ -53,6 +53,7 @@ const items: MenuItem[] = [
 ];
 
 const Navbar = ({component, title} : Page) => {
+  const [isCreateApartment, setIsCreateApartment] = useState(false);
   const [_collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -60,6 +61,7 @@ const Navbar = ({component, title} : Page) => {
   } = theme.useToken();
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
+  const {apartId} = useParams();
 
   const handleSearch = (value: string) => {
     console.log('Searching for:', value);
@@ -74,7 +76,13 @@ const Navbar = ({component, title} : Page) => {
       icon: <BellOutlined style={{ color: '#ff4d4f' }} />,
     });
   };
-
+    // if (apartId === "0" || apartId === undefined) {
+    //   setIsCreateApartment(true);
+    // }
+    // else {
+    //   setIsCreateApartment(false);
+    // }
+  
   const handleMenuClick = ({ key }: { key: React.Key }) => {
     if (key === 'home') {
       navigate('/home')
@@ -124,6 +132,7 @@ const Navbar = ({component, title} : Page) => {
 
 
   return (
+    <>
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           breakpoint="md"
@@ -174,6 +183,30 @@ const Navbar = ({component, title} : Page) => {
           </Footer>
         </Layout>
       </Layout>
+      {(apartId === "0" || apartId === undefined ) && (window.location.pathname !== '/create-apartment') ?
+      <Modal title="ท่านยังไม่ได้สร้างพอพัก" open={false} onOk={() => {return false}} onCancel={() => {return false} }
+      footer={[
+          <Link to="/create-apartment">
+          <Button key="submit" type="primary">
+          สร้างหอพัก
+        </Button>
+          </Link>
+      ]}>
+      <p>โปรดทำการสร้างหอพักก่อนเริ่มใช้งาน</p>
+      
+    </Modal> : null}
+      {/* <Modal title="ท่านยังไม่ได้สร้างพอพัก" open={false} onOk={() => {return false}} onCancel={() => {return false} }
+        footer={[
+            <Link to="/create-apartment">
+            <Button key="submit" type="primary">
+            สร้างหอพัก
+          </Button>
+            </Link>
+        ]}>
+        <p>โปรดทำการสร้างหอพักก่อนเริ่มใช้งาน</p>
+        
+      </Modal> */}
+  </>
   );
 };
 
