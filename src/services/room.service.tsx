@@ -18,6 +18,7 @@ class RoomService {
                 return response.data;
             });
         }
+    
 }
 
 export default new RoomService();
