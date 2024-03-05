@@ -33,6 +33,9 @@ import PermissionPage from './components/pageAdmin/permission-page/permissionPag
 import PermissionSetting from './components/pageAdmin/permission-page/permissionSetting.tsx';
 
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
+import ForgetPassword from './components/fotgetPassword/forgetPassword.tsx';
+import ChangePassword from './components/changePassword/changePassword.tsx';
+import CreatePassword from './components/createPassword/createPassword.tsx';
 
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 import ServiceRoomSetting from './components/pageAdmin/setting-Page/ServiceRoomSetting.tsx';
@@ -44,7 +47,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+        <Route path="/forgotpw" element={<ForgetPassword/>} />
+        <Route path="/changepw" element={<ChangePassword/>} />
+        <Route path="/createpw" element={<CreatePassword/>} />
+
+         
         <Route path="/home" element={<Navbar component={<HomePage />} title={"หน้าหลัก"} />} />
 
         <Route path="/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { Button, Checkbox, Form, Input, message } from 'antd'
+import { Button, Image, Form, Input, message } from 'antd'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -62,10 +62,13 @@ const Login = () => {
           <div className="mb-10  mt-6 ">
             <h1 className='text-4xl text-center text-white font-extrabold'>For ManageRent</h1>
           </div>
-          <div className='bg-gray-500 text-center mx-5'>
-                <div className=''>
-                    test.
-                </div>
+          <div className=' text-center mx-5'>
+              <div className='' style={{marginRight: 70, marginLeft: 70}}>
+                  <Image 
+                      src="public\picture\Screenshot 2024-03-05 162701.png"
+                      // src="public\picture\Screenshot 2023-07-07 004901.png"
+                  />
+               </div>
           </div>
         </section>
       </section>
@@ -111,7 +114,7 @@ const Login = () => {
                 />
             </Form.Item>
             <div className='mt-4 mb-1 text-right'>
-                <Link to="/forgot-password" className="text-purple-theme hover:text-blue-300 p-2">Forgot password?</Link>
+                <Link to="/forgotpw" className="text-purple-theme hover:text-blue-300 p-2">Forgot password?</Link>
                 <Link to="/register" className="text-purple-theme hover:text-blue-300">Sign Up</Link>
             </div>
             <Form.Item>

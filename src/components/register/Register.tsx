@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Input, Form, Button, Flex, Checkbox, message } from 'antd'
+import { Input, Form, Button, Image, Checkbox, message } from 'antd'
 import axios from 'axios'
 import './Register.css'
 import AuthService from '../../services/auth.service'
@@ -103,10 +103,13 @@ const Register = () => {
           <div className="mb-10  mt-6 ">
             <h1 className='text-4xl text-center text-white font-extrabold'>For ManageRent</h1>
           </div>
-          <div className='bg-gray-500 text-center mx-5'>
-                <div>
-                    test
-                </div>
+          <div className='text-center mx-5'>
+              <div className='' style={{marginRight: 70, marginLeft: 70}}>
+                    <Image 
+                      src="public\picture\Screenshot 2024-03-05 162701.png"
+                      // src="public\picture\Screenshot 2023-07-07 004901.png"
+                    />
+              </div>
           </div>
         </section>
       </section>
