@@ -91,6 +91,7 @@ const CreatePassword: React.FC = () => {
                                 name='password'
                                 rules={[
                                     { required: true, message: 'Please Enter yourpassword!' },
+                                    { min: 8, message: 'Password must be at least 8 characters long' },
                                 ]}
                             >
                                 <Input.Password
@@ -103,8 +104,19 @@ const CreatePassword: React.FC = () => {
                             <Form.Item<CreatePasswordFormData>
                                 label="Please Confirm yourpassword"
                                 name='passwordConfirm'
+                                hasFeedback
+                                dependencies={['password']}
                                 rules={[
                                     { required: true, message: 'Please Confirm your password!' },
+                                    { min: 8, message: 'Password must be at least 8 characters long' },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                          if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                          }
+                                          return Promise.reject(new Error('The new password that you entered do not match!'));
+                                        },
+                                      }),
                                 ]}
                             >
                                 <Input.Password
