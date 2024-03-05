@@ -73,7 +73,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
 
   
 
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (values : any) => {
     // console.log("test")
     // e.preventDefault()
     try {  
@@ -82,6 +82,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
         // e.preventDeafault()
         // e.preventDefault()
         valueData.form1 = formData
+        valueData.form1.bill_date = new Date(values['รอบวันที่เรียกเก็บเงิน'].format('YYYY-MM-DD'))
         const FLOORS: Floor[] = [];
         for (let i = 1; i <= valueData.form1.number_of_floor ; i++) {
           let RoomData: Room[] = [];
@@ -261,8 +262,8 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
         <div className='w-1/2 mr-3'>
             <Form.Item name="รอบวันที่เรียกเก็บเงิน" label="รอบวันที่เรียกเก็บเงิน" rules={[{ required: true }]}>
         <DatePicker 
-        name='bill_date'
-        onChange={handleChange}
+        // name='bill_date'
+        // onChange={handleChange}
         style={{
           width: '85%',
         }} placeholder='รอบวันที่เรียกเก็บเงิน'/>

@@ -188,12 +188,12 @@ const RentPage: React.FC = () => {
       {/* <FormApartment handleNext={next} /> */}
       <div style={contentStyle}>{steps[current].content}</div>
       <div style={{ marginTop: 24 }}>
-        {current === steps.length - 2 && (
+        {/* {current === steps.length - 2 && (
           <Button type="primary" onClick={() => next()}>
             เสร็จสิ้น
           </Button>
-        )}
-        {current < steps.length - 2 && (
+        )} */}
+        {current < steps.length - 2 && !(current === 0) && (
           <Button type="primary" style={{
             // background: "711DB0",
             // backgroundColor: "yellow"
@@ -209,7 +209,7 @@ const RentPage: React.FC = () => {
           {contextHolder}
             </>
         )}
-        {current > 0 && !(current === steps.length - 1) && (
+        {current > 0 && !(current === steps.length - 2) && (
           <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
             ย้อนกลับ
           </Button>

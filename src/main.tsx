@@ -35,6 +35,7 @@ import PermissionSetting from './components/pageAdmin/permission-page/permission
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
+import ServiceRoomSetting from './components/pageAdmin/setting-Page/serviceRoomSetting.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -61,9 +62,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/manageUser/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
-        <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/permission/detail" element={<Navbar component={<PermissionSetting />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
-        <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
+        <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
 
 
         <Route path="/apartment/:apartId/roomlist/:roomId/form" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
@@ -85,9 +86,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
         <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
-        <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั่งค่าสิทธิ์การเข้าใช้งาน"} />} />
-        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั่งค่าค่าใช้จ่าย"} />} />
-
+        <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
+        <Route path="/apartment/:apartId/services/:serviceId" element={<Navbar component={<ServiceRoomSetting />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
         <Route path="/test" element={<TestUpload />} />
 
       </Routes>

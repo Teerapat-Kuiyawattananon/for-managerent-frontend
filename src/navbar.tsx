@@ -35,20 +35,20 @@ const items: MenuItem[] = [
   getItem('ระบบการจัดการสำหรับผู้ดูแล', 'sub1', <UserOutlined />, [
     getItem('รายการห้องเช่า', 'roomlist'),
     getItem('ใบแจ้งหนี้', 'bill'),
-    getItem('กระดานสรุปรายงานผล', 'dashboard'),
+    getItem('ตั้งค่าค่าใช้จ่าย', 'setting'),
+    // getItem('กระดานสรุปรายงานผล', 'dashboard'),
     getItem('จัดการประกาศและคำร้อง', 'anouncn'),
-    getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
+    // getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
   ]),
   getItem('ระบบจัดการสำหรับผู้เช่า', 'sub2', <TeamOutlined />, [
     getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'),
     getItem('แจ้งปัญหา', 'report'),
-    getItem('พัสดุของคุณ', 'yourPacket'),
+    // getItem('พัสดุของคุณ', 'yourPacket'),
   ]),
   getItem('การบริหารระบบ', 'sub3', <FileOutlined />, [
     getItem('หอพักของคุณ', 'rent'),
     getItem('การจัดการผู้ใช้', 'manageUser'),
     getItem('ตั้งค่าสิทธิ์การเข้าใช้งาน', 'permission'),
-    getItem('ตั้งค่าค่าใช้จ่าย', 'setting'),
   ]),
 ];
 

@@ -79,6 +79,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
         }
         } catch (error) {
           console.log('Failed:', formData);
+          console.log("valueData", valueData)
         }
 }
 
