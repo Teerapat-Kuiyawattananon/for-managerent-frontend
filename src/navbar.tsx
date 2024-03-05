@@ -35,6 +35,7 @@ const items: MenuItem[] = [
   getItem('ระบบการจัดการสำหรับผู้ดูแล', 'sub1', <UserOutlined />, [
     getItem('รายการห้องเช่า', 'roomlist'),
     getItem('ใบแจ้งหนี้', 'bill'),
+    getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'),
     getItem('ตั้งค่าค่าใช้จ่าย', 'setting'),
     // getItem('กระดานสรุปรายงานผล', 'dashboard'),
     getItem('จัดการประกาศและคำร้อง', 'anouncn'),
@@ -104,6 +105,9 @@ const Navbar = ({component, title} : Page) => {
     }
     else if (key === 'yourBill') {
       navigate(`/apartment/${apartId}/yourBill`)
+    }
+    else if (key === 'waterElec') {
+      navigate(`/apartment/${apartId}/waterElec`)
     }
     else if (key === 'report') {
       navigate(`/apartment/${apartId}/report`)
