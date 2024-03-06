@@ -1,26 +1,8 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import SendBillTable from './SentbillTable';
+import { Button } from 'antd';
 
 
-interface Room {
-  // key: number;
-  id: number;
-  floor_name: string;
-  room_name: string;
-  rent_amount: number;
-  statue: string;
-  information: string;
-}
-
-interface RoomData {
-  key: string;
-  floor: string;
-  roomName: string;
-  tenantName: string;
-  roomRent: number;
-  roomStatus: string;
-}
 
 const data = [
   {
@@ -29,7 +11,8 @@ const data = [
     roomName: '101',
     tenantName: 'สมโชค',
     roomRent: 5000,
-    roomStatus: 'available',
+    dateSend: '2022',
+    roomStatus: 'ข้อมูลไม่ครบถ้วน',
   },
   {
     key: '2',
@@ -37,7 +20,8 @@ const data = [
     roomName: '102',
     tenantName: 'สมหมาย',
     roomRent: 4500,
-    roomStatus: 'unavailable',
+    dateSend: '2022',
+    roomStatus: 'ข้อมูลไม่ครบถ้วน',
   },
   {
     key: '3',
@@ -45,7 +29,8 @@ const data = [
     roomName: '103',
     tenantName: 'สมชาย',
     roomRent: 5000,
-    roomStatus: 'unavailable',
+    dateSend: '2022',
+    roomStatus: 'ข้อมูลไม่ครบถ้วน',
   },
   {
     key: '4',
@@ -53,7 +38,8 @@ const data = [
     roomName: '104',
     tenantName: 'สมเพรช',
     roomRent: 5000,
-    roomStatus: 'unavailable',
+    dateSend: '2022',
+    roomStatus: 'รอการตรวจสอบข้อมูล',
   },
   {
     key: '5',
@@ -61,35 +47,26 @@ const data = [
     roomName: '104',
     tenantName: 'สมเพรช',
     roomRent: 5000,
-    roomStatus: 'unavailable',
+    dateSend: '2022',
+    roomStatus: 'ส่งใบแจ้งหนี้เรียบร้อย',
   },
 ];
 
 
-const RoomListPage: React.FC = () => {
-  const [rooms, setRooms] = React.useState<Room[]>([]);
-  const [roomsData, setRoomsData] = React.useState<RoomData[]>([]);
-  const { apartId } = useParams()
-  
+const SentBillTap: React.FC = () => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const res = await RoomService.getRoomsList(Number(apartId));
-      // setRoomsData(res.data);
-      console.log("After Get", roomsData)
-    }
-
-    fetchData()
-      .catch(console.error)
-  }, [])
   return (
     <>
-      <div>
-        <SendBillTable data={roomsData}/>
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
+          <Button type="primary">
+            ส่งใบแจ้งหนี้
+          </Button>
       </div>
-
+        <SendBillTable data={data}/>
+      </div>
     </>
   );
 };
 
-export default RoomListPage;
+export default SentBillTap;

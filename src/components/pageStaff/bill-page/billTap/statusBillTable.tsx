@@ -7,21 +7,21 @@ import type { TableColumnsType, TableProps } from 'antd';
 
 type TableRowSelection<T> = TableProps<T>['rowSelection'];
 
-interface SendBillTableProps {
-    data: SendBillTableData[];
+interface StatusBillTableProps {
+    data: StatusBillTableData[];
 }
 
-export interface SendBillTableData {
+export interface StatusBillTableData {
     key: React.Key;
     floor: string;
     roomName: string;
     tenantName: string;
     roomRent: number;
-    dateSend: string;
+    datePay: string;
     roomStatus: string;
 }
 
-const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
+const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
     const distinctFloors = Array.from(new Set(data.map(item => item.floor))); // สร้างอาร์เรย์ของชั้นที่มีอยู่จริง
     const floorFilters = distinctFloors.map(floor => ({ text: `ชั้น ${floor}`, value: floor })); // สร้างรายการตัวเลือกสำหรับการกรอง
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -35,7 +35,7 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
         console.log('Selected Rows Data: ', selectedRows);
     };
     
-    const rowSelection: TableRowSelection<SendBillTableData> = {
+    const rowSelection: TableRowSelection<StatusBillTableData> = {
         selectedRowKeys,
         onChange: onSelectChange,
     };
@@ -51,30 +51,27 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     function statusColor(status: string) {
         let color;
         //let letter;
         switch (status) {
-            case 'ข้อมูลไม่ครบถ้วน':
+            case 'ค้างชำระ':
                 color = 'red';
                 break;
-            case 'รอการตรวจสอบข้อมูล':
+            case 'รอตรวจสอบการชำระ':
                 color = 'blue';
                 break;
-            case 'ส่งใบแจ้งหนี้เรียบร้อย':
+            case 'ชำระค่าเช่าเรียบร้อยแล้ว':
                 color = 'green';
                 break;
             default:
@@ -85,13 +82,13 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
     }
     
 
-    const columns: TableColumnsType<SendBillTableData> = [
+    const columns: TableColumnsType<StatusBillTableData> = [
         {
             title: 'ชั้น',
             dataIndex: 'floor',
             key: 'floor',
             filters: floorFilters, // ใช้รายการตัวเลือกในการกรอง
-            onFilter: (value, record: SendBillTableData) => {
+            onFilter: (value, record: StatusBillTableData) => {
                 return record.floor === value;
             },
         },
@@ -111,22 +108,22 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
             key: 'roomRent',
         },
         {
-            title: 'วันที่ส่งบิล',
-            dataIndex: 'dateSend',
-            key: 'dateSend',
+            title: 'วันที่จ่ายบิล',
+            dataIndex: 'datePay',
+            key: 'datePay',
         },
         {
             title: 'สถานะการส่งใบแจ้งหนี้',
             dataIndex: 'roomStatus',
             key: 'roomStatus',
             filters: [
-                { text: 'ข้อมูลไม่ครบถ้วน', value: 'ข้อมูลไม่ครบถ้วน' },
-                { text: 'รอการตรวจสอบข้อมูล', value: 'รอการตรวจสอบข้อมูล' },
-                { text: 'ส่งใบแจ้งหนี้เรียบร้อย', value: 'ส่งใบแจ้งหนี้เรียบร้อย' },
+                { text: 'ค้างชำระ', value: 'ค้างชำระ' },
+                { text: 'รอตรวจสอบการชำระ', value: 'รอตรวจสอบการชำระ' },
+                { text: 'ชำระค่าเช่าเรียบร้อยแล้ว', value: 'ชำระค่าเช่าเรียบร้อยแล้ว' },
                 // { text: 'available', value: 'available' },
                 // { text: 'unavailable', value: 'unavailable' },
             ],
-            onFilter: (value, record: SendBillTableData) => {
+            onFilter: (value, record: StatusBillTableData) => {
                 return record.roomStatus === value;
             },
             render: statusColor,
@@ -135,11 +132,30 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
             title: 'การกระทำ',
             dataIndex: 'action',
             key: 'action',
-            render: (_, record :SendBillTableData) => (
+            render: (_, record :StatusBillTableData) => (
                 <>
-                    <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        
-                    </Modal>
+                {record.roomStatus === "ค้างชำระ" || record.roomStatus === "ค้างชำระ" && (
+                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                            <span>
+                                2
+                            </span>
+                        </Modal>
+                    )}
+                {record.roomStatus === "รอตรวจสอบการชำระ" || record.roomStatus === "รอตรวจสอบการชำระ" && (
+                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                             <span>
+                                3
+                            </span>
+                        </Modal>
+                    )}
+                {record.roomStatus === "ชำระค่าเช่าเรียบร้อยแล้ว" || record.roomStatus === "ชำระค่าเช่าเรียบร้อยแล้ว" && (
+                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                            <span>
+                                1
+                            </span>
+                        </Modal>
+                    )}
+
                     <Button onClick={showModal}>
                         <FileOutlined />
                     </Button>
@@ -163,6 +179,4 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
     );
 };
 
-export default SendBillTable
-
-
+export default StatusBillTable
