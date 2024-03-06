@@ -6,8 +6,8 @@ import type { TabsProps } from 'antd';
 
 // import ReportFormRenter from './subtabannouce/reportFormRenter.tsx';
 
-import ElecTab from './waterElecTab/elecTab';
-import WaterTab from './waterElecTab/waterTab';
+import ElecTab from './waterElecTab/ElecTab';
+import WaterTab from './waterElecTab/WaterTab';
 
 const WaterElecPage: React.FC = () => {
     const onChange = (key: string) => {
