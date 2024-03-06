@@ -102,7 +102,7 @@ const PermissionSetting : React.FC = () => {
                     renderItem={(item) => (
                 <List.Item className="custom-list-item">
                     <span className="text">{item}</span>
-                    <Checkbox className="checkbox" onChange={(e) => console.log(e)} />
+                    <Checkbox className="checkbox" onChange={(e) => console.log(e.target)} />
                 </List.Item>
                 )}
             />

@@ -50,6 +50,38 @@ class ApartmentService {
                 return response.data;
             });
     }
+
+    getRoomsWaterServices(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/water-services?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    updateRoomsWaterServices(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/water-services", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getRoomsElecServices(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/electric-services?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    updateRoomsElecServices(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/electric-services", data)
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ApartmentService();
