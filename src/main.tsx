@@ -36,7 +36,7 @@ import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 import ServiceRoomSetting from './components/pageAdmin/setting-Page/ServiceRoomSetting.tsx';
-import WaterElecPage from './components/pageStaff/water-elec-page/waterElecPage.tsx';
+import WaterElecPage from './components/pageStaff/water-elec-page/WaterElecPage.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
