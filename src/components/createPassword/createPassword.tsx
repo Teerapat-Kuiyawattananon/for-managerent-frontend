@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Input, message, Image } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './createPassword.css';
 import AuthService from '../../services/auth.service';
 
@@ -9,16 +9,27 @@ interface CreatePasswordFormData {
     passwordConfirm: string;
 }
 
+interface CreatePasswordRequest {
+    new_password: string;
+    token: string | null;
+}
+
 
 const CreatePassword: React.FC = () => {
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [formData, setFormData] = useState<CreatePasswordFormData>({
         password: '',
         passwordConfirm: '',
     });
+    const [request, setRequest] = useState<CreatePasswordRequest>({
+        new_password: '',
+        token: '',
+    });
     const onChange = (currentSlide: number) => {
         console.log(currentSlide);
     };
+    
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -33,18 +44,22 @@ const CreatePassword: React.FC = () => {
     };
 
     const handleSubmit = async () => {
+        setRequest({
+            new_password: formData.password,
+            token: searchParams.get('token')
+        })
         try {
             console.log(formData);
-            const response = await AuthService.createPassword(formData);
+            const response = await AuthService.createPassword(request);
             if (response.status === 200) {
-                console.log('Change password successful:', response.data);
-                message.success('You have successfully registered your account!');
+                console.log('Change password successful:', response);
+                message.success('You have successfully setup your password!');
                 navigate('/login');
             }
         } catch (error) {
             message.open({
                 type: 'error',
-                content: 'Username or password is incorrect',
+                content: 'Token is invalid or expired! Please try again.',
                 duration: 8
             });
         }
