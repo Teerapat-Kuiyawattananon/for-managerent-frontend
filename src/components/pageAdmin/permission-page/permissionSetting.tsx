@@ -1,45 +1,63 @@
 import React, {useState} from 'react'
 import { Button, Form, Input,  List, Checkbox} from 'antd';
-import './permissionSetting.css'
+import PermissionSettingTable from './permissionSettingTable';
 
 
   interface PermissionSettingState {
-    name: string
-    lastname: string
-    nickname: string
-    birthday: number
-    id_card: number
-    id_line: string
-    email: string
-    tel: string
+    rolePermission: string
+
   }
 
 const PermissionSetting : React.FC = () => {
     const [formData, setFormData] = useState<PermissionSettingState>({
-        name: '',
-        lastname: '',
-        nickname: '',
-        birthday: 0,
-        id_card: 0,
-        id_line: '',
-        email: '',
-        tel: '',
+        rolePermission: '',
       })
 
       const data = [
-        'หน้าหลัก',
-        'รายการห้องเช่า',
-        'จัดการใบแจ้งหนี้',
-        'กระดานสรุปรายงานผล',
-        'เขียนประกาศ',
-        'แจ้งเตือนพัสดุและ สิ่งของ',
-        'ใบแจ้งหนี้ของคุณ',
-        'แจ้งปัญหา',
-        'พัสดุและ สิ่งของตกค้าง',
-        'หอพักของคุณ',
-        'การจัดการผู้ใช้',
-        'ตั่งค่าสิทธิเข้าใช้งาน',
-        'การตั้งค่าหอพัก',
+        {
+            key: '1',
+            rolePermission: 'หน้าหลัก',
+        },
+        {
+            key: '2',
+            rolePermission: 'รายการห้องเช่า',
+        },
+        {
+            key: '3',
+            rolePermission: 'ใบแจ้งหนี้',
+        },
+        {
+          key: '4',
+          rolePermission: 'กรอกค่าน้ำค่าไฟ',
+        },
+        {
+          key: '5',
+          rolePermission: 'ตั้งค่าค่าใช้จ่าย',
+        },
+        {
+          key: '6',
+          rolePermission: 'ประกาศทั้งหมด',
+        },
+        {
+          key: '7',
+          rolePermission: 'ใบแจ้งหนี้ของคุณ',
+        },
+        {
+          key: '8',
+          rolePermission: 'ประกาศของคุณ',
+        },
+        {
+          key: '9',
+          rolePermission: 'หอพักของคุณ',
+        },
+        {
+          key: '10',
+          rolePermission: 'การจัดการผู้ใช้',
+        },
+        {
+          key: '11',
+          rolePermission: 'ตั้งค่าสิทธิ์การเข้าใช้งาน',
+        },
       ];
     
       const formRef = React.useRef();
@@ -94,18 +112,7 @@ const PermissionSetting : React.FC = () => {
             </div>
             </div>
             <div className='w-1/2' >
-                <List
-                    size="small"
-                    header={<div>ฟีเจอร์</div>}
-                    bordered
-                    dataSource={data}
-                    renderItem={(item) => (
-                <List.Item className="custom-list-item">
-                    <span className="text">{item}</span>
-                    <Checkbox className="checkbox" onChange={(e) => console.log(e.target)} />
-                </List.Item>
-                )}
-            />
+              <PermissionSettingTable data={data}/>
             </div>
           </div>
 
