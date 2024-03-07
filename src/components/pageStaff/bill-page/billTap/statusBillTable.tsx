@@ -21,11 +21,21 @@ export interface StatusBillTableData {
     roomStatus: string;
 }
 
+interface ModalData {
+    key: React.Key;
+    floor: string;
+    roomName: string;
+    tenantName: string;
+    roomRent: number;
+    datePay: string;
+    roomStatus: string;
+}
+
 const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
     const distinctFloors = Array.from(new Set(data.map(item => item.floor))); // สร้างอาร์เรย์ของชั้นที่มีอยู่จริง
     const floorFilters = distinctFloors.map(floor => ({ text: `ชั้น ${floor}`, value: floor })); // สร้างรายการตัวเลือกสำหรับการกรอง
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    // const { apartId, roomId } = useParams();
+
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
@@ -40,25 +50,53 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
         onChange: onSelectChange,
     };
 
-    const testSelectRow = (key: React.Key) => {
-        const selectData = data.find(item => item.key === key);
-        console.log('Selected Data: ', selectData);
-    }
+    // const testSelectRow = (key: React.Key) => {
+    //     const selectData = data.find(item => item.key === key);
+    //     console.log('Selected Data: ', selectData);
+    // }
 
-    const getId = (key: React.Key) => {
-        const selectData = data.find(item => item.key === key);
-        return selectData?.key;
-    }
+    // const getId = (key: React.Key) => {
+    //     const selectData = data.find(item => item.key === key);
+    //     return selectData?.key;
+    // }
+    const [modalData, setModalData] = useState<ModalData>({
+        key: '',
+        floor: '',
+        roomName: '',
+        tenantName: '',
+        roomRent: 0,
+        datePay: '',
+        roomStatus: '',
+    });
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
+    const [isModalOpen1, setIsModalOpen1] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
+    const [isModalOpen3, setIsModalOpen3] = useState(false);
+    
+    const showModal = (record : StatusBillTableData) => {
+        setModalData(record)
+        console.log(isModalOpen1)
+        if (record.roomStatus === "ค้างชำระ"){
+            setIsModalOpen1(true);
+        }else if (record.roomStatus === "รอตรวจสอบการชำระ" ) {
+            setIsModalOpen2(true);
+        }else if (record.roomStatus === "ชำระค่าเช่าเรียบร้อยแล้ว" ) {
+            setIsModalOpen3(true);
+        }
     };
+
     const handleOk = () => {
-        setIsModalOpen(false);
+        setIsModalOpen1(false)
+        setIsModalOpen2(false)
+        setIsModalOpen3(false)
+        ;
     };
+
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setIsModalOpen1(false)
+        setIsModalOpen2(false)
+        setIsModalOpen3(false)
+        ;
     };
 
     function statusColor(status: string) {
@@ -81,7 +119,6 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
         //return <span style={{ color }}>{letter}</span>;
     }
     
-
     const columns: TableColumnsType<StatusBillTableData> = [
         {
             title: 'ชั้น',
@@ -134,29 +171,7 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
             key: 'action',
             render: (_, record :StatusBillTableData) => (
                 <>
-                {record.roomStatus === "ค้างชำระ" || record.roomStatus === "ค้างชำระ" && (
-                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                            <span>
-                                2
-                            </span>
-                        </Modal>
-                    )}
-                {record.roomStatus === "รอตรวจสอบการชำระ" || record.roomStatus === "รอตรวจสอบการชำระ" && (
-                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                             <span>
-                                3
-                            </span>
-                        </Modal>
-                    )}
-                {record.roomStatus === "ชำระค่าเช่าเรียบร้อยแล้ว" || record.roomStatus === "ชำระค่าเช่าเรียบร้อยแล้ว" && (
-                        <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                            <span>
-                                1
-                            </span>
-                        </Modal>
-                    )}
-
-                    <Button onClick={showModal}>
+                   <Button onClick={() => {showModal(record)}}>
                         <FileOutlined />
                     </Button>
                 </>
@@ -165,6 +180,7 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
     ];
 
     return (
+        
         <ConfigProvider
             theme={{
                 token: {
@@ -172,6 +188,21 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
                 },
             }}
         >
+            <Modal title="ใบเสร็จ" open={isModalOpen1} onOk={handleOk} onCancel={handleCancel}>
+                            <span>
+                                {modalData.roomName}
+                            </span>
+            </Modal>
+            <Modal title="ใบเสร็จ" open={isModalOpen2} onOk={handleOk} onCancel={handleCancel}>
+                            <span>
+                                {modalData.roomName}
+                            </span>
+            </Modal>
+            <Modal title="ใบเสร็จ" open={isModalOpen3} onOk={handleOk} onCancel={handleCancel}>
+                            <span>
+                                {modalData.roomName}
+                            </span>
+            </Modal>
             <div>
                 <Table columns={columns} dataSource={data} pagination={false} rowSelection={rowSelection} />
             </div>

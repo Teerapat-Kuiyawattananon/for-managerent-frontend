@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, ConfigProvider, Form , Modal ,Input , message, Popconfirm } from 'antd';
+import { Table, Button, ConfigProvider, Form , Modal ,Image , message, Popconfirm } from 'antd';
 import { FileOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
 
@@ -20,6 +20,16 @@ export interface SendBillTableData {
     dateSend: string;
     roomStatus: string;
 }
+interface ModalData {
+    key: React.Key;
+    floor: string;
+    roomName: string;
+    tenantName: string;
+    roomRent: number;
+    dateSend: string;
+    roomStatus: string;
+}
+
 
 const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
     const distinctFloors = Array.from(new Set(data.map(item => item.floor))); // สร้างอาร์เรย์ของชั้นที่มีอยู่จริง
@@ -40,29 +50,39 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
         onChange: onSelectChange,
     };
 
-    const testSelectRow = (key: React.Key) => {
-        const selectData = data.find(item => item.key === key);
-        console.log('Selected Data: ', selectData);
-    }
+    // const testSelectRow = (key: React.Key) => {
+    //     const selectData = data.find(item => item.key === key);
+    //     console.log('Selected Data: ', selectData);
+    // }
 
-    const getId = (key: React.Key) => {
-        const selectData = data.find(item => item.key === key);
-        return selectData?.key;
-    }
+    // const getId = (key: React.Key) => {
+    //     const selectData = data.find(item => item.key === key);
+    //     return selectData?.key;
+    // }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState<ModalData>({
+        key: '',
+        floor: '',
+        roomName: '',
+        tenantName: '',
+        roomRent: 0,
+        dateSend: '',
+        roomStatus: '',
+    });
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+    const showModal = (record : SendBillTableData) => {
+        setModalData(record)
+        setIsModalOpen(true);
+    };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     function statusColor(status: string) {
         let color;
@@ -137,10 +157,7 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
             key: 'action',
             render: (_, record :SendBillTableData) => (
                 <>
-                    <Modal title="ใบเสร็จ" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        
-                    </Modal>
-                    <Button onClick={showModal}>
+                    <Button onClick={() => {showModal(record)}}>
                         <FileOutlined />
                     </Button>
                 </>
@@ -150,19 +167,99 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
 
     return (
         <ConfigProvider
-            theme={{
-                token: {
-                    padding: 8,
+          theme={{
+            components: {
+                Modal: {
+                  headerBg: ""
                 },
-            }}
+              },
+            token: {
+              padding: 8,
+            },
+            
+          }}
         >
-            <div>
-                <Table columns={columns} dataSource={data} pagination={false} rowSelection={rowSelection} />
+          <Modal title="ใบแจ้งหนี้" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={600}>
+          <div className='flex  justify-start'>
+                <div className='w-1/2 mr-3'>
+                    <p className='font-bold text-lg'>ชื่อหอพัก </p>
+                    <p className='font-bold'>ที่อยู่หอพัก </p>
+                    <p className='font-bold'>โทรศัพท์</p>
+                </div>
+                <div className='w-1/2 h-1'>
+                    <p className='font-bold text-right text-xl '>ใบแจ้งหนี้ห้อง {modalData.roomName}</p>
+                    <p className='font-bold text-right '>วันที่แจ้งหนี้: {modalData.dateSend}</p>
+                    <p className='font-bold text-right '>ชำระภายในวันที่: xx-xx-xxxx</p>
+                </div>
             </div>
-        </ConfigProvider>
-    );
-};
+            <div className='flex  justify-start mt-10'>
+                <div className='w-1/2 mr-3'>
+                    <p className='font-bold'>ชื่อผู้เช่า xxxxxxxx-xxxxxxx</p>
+                    <p className='font-bold'>ที่อยู่ผู้เช่า xxxxxxx</p>
+                </div>
+            </div>
+            <div className='flex  justify-start mt-4 border-t border-black   border-b border-black py-3'>
+                <div className='w-1/2 mr-3'>
+                    <p className='font-bold'>รายการ</p>
+                </div>
+                <div className='w-1/2 h-1'>
+                    <p className='font-bold text-right '>จำนวนเงิน</p>
+                </div>
+            </div>
+            <div className='flex  justify-start py-3'>
+                <div className='w-1/2 mr-3'>
+                    <p className=''>ค่าเช่ารายเดือน</p>
+                    <p className=''>ค่าน้ำ ( xxx - xxx ) = x หน่วย</p>
+                    <p className=''>ค่าไฟ ( xxx - xxx ) = x หน่วย</p>
+                    {[].map((item, index) => (
+                        <p>{item}</p>
+                    ))}
+                </div>
+                <div className='w-1/2 h-1'>
+                    <p className=' text-right '>5000.00</p>
+                    <p className='text-right '>5000.00</p>
+                    <p className='text-right '>5000.00</p>
+                    {[].map((item, index) => (
+                        <p className='text-right '>{item}</p>
+                    ))}
+                </div>
+            </div>
+            <div className='flex  justify-start mt-4 border-t border-black   border-b border-black py-3'>
+                <div className='w-1/2 mr-3'>
+                    <p className='font-bold'>รวมทั้งสิ้น</p>
+                </div>
+                <div className='w-1/2 h-1'>
+                    <p className='font-bold text-right '>15000.00</p>
+                </div>
+            </div>
+            <div className='flex  justify-start py-3'>
+                <div className='w-1/2 mr-3'>
+                    {/* <p className='font-bold'>หมายเหตุ:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p> */}
 
-export default SendBillTable
+                </div>
+                <div className='w-1/2 '>
+                    <p className='font-bold text-right '>ชื่อบัญชีธนาคาร ปปปปปปปป</p>
+                    <p className='font-bold text-right '>ธนาคาร ปปปปปปปป</p>
+                    <p className='font-bold text-right '>เลขบัญชี xxxxxxxxxxxxxxxx</p>
+                    <p className='text-right '>
+                    <Image 
+                        width={150}
+                        height={150}
+                        src= "public\picture\Screenshot 2024-03-05 162701.png"
+                    />
+                    </p>
+                </div>
+            </div>
+          </Modal>
+
+ 
+          <div>
+            <Table columns={columns} dataSource={data} pagination={false} rowSelection={rowSelection} />
+          </div>
+        </ConfigProvider>
+      );
+    };
+    
+    export default SendBillTable;
 
 

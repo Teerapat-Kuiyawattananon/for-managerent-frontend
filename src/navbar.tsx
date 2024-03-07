@@ -154,13 +154,13 @@ const Navbar = ({component, title} : Page) => {
         </Sider>
         <Layout>
           <div className="header-top">
-            <Button className="notification-button" icon={<BellOutlined/>} onClick={showNotification}/>
+            {/* <Button className="notification-button" icon={<BellOutlined/>} onClick={showNotification}/>
             <Input.Search className="search-icon"
               placeholder="ค้นหาทั้งหมด"
               enterButton={<SearchOutlined />}
               onSearch={handleSearch}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
-            />
+            /> */}
             <LoginOutlined className="logout-icon cursor-pointer hover:bg-purple-th-hov rounded" 
               onClick={handlerLogout}
               style={{ color: '#fff', fontSize: '30px' }} />
