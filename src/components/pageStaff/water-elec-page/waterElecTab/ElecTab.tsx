@@ -230,7 +230,7 @@ const ElecTab = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {floor.rooms.map((room) => (
+                            {floor.rooms.map((room, index) => (
                                 <tr key={room.id} className="bg-white border-b dark:bg-white dark:border-gray-200">
                                     {/* <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-700">
                                         {room.floor_name}
@@ -249,7 +249,7 @@ const ElecTab = () => {
                                                 className="my-3 w-1/2 bg-yellow-50"
                                                 // defaultValue={room.end_reading}
                                                 value={room.end_reading}
-                                                onChange={(event) => handleChangeEndReading(indexFloor, indexFloor, event)}
+                                                onChange={(event) => handleChangeEndReading(index, indexFloor, event)}
                                             />
                                         ) : (
                                             <p>{room.end_reading}</p>
