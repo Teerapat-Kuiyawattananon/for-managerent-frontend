@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Button, ConfigProvider, Form , Modal ,Input , message, Popconfirm } from 'antd';
-import { FileOutlined } from '@ant-design/icons';
+import { Table, Button, ConfigProvider, Form , Modal ,Image , message, Popconfirm, Input ,Upload} from 'antd';
+import { FileOutlined , UploadOutlined} from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
+import './statusBillTable.css' 
 
 
 
@@ -84,14 +85,14 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
             setIsModalOpen3(true);
         }
     };
-
+    
     const handleOk = () => {
         setIsModalOpen1(false)
         setIsModalOpen2(false)
         setIsModalOpen3(false)
         ;
     };
-
+    
     const handleCancel = () => {
         setIsModalOpen1(false)
         setIsModalOpen2(false)
@@ -118,7 +119,15 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
         return <span style={{ color }}>{status}</span>;
         //return <span style={{ color }}>{letter}</span>;
     }
+    const normFile = (e: any) => {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+          return e;
+        }
+        return e?.fileList;
+      };
     
+
     const columns: TableColumnsType<StatusBillTableData> = [
         {
             title: 'ชั้น',
@@ -180,29 +189,148 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
     ];
 
     return (
-        
         <ConfigProvider
             theme={{
                 token: {
                     padding: 8,
+                    
                 },
+                components: {
+                    Modal: {
+                        headerBg:"#ffffff"
+                    },
+                  },
             }}
         >
-            <Modal title="ใบเสร็จ" open={isModalOpen1} onOk={handleOk} onCancel={handleCancel}>
-                            <span>
-                                {modalData.roomName}
-                            </span>
+            <Modal title="ใบเสร็จ" visible={isModalOpen1} onOk={handleOk} onCancel={handleCancel} width={600}>
+                <div className='flex justify-start'>
+                    <div className='w-1/2 mr-3'>
+                        <p className='font-bold text-lg'>ชื่อหอพัก</p>
+                        <p className='font-bold'>ที่อยู่หอพัก</p>
+                        <p className='font-bold'>โทรศัพท์</p>
+                    </div>
+                    <div className='w-1/2 h-1'>
+                        <p className='font-bold text-right text-xl'>ใบแจ้งหนี้ห้อง {modalData.roomName}</p>
+                        <p className='font-bold text-right'>วันที่แจ้งหนี้: {modalData.datePay}</p>
+                        <p className='font-bold text-right'>ชำระภายในวันที่: xx-xx-xxxx</p>
+                    </div>
+                </div>
+                <div className='flex justify-start mt-10'>
+                    <div className='w-1/2 mr-3'>
+                        <p className='font-bold'>ชื่อผู้เช่า xxxxxxxx-xxxxxxx</p>
+                        <p className='font-bold'>ที่อยู่ผู้เช่า xxxxxxx</p>
+                    </div>
+                </div>
+                <div className='flex justify-start mt-4 border-t border-black border-b border-black py-3'>
+                    <div className='w-1/2 mr-3'>
+                        <p className='font-bold'>รายการ</p>
+                    </div>
+                    <div className='w-1/2 h-1'>
+                        <p className='font-bold text-right'>จำนวนเงิน</p>
+                    </div>
+                </div>
+                <div className='flex justify-start py-3'>
+                    <div className='w-1/2 mr-3'>
+                        <p>ค่าเช่ารายเดือน</p>
+                        <p>ค่าน้ำ ( xxx - xxx ) = x หน่วย</p>
+                        <p>ค่าไฟ ( xxx - xxx ) = x หน่วย</p>
+                        {[].map((item, index) => (
+                            <p key={index}>{item}</p>
+                        ))}
+                    </div>
+                    <div className='w-1/2 h-1'>
+                        <p className='text-right'>5000.00</p>
+                        <p className='text-right'>5000.00</p>
+                        <p className='text-right'>5000.00</p>
+                        {[].map((item, index) => (
+                            <p key={index} className='text-right'>{item}</p>
+                        ))}
+                    </div>
+                </div>
+                <div className='flex justify-start mt-4 border-t border-black border-b border-black py-3'>
+                    <div className='w-1/2 mr-3'>
+                        <p className='font-bold'>รวมทั้งสิ้น</p>
+                    </div>
+                    <div className='w-1/2 h-1'>
+                        <p className='font-bold text-right'>15000.00</p>
+                    </div>
+                </div>
+                <div className='flex justify-start py-3'>
+                    <div className='w-1/2 mr-3'>
+                        {/* <p className='font-bold'>หมายเหตุ:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p> */}
+                    </div>
+                    <div className='w-1/2'>
+                        <p className='font-bold text-right'>ชื่อบัญชีธนาคาร ปปปปปปปป</p>
+                        <p className=' text-right'> ปปปปปปปป</p>
+                        <p className='font-bold text-right'>ธนาคาร ปปปปปปปป</p>
+                        <p className='font-bold text-right'>เลขบัญชี xxxxxxxxxxxxxxxx</p>
+                        <p className='text-right'>
+                            <Image 
+                                width={150}
+                                height={150}
+                                src= "public\picture\Screenshot 2024-03-05 162701.png"
+                            />
+                        </p>
+                    </div>
+                </div>
             </Modal>
-            <Modal title="ใบเสร็จ" open={isModalOpen2} onOk={handleOk} onCancel={handleCancel}>
-                            <span>
-                                {modalData.roomName}
-                            </span>
+
+
+            <Modal 
+                title= {(<div className='flex justify-center text-2xl font-bold '>ตรวจสอบสถานะการจ่ายเงินห้อง {modalData.roomName} </div>)} 
+                open={isModalOpen2} 
+                onOk={handleOk} 
+                onCancel={handleCancel} 
+                okText="ยืนยันยอดเงิน" 
+                cancelText="ปฎิเสธการชำระเงิน"
+                cancelButtonProps={{ className: 'custom-cancel-button' }}
+                >
+                <div className='flex text-lg'>
+                    <p className='ml-12 '> วันเวลาที่โอนเงิน: </p>
+                    <p className=' ml-1'> x</p>
+                </div>
+                
+                <div className='flex text-lg'>
+                    <p className='ml-12   '> ยอดเงินทั้งหมด:  </p>
+                    <p className=' ml-1'> x</p> 
+                </div>
+                <p className='flex justify-center mt-4 mb-10'>
+                    <Image 
+                        width={350}
+                        height={450}
+                        src= "public\picture\Screenshot 2024-03-05 162701.png"
+                    />
+                </p>
             </Modal>
-            <Modal title="ใบเสร็จ" open={isModalOpen3} onOk={handleOk} onCancel={handleCancel}>
-                            <span>
-                                {modalData.roomName}
-                            </span>
+
+
+
+            <Modal title= {(<div className='flex justify-center text-2xl font-bold'>รายละเอียดการชำระเงินห้อง {modalData.roomName} </div>)} 
+                open={isModalOpen3} 
+                footer={null} // เซ็ตเป็น null เพื่อไม่ให้แสดง footer
+                onCancel={handleCancel} 
+                >
+                <div className='flex text-lg'>
+                    <p className='ml-12 '> วันเวลาที่โอนเงิน: </p>
+                    <p className=' ml-1'> x</p>
+                </div>
+                
+                <div className='flex text-lg'>
+                    <p className='ml-12   '> ยอดเงินทั้งหมด:  </p>
+                    <p className=' ml-1'> x</p> 
+                </div>
+                <p className='flex justify-center mt-4 mb-10'>
+                    <Image 
+                        width={350}
+                        height={450}
+                        src= "public\picture\Screenshot 2024-03-05 162701.png"
+                    />
+                </p>
             </Modal>
+
+
+
+
             <div>
                 <Table columns={columns} dataSource={data} pagination={false} rowSelection={rowSelection} />
             </div>
