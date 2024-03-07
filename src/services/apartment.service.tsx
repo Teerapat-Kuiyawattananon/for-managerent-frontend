@@ -50,6 +50,22 @@ class ApartmentService {
                 return response.data;
             });
     }
+
+    getBillList(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/bills?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    sendBillList(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/bills", data)
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ApartmentService();
