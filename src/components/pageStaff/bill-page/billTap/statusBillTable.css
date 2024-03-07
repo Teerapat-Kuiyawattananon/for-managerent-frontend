@@ -1,0 +1,19 @@
+.xl-font {
+    font-size: 24px; /* ขนาดตัวอักษรที่คุณต้องการ */
+}
+
+.padding {
+    padding: unset !important
+}
+
+.custom-cancel-button {
+    background-color: #D40000;
+    border-color: #D40000;
+    color: white;
+  }
+  
+  .custom-cancel-button:hover,
+  .custom-cancel-button:focus {
+    background-color: #FF3333;
+    border-color: #FF3333;
+  }

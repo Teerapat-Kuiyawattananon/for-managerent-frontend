@@ -179,7 +179,7 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
             
           }}
         >
-          <Modal title="ใบแจ้งหนี้" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={600}>
+          <Modal title="ใบแจ้งหนี้" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={600}>
           <div className='flex  justify-start'>
                 <div className='w-1/2 mr-3'>
                     <p className='font-bold text-lg'>ชื่อหอพัก </p>
