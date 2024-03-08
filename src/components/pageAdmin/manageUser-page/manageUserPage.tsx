@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-// import ReportTable from './reportTable';
 import ManageUserTable from './manageUserTable';
 import { Button , Modal , Form, Input, } from 'antd';
-// import './allAnnounce.css';
 import { Link } from 'react-router-dom';
 
 const data = [
@@ -56,7 +54,7 @@ const ManageUserPage: React.FC = () => {
       return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
-                    < Link to= "/manageUser/detail"> 
+                    < Link to= "/apartment/:apartId/manageUser/add"> 
                         <Button type="primary">
                             เพิ่มผู้ใช้
                          </Button>

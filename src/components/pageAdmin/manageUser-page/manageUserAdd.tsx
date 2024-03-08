@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button, Form, Input,  DatePicker , Image , Popconfirm} from 'antd';
 import { Link } from 'react-router-dom';
 
-interface ManageUserDetailState {
+interface ManageUserAddState {
   name: string
   lastname: string
   nickname: string
@@ -13,8 +13,8 @@ interface ManageUserDetailState {
   tel: string
 }
 
-const ManageUserDetail: React.FC = () => {
-  const [formData, setFormData] = useState<ManageUserDetailState>({
+const ManageUserAdd: React.FC = () => {
+  const [formData, setFormData] = useState<ManageUserAddState>({
     name: '',
     lastname: '',
     nickname: '',
@@ -49,8 +49,6 @@ const ManageUserDetail: React.FC = () => {
 
     return (
         <>
-
-          <p>fffff</p>
           <Form  
             name="validateOnly" 
             layout="vertical" 
@@ -227,4 +225,4 @@ const ManageUserDetail: React.FC = () => {
       );
     }
   
-  export default ManageUserDetail;
+  export default ManageUserAdd;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Button, ConfigProvider, message, Popconfirm} from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
-import './manageUserTable.css';
+
 import { Link } from 'react-router-dom';
 
 type TableRowSelection<T> = TableProps<T>['rowSelection'];
