@@ -70,7 +70,7 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
                 const apartment_id = response.data.data.id
                 valueData.form1.apartment_id = apartment_id
                 console.log("apartment_id", apartment_id)
-                // next()
+                next()
                     // Handle successful registration (e.g., clear form, redirect)
                 } else {
                     console.log('Failed:', formData);

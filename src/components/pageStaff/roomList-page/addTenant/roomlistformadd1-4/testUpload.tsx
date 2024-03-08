@@ -1,55 +1,108 @@
-import { UploadOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { Button, message, Upload } from 'antd';
-import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Modal, Upload, Image } from 'antd';
+import type { GetProp, UploadFile, UploadProps } from 'antd';
 
-const testUpload = () => {
-    const [file, setFile] = React.useState<File[]>([]);
-    const props: UploadProps = {
-        beforeUpload: (file) => {
-          const isPNG = file.type === 'image/png';
-          if (!isPNG) {
-            message.error(`${file.name} is not a png file`);
-          }
-          return isPNG || Upload.LIST_IGNORE;
-        },
-        onChange: async (info : any) => {
-        //   console.log(info.file);
-        //   console.log("type", info.file.type)
-        //   console.log("info origin", info.file.originFileObj)
-        //   console.log("check type", typeof info.file.originFileObj)
-          const formData = new FormData();
-          formData.append("userId", "1");
-          formData.append('files', info.file.originFileObj);
-          const res = await axios.post('http://localhost:3232/test-upload', formData);
-          console.log("res", res)
-          // add file to state
-        //   const newData = ...file
-          
-        // formData.append('file', info.file.originFileObj);
-        //   console.log("file", new File([info.file.originFileObj], info.file.name, { type: info.file.type })
-        //   console.log("type file", typeof file)
-        // let file = new File([info.file.originFileObj], info.file.name, { type: info.file.type });
-        // setFile(file)
-        },
-      };
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
-    // const handlerFileUpload = ({ file } : File) => {
-    //     console.log(file)
-    // }
+const getBase64 = (file: FileType): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
 
-    // const handleChange = (info: { file: File }) => {
-    //     const file = info.file;
-    //     console.log("file form handleChange", file)
-    //   };
+const App: React.FC = () => {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [file, setFile] = useState();
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-2',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-3',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-4',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-xxx',
+      percent: 50,
+      name: 'image.png',
+      status: 'uploading',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-5',
+      name: 'image.png',
+      status: 'error',
+    },
+  ]);
+
+  const handleCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as FileType);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  };
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>{
+    setFileList(newFileList);
+    console.log("fileList", newFileList)
+    // setFile(URL.createObjectURL(newFileList[0].originFileObj))
+    // console.log("file", URL.createObjectURL(newFileList[0].originFileObj))
+  }
+
+  const uploadButton = (
+    <button style={{ border: 0, background: 'none' }} type="button">
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </button>
+  );
   return (
-    <div>
-      <Upload  {...props}>
-    <Button icon={<UploadOutlined />}>Upload png only</Button>
-  </Upload>
-    </div>
-  )
-}
+    <>
+      <Upload
+        action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+        listType="picture-card"
+        // fileList={fileList}
+        onPreview={handlePreview}
+        onChange={handleChange}
+      >
+        {fileList.length >= 8 ? null : uploadButton}
+      </Upload>
+      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
 
-export default testUpload
+    
+      <Image
+      src={`${file}`}
+       />
+    </>
+  );
+};
+
+export default App;

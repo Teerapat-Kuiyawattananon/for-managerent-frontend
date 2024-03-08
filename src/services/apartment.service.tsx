@@ -66,6 +66,23 @@ class ApartmentService {
                 return response.data;
             });
     }
+
+    getBillPaymentList(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/bills-payment?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    submitMessageBillPayment(apartId: Number, billPaymentId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/bills-payment/" + billPaymentId +"/submit", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+
 }
 
 export default new ApartmentService();
