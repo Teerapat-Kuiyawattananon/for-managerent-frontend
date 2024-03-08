@@ -36,7 +36,7 @@ const items: MenuItem[] = [
     getItem('รายการห้องเช่า', 'roomlist'),
     getItem('ใบแจ้งหนี้', 'bill'),
     getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'),
-    getItem('ตั้งค่าค่าใช้จ่าย', 'setting'),
+    getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'),
     // getItem('กระดานสรุปรายงานผล', 'dashboard'),
     getItem('จัดการประกาศและคำร้อง', 'anouncn'),
     // getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
