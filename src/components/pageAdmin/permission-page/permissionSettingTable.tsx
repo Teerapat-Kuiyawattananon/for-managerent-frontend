@@ -6,6 +6,8 @@ type TableRowSelection<T> = TableProps<T>['rowSelection'];
 
 interface PermissionSettingTableProps {
     data: PermissionSettingTableData[];
+    permissionData: PermissionSettingTableData[];
+    setPermission: (permission: PermissionSettingTableData[]) => void;
 }
 
 export interface PermissionSettingTableData {
@@ -13,7 +15,7 @@ export interface PermissionSettingTableData {
     rolePermission: string;
 }
 
-const PermissionSettingTable: React.FC<PermissionSettingTableProps> = ({ data }) => {
+const PermissionSettingTable: React.FC<PermissionSettingTableProps> = ({ data, permissionData, setPermission }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [tableData, setTableData] = useState<PermissionSettingTableData[]>(data);
     
@@ -24,6 +26,10 @@ const PermissionSettingTable: React.FC<PermissionSettingTableProps> = ({ data })
         // Show selected item.
         const selectedRows = data.filter(item => newSelectedRowKeys.includes(item.key));
         console.log('Selected Rows Data: ', selectedRows);
+        console.log('Selected Rows Key: ', selectedRowKeys);
+        permissionData = selectedRows;
+        setPermission(selectedRows)
+        console.log('Selected Rows Data Permission: ', permissionData);
     };
     
     const rowSelection: TableRowSelection<PermissionSettingTableData> = {

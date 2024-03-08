@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import ReportTable from './reportTable';
-import PermissionTable from './permissionTable';
+import PermissionTable, { PermissionTableData } from './permissionTable';
 import { Button , Modal , Form, Input, } from 'antd';
 import { FileOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import ProfileService from '../../../services/profile.service';
 // import './allAnnounce.css';
 
 const data = [
     {
-        key: '1',
-        roleName: 'Admins',
+        key: 1,
+        profile_name: 'ssdf',
     },
     {
         key: '2',
-        roleName: 'Renter',
+        profile_name: 'Renter',
     },
     {
         key: '3',
-        roleName: 'Staff',
+        profile_name: 'Staff',
     },
     
     
   ];
 
-const PermissionPage: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+interface ProfileData {
+    key: React.Key | string;
+    profile_name: string;
+}
 
+const PermissionPage: React.FC = () => {
+    const { apartId } = useParams()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [profileData, setProfileData] = useState<ProfileData[]>([]);
+    const [testData, setTestData] = useState<PermissionTableData[]>([])
 
     
       const handleOk = () => {
@@ -35,11 +43,12 @@ const PermissionPage: React.FC = () => {
       const handleCancel = () => {
         setIsModalOpen(false);
       };
+
     
       return (
         <div>
              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
-                <Link to= "/permission/detail"> 
+                <Link to={`/apartment/${apartId}/permission/create-profile`}> 
                     <Button type="primary">
                         เพิ่มตำแหน่ง
                     </Button>
