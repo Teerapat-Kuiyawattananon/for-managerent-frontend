@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { Collapse, Input, DatePicker } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Collapse, Input, DatePicker, message, Button } from 'antd';
+import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-const data = [
+import ApartmentService from '../../../../services/apartment.service';
+const dataRoom = [
     {
       "id": 1,
       "floor_name": "1",
@@ -111,9 +113,27 @@ const data = [
       ]
     }
   ]
+  interface Room {
+    id: number;
+    floor_name: string;
+    room_name: string;
+    start_reading: number; // Assuming this represents a numerical reading
+    end_reading: number; // Assuming this represents a numerical reading
+    used_amount: number;
+    electric_service_id: number;
+  }
+  
+  interface Floor {
+    id: number;
+    floor_name: string;
+    rooms: Room[];
+  }
 
 const ElecTab = () => {
     const [editingKey, setEditingKey] = useState(false);
+    const [data, setData] = useState<Floor[]>([]);
+    const [monthDate, setMonthDate] = useState<string>('');
+    const { apartId } = useParams()
 
     const date = new Date();
         let month = date.getMonth() + 1;
@@ -123,9 +143,64 @@ const ElecTab = () => {
         console.log(currentDate)
   const monthFormat = 'YYYY/MM';
 
+  const handleChangeMonthDate = (values: any) => {
+    console.log("values", values)
+    setMonthDate(values.format(monthFormat));
+    console.log(monthDate);
+  }
+
+  const handleChangeEndReading = (index: number, indexFloor: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const newData = [...data];
+    const floor = newData[indexFloor];
+    const target = floor.rooms[index];
+    console.log('event', event.target.name)
+    if (target) {
+        target.end_reading = Number(event.target.value);
+        target.used_amount = target.end_reading - target.start_reading;
+        // check if the used_amount is negative, if it is, set it to 0
+        if (target.used_amount < 0) {
+            target.used_amount = 0;
+        }
+        setData(newData);
+        console.log("newData", newData)
+    }
+  }
+
+  const handleSave = async () => {
+    try {
+        const res = await ApartmentService.updateRoomsElecServices(Number(apartId), data)
+        console.log("res",res.data);
+        if (res.status === 200) {
+            message.success('บันทึกข้อมูลสำเร็จ');
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+    console.log("data", data)
+  }
+
+  useEffect(() => {
+    const fetchElectricService = async () => {
+        try {
+        const res = await ApartmentService.getRoomsElecServices(Number(apartId), monthDate)
+        console.log("res", res.data)
+        setData(res.data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    fetchElectricService();
+    console.log('monthDate', monthDate);
+  }, [monthDate])
+
   return (
     <>
-    <DatePicker defaultValue={dayjs(currentDate, monthFormat)} format={monthFormat} picker="month" style={{ marginBottom: '20px' }}/>
+    <DatePicker onChange={handleChangeMonthDate} defaultValue={dayjs(currentDate, monthFormat)} format={monthFormat} picker="month" style={{ marginBottom: '10px' }}/>
+    <div className='flex mb-2 justify-end'>
+        <Button onClick={handleSave} type="primary" >บันทึก</Button>
+    </div>
     {data.map((floor, indexFloor) => (
         <Collapse key={indexFloor} bordered={false}>
             <Collapse.Panel
@@ -155,7 +230,7 @@ const ElecTab = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {floor.rooms.map((room) => (
+                            {floor.rooms.map((room, index) => (
                                 <tr key={room.id} className="bg-white border-b dark:bg-white dark:border-gray-200">
                                     {/* <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-700">
                                         {room.floor_name}
@@ -164,7 +239,7 @@ const ElecTab = () => {
                                         {room.room_name}
                                     </td>
                                     <td className="px-11 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-700">
-                                        123
+                                    {room.start_reading}
                                     </td>
                                     <td className=''>
                                         {!editingKey ? (
@@ -172,14 +247,16 @@ const ElecTab = () => {
                                                 type="number"
                                                 name="rent_amount"
                                                 className="my-3 w-1/2 bg-yellow-50"
-                                                defaultValue={room.rent_amount}
+                                                // defaultValue={room.end_reading}
+                                                value={room.end_reading}
+                                                onChange={(event) => handleChangeEndReading(index, indexFloor, event)}
                                             />
                                         ) : (
-                                            <p>{room.rent_amount}</p>
+                                            <p>{room.end_reading}</p>
                                         )}
                                     </td>
                                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-700">
-                                        123
+                                        {room.used_amount}
                                     </td>
                                     
                                 </tr>
