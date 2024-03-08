@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Space, Modal, Upload, message, Image } from 'antd';
+import { Button, Space, Modal, Upload, message, Image,  Carousel  } from 'antd';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import RoomListTable from './roomListTable';
 import RoomService from './../../../services/room.service';
@@ -24,11 +24,25 @@ interface RoomData {
   roomStatus: string;
 }
 
+const contentStyle: React.CSSProperties = {
+  margin: 0,
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
+
+
 const RoomListPage: React.FC = () => {
   const [rooms, setRooms] = React.useState<Room[]>([]);
   const [roomsData, setRoomsData] = React.useState<RoomData[]>([]);
   const { apartId } = useParams()
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const onChange = (currentSlide: number) => {
+    console.log(currentSlide);
+  };
 
   const props: UploadProps = {
     name: 'file',
@@ -49,6 +63,7 @@ const RoomListPage: React.FC = () => {
     },
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await RoomService.getRoomsList(Number(apartId));
@@ -68,9 +83,24 @@ const RoomListPage: React.FC = () => {
         <Upload {...props} showUploadList={false}>
           <Button type ="primary"icon={<UploadOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
         </Upload>
-
           {fileList.length > 0 && <Image src={fileList[0].thumbUrl} />}
         </div>
+        <div className='mb-5'>
+        <Carousel afterChange={onChange}>
+          <div>
+            <h3 style={contentStyle}>1</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>2</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>3</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>4</h3>
+          </div>
+        </Carousel>
+    </div>
         <RoomListTable data={roomsData} />
       </div>
     </>
