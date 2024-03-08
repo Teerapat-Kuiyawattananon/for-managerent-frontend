@@ -66,7 +66,7 @@ const RoomListPage: React.FC = () => {
       <div>
         <div className="mb-5">
         <Upload {...props} showUploadList={false}>
-          <Button icon={<UploadOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
+          <Button type ="primary"icon={<UploadOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
         </Upload>
 
           {fileList.length > 0 && <Image src={fileList[0].thumbUrl} />}
