@@ -59,7 +59,7 @@ const props: UploadProps = {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
 
   // ฟังก์ชัน handleDatePickerChange
-  const handleDatePickerChange = (date: Dayjs, dateString: string) => {
+  const handleDatePickerChange = ( dateString: string) => {
     const [year, month] = dateString.split('/');
     setSelectedMonth(Number(month));
     setSelectedYear(Number(year));
@@ -93,7 +93,7 @@ const props: UploadProps = {
           format='YYYY/MM'
           picker='month'
           style={{ marginBottom: '20px' }}
-          onChange={handleDatePickerChange}
+          onChange={(values : any) => handleDatePickerChange(dayjs(values).format('YYYY/MM'))}
         />
       </div>
      
