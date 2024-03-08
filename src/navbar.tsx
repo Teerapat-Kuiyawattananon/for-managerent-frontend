@@ -116,7 +116,11 @@ const Navbar = ({component, title} : Page) => {
       navigate(`/apartment/${apartId}/yourPacket`)
     }
     else if (key === 'rent') {
-      navigate(`/apartment/${apartId}/create-apartment`)
+      if (apartId === "0" || apartId === undefined){
+        navigate(`/apartment/undefined/create-apartment`)
+      }else{
+        navigate(`/apartment/${apartId}/rentdetail`)
+      }
     }
     else if (key === 'manageUser') {
       navigate(`/apartment/${apartId}/manageUser`)

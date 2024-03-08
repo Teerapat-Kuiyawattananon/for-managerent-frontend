@@ -140,14 +140,14 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
         <div className='w-1/2 h-1'>
         <Form.Item name="ที่อยู่" label="ที่อยู่" rules={[{ required: true }]}>
         <Input.TextArea 
-        name='address'
-        onChange={handleChange}
-        style={{
-          width: '85%',
-          // height: '120px',
+          name='address'
+          onChange={handleChange}
+          style={{
+            width: '85%',
+            // height: '120px',
           
-        }} placeholder='ที่อยู่'/>
-      </Form.Item>
+          }} placeholder='ที่อยู่'/>
+          </Form.Item>
         </div>
       </div>
       <div className='flex  justify-start mt-4'>
