@@ -82,6 +82,38 @@ class ApartmentService {
                 return response.data;
             });
     }
+
+    uploadImage(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/upload-qrcode", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getApartmentWaterElecPrice(apartId: Number) {
+        return axios
+            .get(API_URL + apartId + "/edit-water-electric")
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    updateApartmentWaterElecPrice(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/edit-water-electric", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getApartmentDetail(apartId: Number) {
+        return axios
+            .get(API_URL + apartId + "/detail")
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ApartmentService();

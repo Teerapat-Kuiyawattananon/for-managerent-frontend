@@ -60,15 +60,15 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
   }
 
   const handleChange = (e: any) => {
-    console.log(e.target.type)
-    console.log(e.target.value)
+    // console.log(e.target.type)
+    // console.log(e.target.value)
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "number" ? Number(e.target.value) : e.target.value
     })
 
-    console.log("valueData", valueData)
+    // console.log("valueData", valueData)
   }
 
   

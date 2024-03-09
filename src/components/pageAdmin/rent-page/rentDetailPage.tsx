@@ -1,12 +1,60 @@
 import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import ApartmentService from '../../../services/apartment.service';
+
+interface ApartmentDetail {
+  id: number;
+  name: string;
+  address: string;
+  contact_number: string;
+  number_of_floor: number;
+  number_of_room: number;
+  max_room: number;
+  min_room: number;
+  max_rent_amount: number;
+  min_rent_amount: number;
+  water_amount: number;
+  electricity_amount: number;
+  due_date: string;
+  information: string;
+}
 
 
 const RentDetailPage = () => {
+  const {apartId} = useParams();
+  const [apartData, setApartData] = useState<ApartmentDetail>({
+    id: 0,
+    name: '',
+    address: '',
+    contact_number: '',
+    number_of_floor: 0,
+    number_of_room: 0,
+    max_room: 0,
+    min_room: 0,
+    max_rent_amount: 0,
+    min_rent_amount: 0,
+    water_amount: 0,
+    electricity_amount: 0,
+    due_date: '',
+    information: '',
+  })
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    // โค้ดสำหรับดึงข้อมูลหอพักจาก API
+    const res = await ApartmentService.getApartmentDetail(Number(apartId))
+    console.log(res)
+    setApartData(res.data)
+  }
+  fetchData()
+
+}, [])
   return (
     <div>
         <div className ='flex justify-end'>
-        <Link to= '/apartment/:apartId/fixElecwater'>
+        <Link to= {`/apartment/${apartId}/fixElecwater`}>
             <Button type="primary">
                 แก้ไขค่าน้ำค่าไฟ
             </Button>
@@ -25,13 +73,13 @@ const RentDetailPage = () => {
                 ชื่อหอพัก
               </p>
               <p className='text-gray-500 mb-2'>
-                {/* {valueData.form1.name ? valueData.form1.name : 'ไม่มีชื่อหอพัก'} */}
+                {apartData.name ? apartData.name : 'ไม่มีชื่อหอพัก'}
               </p>
               <p className='text-gray-800 font-bold'>
                 เบอร์ติดต่อพอหัก
               </p>
               <p className='text-gray-500 mb-2'>
-                {/* {valueData.form1.contact_number ? valueData.form1.contact_number : 'ไม่มีเบอร์ติดต่อพอหัก'}    */}
+                {apartData.contact_number ? apartData.contact_number : 'ไม่มีเบอร์ติดต่อพอหัก'}   
               </p>
             </div>
             <div>
@@ -39,7 +87,7 @@ const RentDetailPage = () => {
                 ที่อยู่หอพัก
               </p>
               <p className='text-gray-500'>
-                {/* {valueData.form1.address ? valueData.form1.address : 'ไม่มีที่อยู่หอพัก'} */}
+                {apartData.address ? apartData.address : 'ไม่มีที่อยู่หอพัก'}
               </p>
             </div>
           </div>
@@ -55,13 +103,13 @@ const RentDetailPage = () => {
               จำนวนชั้น
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {valueData.form1.number_of_floor} ชั้น */}
+              {apartData.number_of_floor} ชั้น
             </p>
             <p className='text-gray-800 font-bold'>
               จำนวนห้องพักต่ำสุดในแต่ละชั้น
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {valueData.form1.number_of_room} ห้องต่อชั้น    */}
+              {apartData.number_of_room} ห้องต่อชั้น   
             </p>
           </div>
           <div>
@@ -69,13 +117,13 @@ const RentDetailPage = () => {
               จำนวนห้องพักสูงสุดในแต่ละชั้น
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {valueData.form1.number_of_room} ห้องต่อชั้น */}
+              {apartData.number_of_room} ห้องต่อชั้น
             </p>
             <p className='text-gray-800 font-bold'>
               จำนวนห้องพักทั้งหมด
             </p>
             <p className='text-gray-500 '>
-              {/* {totalRoom} ห้อง */}
+              {apartData.max_room} ห้อง
             </p>
           </div>
         </div>
@@ -90,17 +138,17 @@ const RentDetailPage = () => {
               ค่าเช่าต่ำสุด
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {minRent()} บาท */}
+              {apartData.min_rent_amount} บาท
             </p>
             <p className='text-gray-800 font-bold'>
               ค่าไฟ/หน่วย
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {valueData.form1.electricity_unit_price} บาท */}
+              {apartData.electricity_amount} บาท
             </p>
-            <p className='text-gray-800 font-bold'>
+            {/* <p className='text-gray-800 font-bold'>
               วันที่เรียกเก็บเงิน
-            </p>
+            </p> */}
             <p className='text-gray-500'>
               {/* ทุกวันที่ {date.getDate()} ของเดือน */}
             </p>
@@ -110,13 +158,13 @@ const RentDetailPage = () => {
               ค่าเช่าสูงสุด
             </p>
             <p className='text-gray-500 mb-2'>
-              {/* {maxRent()} บาท  */}
+              {apartData.max_rent_amount} บาท 
             </p>
             <p className='text-gray-800 font-bold'>
               ค่าน้ำ/หน่วย
             </p>
             <p className='text-gray-500'>
-              {/* {valueData.form1.water_unit_price} บาท */}
+              {apartData.water_amount} บาท
             </p>
           </div>
         </div>
