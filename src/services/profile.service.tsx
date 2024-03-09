@@ -74,6 +74,14 @@ class ProfileService {
                 return response.data;
             });
     }
+
+    getPermissionByUserId(apartId: Number, userId: Number) {
+        return axios
+            .get(API_URL + apartId + "/profiles/user/" + userId + "/permission")
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ProfileService();

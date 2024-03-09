@@ -199,7 +199,6 @@ const RentPage: React.FC = () => {
         )}
         
       </div>
-      
     </>
     );
 };

@@ -6,7 +6,8 @@ import type { TabsProps } from 'antd';
 
 // import ReportFormRenter from './subtabannouce/reportFormRenter.tsx';
 
-import FillBillTap from './billTap/fillBillTap';
+
+import SendBillTab from './billTap/SentBillTap';
 import StatusBillTap from './billTap/statusBillTap';
 const BillPage: React.FC = () => {
     const onChange = (key: string) => {
@@ -16,8 +17,8 @@ const BillPage: React.FC = () => {
       const items: TabsProps['items'] = [
         {
           key: '1',
-          label: 'กรอกค่าใช้จ่าย',
-          children: <FillBillTap/> ,
+          label: 'ส่งใบแจ้งหนี้',
+          children: <SendBillTab/> ,
         },
         {
           key: '2',
