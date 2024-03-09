@@ -93,6 +93,7 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
                 const apartment_id = response.data.data.id
                 valueData.form1.apartment_id = apartment_id
                 console.log("apartment_id", apartment_id)
+
                 if (apartment_id === 0 || apartment_id === undefined || apartment_id === null || fileUp === undefined) { 
                   // upload file
                   message.error('ไม่สารถเพิ่มรูปภาพได้')

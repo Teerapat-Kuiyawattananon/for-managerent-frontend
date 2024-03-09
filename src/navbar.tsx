@@ -228,6 +228,7 @@ const Navbar = ({component, title} : Page) => {
         </Sider>
         <Layout>
           <div className="header-top">
+
             <span className='flex text-xl font-bold justify-center mt-6 text-neutral-50 mr-7' >
               ระบบการจัดการหอพัก For ManageRent
             </span>

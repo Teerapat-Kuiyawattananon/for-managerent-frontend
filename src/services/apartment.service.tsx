@@ -82,6 +82,14 @@ class ApartmentService {
                 return response.data;
             });
     }
+  
+    getBillList(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/bills?month_date=" + monthDate)
+             .then(response => {
+                return response.data;
+            });
+    }
 
     uploadImage(apartId: Number, data: any) {
         return axios
@@ -99,6 +107,14 @@ class ApartmentService {
             });
     }
 
+    sendBillList(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/bills", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+        
     updateApartmentWaterElecPrice(apartId: Number, data: any) {
         return axios
             .post(API_URL + apartId + "/edit-water-electric", data)
@@ -107,6 +123,15 @@ class ApartmentService {
             });
     }
 
+
+    getBillPaymentList(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/bills-payment?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+        
     getApartmentDetail(apartId: Number) {
         return axios
             .get(API_URL + apartId + "/detail")
@@ -115,6 +140,15 @@ class ApartmentService {
             });
     }
 
+
+    submitMessageBillPayment(apartId: Number, billPaymentId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/bills-payment/" + billPaymentId +"/submit", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+              
     postAnnounce(apartId: Number, data: any) {
         return axios
             .post(API_URL + apartId + "/announce", data, { headers: {
@@ -125,6 +159,14 @@ class ApartmentService {
             });
     }
 
+    getYourBillPayment(apartId: Number, monthDate: string) {
+        return axios
+            .get(API_URL + apartId + "/bills-payment/yourbill?month_date=" + monthDate)
+            .then(response => {
+                return response.data;
+            });
+    }
+        
     getAnnounce(apartId: Number) {
         return axios
             .get(API_URL + apartId + "/announce")
@@ -133,6 +175,15 @@ class ApartmentService {
             });
     }
 
+
+    payYourBill(apartId: Number, billPaymentId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/bills-payment/" + billPaymentId +"/pay", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+      
     getYourAnnounce(apartId: Number) {
         return axios
             .get(API_URL + apartId + "/announce/your", {headers: {
@@ -152,6 +203,7 @@ class ApartmentService {
                 return response.data;
             });
         }
+
 }
 
 export default new ApartmentService();
