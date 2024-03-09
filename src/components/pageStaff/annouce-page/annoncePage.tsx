@@ -218,7 +218,6 @@ const AnnoucePage: React.FC = () => {
                 <div className="imageContainer">
                     <p>คำอธิบาย</p>
                     {/* รูปภาพจะอยู่ในสี่เหลี่ยมผืนผ้า */}
-                    
                 </div>
             </div>
             : 
@@ -239,7 +238,7 @@ const AnnoucePage: React.FC = () => {
                             </div>
                             
                             
-                            <h2 className='text-xl'>หัวข้อประกาศ: {data.title}</h2>
+                            <h2 className=''>หัวข้อประกาศ: {data.title}</h2>
                             <p className=''>{data.description}</p>
                             <div className="imageContainer">
                                 {/* <p>คำอธิบาย</p> */}
