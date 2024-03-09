@@ -79,29 +79,10 @@ const RoomListPage: React.FC = () => {
   return (
     <>
       <div>
-        <div className="mb-5">
-        <Upload {...props} showUploadList={false}>
-          <Button type ="primary"icon={<UploadOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
-        </Upload>
-          {fileList.length > 0 && <Image src={fileList[0].thumbUrl} />}
-        </div>
-        <div className='mb-5'>
-        <Carousel afterChange={onChange}>
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
-          </div>
-        </Carousel>
-    </div>
-        <RoomListTable data={roomsData} />
+        {/* <Space style={{ marginBottom: 16 }}>
+          <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
+        </Space> */}
+        <RoomListTable data={roomsData}/>
       </div>
     </>
   );

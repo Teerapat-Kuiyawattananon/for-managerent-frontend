@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, ConfigProvider, message, Popconfirm } from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
-import { Link } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import ProfileService from '../../../services/profile.service';
 type TableRowSelection<T> = TableProps<T>['rowSelection'];
 
 interface PermissionTableProps {
@@ -12,13 +12,13 @@ interface PermissionTableProps {
 
 export interface PermissionTableData {
     key: React.Key;
-    roleName: string;
+    profile_name: string;
 }
 
 const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [tableData, setTableData] = useState<PermissionTableData[]>(data);
-    
+    const [tableData, setTableData] = useState<PermissionTableData[]>([]);
+    const { apartId } = useParams();
       const cancel = () => {
         console.log("Canceled");
         message.error('Click on No');
@@ -28,6 +28,12 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
         const newData = tableData.filter(item => item.key !== record.key);
         setTableData(newData);
         message.success('ลบหน้าที่ออกแล้ว');
+        try {
+            const res = ProfileService.deleteProfile(Number(apartId), Number(record.key));
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
       };
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -43,12 +49,23 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
         onChange: onSelectChange,
     };
     
+    useEffect(() => {
+        // fetch data from API
+        const fetchData = async () => {
+            const res = await ProfileService.getProfileList(Number(apartId));
+            console.log(res.data)
+            setTableData(res.data);
+            // setProfileData(res.data);
+        }
+        fetchData();
+        
+      }, []);
 
     const columns: TableColumnsType<PermissionTableData> = [
         {
             title: 'ชื่อตำแหน่ง',
-            dataIndex: 'roleName',
-            key: 'roleName',
+            dataIndex: 'profile_name',
+            key: 'profile_name',
         },
         {
             title: 'การกระทำ',
@@ -56,7 +73,7 @@ const PermissionTable: React.FC<PermissionTableProps> = ({ data }) => {
             key: 'action',
             render: (_, record) => (
                 <>
-                    <Link to= "/permission/detail"> 
+                    <Link to= {`/apartment/${apartId}/permission/${record.key}/detail`}> 
                         <Button>
                             <FileOutlined />
                          </Button>

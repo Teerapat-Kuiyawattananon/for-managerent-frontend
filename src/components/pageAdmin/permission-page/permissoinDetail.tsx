@@ -1,13 +1,19 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Button, Form, Input,  List, Checkbox, message} from 'antd';
-import PermissionSettingTable, { PermissionSettingTableData } from './permissionSettingTable';
+import PermissionDetailTable, { PermissionDetailTableData } from './permissionDetailTable';
 import ProfileService from '../../../services/profile.service';
 import { useNavigate, useParams } from 'react-router-dom';
 
-  interface PermissionSettingState {
+  interface permissionDetailState {
     rolePermission: string
 
   }
+  interface ProfileDetail {
+    role: string;
+    description: string;
+    permissions: string;
+  }
+
   interface PrefileRequest {
     role: string;
     description: string;
@@ -18,18 +24,25 @@ import { useNavigate, useParams } from 'react-router-dom';
   //   rolePermission: string;
   // }
 
-const PermissionSetting : React.FC = () => {
-    const { apartId } = useParams()
+const PermissionDetail : React.FC = () => {
+    const { apartId, profileId } = useParams()
+    const [form] = Form.useForm();
     const nevigate = useNavigate()
-    const [formData, setFormData] = useState<PermissionSettingState>({
+    const [formData, setFormData] = useState<permissionDetailState>({
         rolePermission: '',
       })
-    const [requestData, setRequestData] = useState<PrefileRequest>({
+    const [profileData, setProfileData] = useState<ProfileDetail>({
       role: '',
       description: '',
       permissions: '',
     })
-    const [permission, setPermission] = useState<PermissionSettingTableData[]>([
+    const [keyData, setKeyData] = useState<React.Key[]>([]);
+    const [requestData, setRequestData] = useState<PrefileRequest>({
+        role: '',
+        description: '',
+        permissions: '',
+      })
+    const [permission, setPermission] = useState<PermissionDetailTableData[]>([
       {
         key: '1',
         rolePermission: 'หน้าหลัก',
@@ -38,51 +51,60 @@ const PermissionSetting : React.FC = () => {
 
       const data = [
         {
-            key: '1',
+            key: 1,
             rolePermission: 'หน้าหลัก',
         },
         {
-            key: '2',
+            key:  2,
             rolePermission: 'รายการห้องเช่า',
         },
         {
-            key: '3',
+            key: 3,
             rolePermission: 'ใบแจ้งหนี้',
         },
         {
-          key: '4',
+          key: 4,
           rolePermission: 'กรอกค่าน้ำค่าไฟ',
         },
         {
-          key: '5',
+          key: 5,
           rolePermission: 'กำหนดค่าใช้จ่ายเพิ่มเติม',
         },
         {
-          key: '6',
+          key: 6,
           rolePermission: 'ประกาศทั้งหมด',
         },
         {
-          key: '7',
+          key: 7,
           rolePermission: 'ใบแจ้งหนี้ของคุณ',
         },
         {
-          key: '8',
+          key: 8,
           rolePermission: 'ประกาศของคุณ',
         },
         {
-          key: '9',
+          key: 9,
           rolePermission: 'หอพักของคุณ',
         },
         {
-          key: '10',
+          key: 10,
           rolePermission: 'การจัดการผู้ใช้',
         },
         {
-          key: '11',
+          key: 11,
           rolePermission: 'ตั้งค่าสิทธิ์การเข้าใช้งาน',
         },
       ];
-    
+      const getPermisionKeys = (profileData : any) => {
+        const keys = [];
+        for (let i = 0; i < data.length; i++) {
+            if (profileData.permissions.includes(data[i].rolePermission)) {
+                keys.push(data[i].key);
+            }
+        }
+        console.log("keys", keys)
+        return keys;
+      }
       const formRef = React.useRef();
     
       const handleChange = (e: any) => {
@@ -93,42 +115,56 @@ const PermissionSetting : React.FC = () => {
         })
       }
     
-      
-    const onFinish = async (values: any) => {
-      // console.log('Success:', values);
-      // console.log('Success:', formData);
-      // console.log("permission", permission)
-      let permissionStr = permission.map((item) => item.rolePermission).join(',')
-      console.log("permissionStr", permissionStr)
-      setRequestData({
-        role: values['ชื่อตำแหน่ง'],
-        description: values['คำอธิบายตำแหน่ง'],
-        permissions: permissionStr,
-      })
-      requestData.description = values['คำอธิบายตำแหน่ง']
-      requestData.role = values['ชื่อตำแหน่ง']
-      requestData.permissions = permissionStr
-      console.log("requestData", requestData)
-        
-        try {
-          const res = await ProfileService.createProfile(Number(apartId), requestData)
-          console.log(res)
-          if (res.status === 200) {
-            message.success('สร้างตำแหน่งเรียบร้อยแล้ว');
-            nevigate(`/apartment/${apartId}/permission`)
-          }
+      useEffect(() => {
+        // fetch data from API
+        const fetchData = async () => {
+          const res = await ProfileService.getProfileDetail(Number(apartId), Number(profileId));
+          console.log(res.data)
+          setProfileData(res.data);
+          form.resetFields();
+        setKeyData(getPermisionKeys(res.data));
+          // setProfileData(res.data);
         }
-        catch (error) {
-          console.log(error)
-          message.error('สร้างตำแหน่งไม่สำเร็จ');
+        fetchData();
+        
+      }, []);
+      
+      const onFinish = async (values: any) => {
+        // console.log('Success:', values);
+        // console.log('Success:', formData);
+        // console.log("permission", permission)
+        let permissionStr = permission.map((item) => item.rolePermission).join(',')
+        console.log("permissionStr", permissionStr)
+        setRequestData({
+          role: values['ชื่อตำแหน่ง'],
+          description: values['คำอธิบายตำแหน่ง'],
+          permissions: permissionStr,
+        })
+        requestData.description = values['คำอธิบายตำแหน่ง']
+        requestData.role = values['ชื่อตำแหน่ง']
+        requestData.permissions = permissionStr
+        console.log("requestData", requestData)
+          
+          try {
+            const res = await ProfileService.updateProfile(Number(apartId), Number(profileId), requestData)
+            console.log(res)
+            if (res.status === 200) {
+              message.success('แก้ไขตำแหน่งเรียบร้อยแล้ว');
+              nevigate(`/apartment/${apartId}/permission`)
+            }
+          }
+          catch (error) {
+            console.log(error)
+            message.error('แก้ไขตำแหน่งไม่สำเร็จ');
+        }
       }
-    }
     
 
     
      const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo);
       console.log('Failed:', formData);
+      message.error('แก้ไขตำแหน่งไม่สำเร็จ');
     }
     
       return (
@@ -136,7 +172,7 @@ const PermissionSetting : React.FC = () => {
         name="validateOnly" 
         layout="vertical" 
         autoComplete="off"
-        form={formRef.current}
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         >
@@ -147,6 +183,7 @@ const PermissionSetting : React.FC = () => {
                     <Input 
                         name='ชื่อตำแหน่ง'
                         onChange={handleChange}
+                        defaultValue={profileData.role}
                         style={{
                         width: '85%',
                         }} placeholder='ชื่อตำแหน่ง'/>
@@ -157,6 +194,7 @@ const PermissionSetting : React.FC = () => {
                     <Input.TextArea 
                         name='คำอธิบายตำแหน่ง'
                         onChange={handleChange}
+                        defaultValue={profileData.description}
                         placeholder='คำอธิบายตำแหน่ง'
                         style={{
                         width: '85%',
@@ -165,7 +203,7 @@ const PermissionSetting : React.FC = () => {
             </div>
             </div>
             <div className='w-1/2' >
-              <PermissionSettingTable data={data} permissionData={permission} setPermission={setPermission}/>
+              <PermissionDetailTable data={data} permissionData={permission} setPermission={setPermission} keyData={keyData}/>
             </div>
           </div>
 
@@ -197,4 +235,4 @@ const PermissionSetting : React.FC = () => {
       )
     }
   
-  export default PermissionSetting;
+  export default PermissionDetail;
