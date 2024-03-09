@@ -6,13 +6,13 @@
 
   .dataContainer {
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #711DB0;
     border-radius: 5px;
     margin-top: 20px; /* ระยะห่างของข้อมูลด้านใต้ divider */
   }
   
   .imageContainer {
-    background-color: lightgray;
+    background-color: #F3F3F3;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px; /* ระยะห่างของรูปภาพด้านใต้คำอธิบาย */

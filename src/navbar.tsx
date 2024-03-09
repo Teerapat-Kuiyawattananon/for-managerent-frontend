@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu, theme, Avatar, Input, notification, Button, Modal} from 'antd';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import type { MenuProps } from 'antd/lib/menu';
 import { FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, SearchOutlined, BellOutlined } from '@ant-design/icons';
 import AuthService from './services/auth.service';
+import ProfileService from './services/profile.service';
 import './navbar.css';
 import './index.css'
 
@@ -30,32 +31,35 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem('หน้าหลัก', 'home', <PieChartOutlined />),
-  getItem('ระบบการจัดการสำหรับผู้ดูแล', 'sub1', <UserOutlined />, [
-    getItem('รายการห้องเช่า', 'roomlist'),
-    getItem('ใบแจ้งหนี้', 'bill'),
-    getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'),
-    getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'),
-    // getItem('กระดานสรุปรายงานผล', 'dashboard'),
-    getItem('ประกาศทั้งหมด', 'anouncn'),
-    // getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
-  ]),
-  getItem('ระบบจัดการสำหรับผู้เช่า', 'sub2', <TeamOutlined />, [
-    getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'),
-    getItem('ประกาศของคุณ', 'report'),
-    // getItem('พัสดุของคุณ', 'yourPacket'),
-  ]),
-  getItem('การบริหารระบบ', 'sub3', <FileOutlined />, [
-    getItem('หอพักของคุณ', 'rent'),
-    getItem('การจัดการผู้ใช้', 'manageUser'),
-    getItem('ตั้งค่าสิทธิ์การเข้าใช้งาน', 'permission'),
-  ]),
-];
+
 
 const Navbar = ({component, title} : Page) => {
+  const items: MenuItem[] = [
+    getItem('หน้าหลัก', 'home', <PieChartOutlined />),
+    getItem('ระบบการจัดการสำหรับผู้ดูแล', 'sub1', <UserOutlined />, [
+      getItem('รายการห้องเช่า', 'roomlist'),
+      getItem('ใบแจ้งหนี้', 'bill'),
+      getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'),
+      getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'),
+      // getItem('กระดานสรุปรายงานผล', 'dashboard'),
+      getItem('ประกาศทั้งหมด', 'anouncn'),
+      // getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
+    ]),
+    getItem('ระบบจัดการสำหรับผู้เช่า', 'sub2', <TeamOutlined />, [
+      getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'),
+      getItem('ประกาศของคุณ', 'report'),
+      // getItem('พัสดุของคุณ', 'yourPacket'),
+    ]),
+    getItem('การบริหารระบบ', 'sub3', <FileOutlined />, [
+      getItem('หอพักของคุณ', 'rent'),
+      getItem('การจัดการผู้ใช้', 'manageUser'),
+      getItem('ตั้งค่าสิทธิ์การเข้าใช้งาน', 'permission'),
+    ]),
+  ];
   const { apartId } = useParams();
+  const [itemTest, setItemTest] = useState<MenuItem[]>(items);
   const [isCreateApartment, setIsCreateApartment] = useState(false);
+  const [permissionStr, setPermissionStr] = useState("");
   const [_collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -69,6 +73,11 @@ const Navbar = ({component, title} : Page) => {
     // ปุ่มค้นหา
   };
 
+  // ------------------------------
+
+
+
+  // -------------------------------
   const showNotification = () => {
     notification.open({
       message: 'ไม่มีการแจ้งเตือน',
@@ -132,6 +141,73 @@ const Navbar = ({component, title} : Page) => {
     window.location.href = '/login';
   }
 
+  useEffect(() => {
+    // Chekc role
+    // let permissonsStr = ""
+      const fetchPermission = async () => {
+        const res = await ProfileService.getPermissionByUserId(Number(apartId), currentUser.id)
+        if (res.status === 200) {
+          setPermissionStr(res.data)
+          // permissonsStr = res.data
+        }
+        // console.log("res", res)
+        // console.log("test", permissonsStr)
+      }
+      fetchPermission()
+      // fetchPermission()
+      const permissions = permissionStr.split(',')
+      const permissionList : MenuItem[] = []
+      const permissionListSub1 : MenuItem[] = []
+      const permissionListSub2 : MenuItem[] = []
+      const permissionListSub3 : MenuItem[] = []
+      for (const prs of permissions) {
+        if (prs === "หน้าหลัก") {
+          permissionList.push(getItem('หน้าหลัก', 'home', <PieChartOutlined />))
+        } else if (prs === "รายการห้องเช่า") {
+          permissionListSub1.push(getItem('รายการห้องเช่า', 'roomlist'))
+          // permissionList.push(getItem('รายการห้องเช่า', 'roomlist'))
+        } else if (prs === "ใบแจ้งหนี้") {
+          permissionListSub1.push(getItem('ใบแจ้งหนี้', 'bill'))
+          // permissionList.push(getItem('ใบแจ้งหนี้', 'bill'))
+        } else if (prs === "กรอกค่าน้ำค่าไฟ") {
+          permissionListSub1.push(getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'))
+          // permissionList.push(getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'))
+        } else if (prs === "กำหนดค่าใช้จ่ายเพิ่มเติม") {
+          permissionListSub1.push(getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'))
+          // permissionList.push(getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'))
+        } else if (prs === "ประกาศทั้งหมด") {
+          permissionListSub1.push(getItem('ประกาศทั้งหมด', 'anouncn'))
+          // permissionList.push(getItem('ประกาศทั้งหมด', 'anouncn'))
+        } else if (prs === "ใบแจ้งหนี้ของคุณ") {
+          permissionListSub2.push(getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'))
+          // permissionList.push(getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'))
+        } else if (prs === "ประกาศของคุณ") {
+          permissionListSub2.push(getItem('ประกาศของคุณ', 'report'))
+          // permissionList.push(getItem('ประกาศของคุณ', 'report'))
+        } else if (prs === "หอพักของคุณ") {
+          permissionListSub3.push(getItem('หอพักของคุณ', 'rent'))
+          // permissionList.push(getItem('หอพักของคุณ', 'rent'))
+        } else if (prs === "การจัดการผู้ใช้") {
+          permissionListSub3.push(getItem('การจัดการผู้ใช้', 'manageUser'))
+          // permissionList.push(getItem('การจัดการผู้ใช้', 'manageUser'))
+        } else if (prs === "ตั้งค่าสิทธิ์การเข้าใช้งาน") {  
+          permissionListSub3.push(getItem('ตั้งค่าสิทธิ์การเข้าใช้งาน', 'permission'))
+          // permissionList.push(getItem('ตั้งค่าสิทธิ์การเข้าใช้งาน', 'permission'))
+        }
+
+      }
+      if (permissionListSub1.length > 0) {
+        permissionList.push(getItem('ระบบการจัดการสำหรับผู้ดูแล', 'sub1', <UserOutlined />, permissionListSub1))
+      }
+      if (permissionListSub2.length > 0) {
+        permissionList.push(getItem('ระบบจัดการสำหรับผู้เช่า', 'sub2', <TeamOutlined />, permissionListSub2))
+      }
+      if (permissionListSub3.length > 0) {
+        permissionList.push(getItem('การบริหารระบบ', 'sub3', <FileOutlined />, permissionListSub3))
+      }
+      setItemTest(permissionList)
+  }, [permissionStr])
+
 
   return (
     <>
@@ -148,7 +224,7 @@ const Navbar = ({component, title} : Page) => {
             <span className="username-topmenu" style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.full_name }</span>
             <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.roll ? currentUser.roll: "ตำแหน่ง"}</span>
           </div>
-              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
+              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={itemTest} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
         </Sider>
         <Layout>
           <div className="header-top">
