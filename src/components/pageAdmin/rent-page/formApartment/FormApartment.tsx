@@ -60,15 +60,15 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
   }
 
   const handleChange = (e: any) => {
-    console.log(e.target.type)
-    console.log(e.target.value)
+    // console.log(e.target.type)
+    // console.log(e.target.value)
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "number" ? Number(e.target.value) : e.target.value
     })
 
-    console.log("valueData", valueData)
+    // console.log("valueData", valueData)
   }
 
   
@@ -140,14 +140,14 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
         <div className='w-1/2 h-1'>
         <Form.Item name="ที่อยู่" label="ที่อยู่" rules={[{ required: true }]}>
         <Input.TextArea 
-        name='address'
-        onChange={handleChange}
-        style={{
-          width: '85%',
-          // height: '120px',
+          name='address'
+          onChange={handleChange}
+          style={{
+            width: '85%',
+            // height: '120px',
           
-        }} placeholder='ที่อยู่'/>
-      </Form.Item>
+          }} placeholder='ที่อยู่'/>
+          </Form.Item>
         </div>
       </div>
       <div className='flex  justify-start mt-4'>
@@ -234,7 +234,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
 
       <div className='flex  justify-start'>
         <div className='w-1/2 mr-3'>
-              <Form.Item name="ค่าเช่ารายเดือน" label="ค่าเช่ารายเดือน" rules={[{ required: true }]}>
+              <Form.Item name="ค่าเช่ารายเดือน" label="ค่าเช่ารายเดือนโดยเฉลี่ย" rules={[{ required: true }]}>
           <Input 
           name='rent_amount'
           type='number'

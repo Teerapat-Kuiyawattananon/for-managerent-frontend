@@ -31,6 +31,7 @@ import ManageUserPage from './components/pageAdmin/manageUser-page/manageUserPag
 import ManageUserDetail from './components/pageAdmin/manageUser-page/manageUserDetail.tsx';
 import PermissionPage from './components/pageAdmin/permission-page/permissionPage';
 import PermissionSetting from './components/pageAdmin/permission-page/permissionSetting.tsx';
+import PermissionDetail from './components/pageAdmin/permission-page/permissoinDetail.tsx';
 
 import SettingPage from './components/pageAdmin/setting-Page/settingPage';
 import ForgetPassword from './components/fotgetPassword/forgetPassword.tsx';
@@ -40,6 +41,11 @@ import CreatePassword from './components/createPassword/createPassword.tsx';
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 import ServiceRoomSetting from './components/pageAdmin/setting-Page/ServiceRoomSetting.tsx';
 import WaterElecPage from './components/pageStaff/water-elec-page/WaterElecPage.tsx';
+
+import RentDetailPage from './components/pageAdmin/rent-page/rentDetailPage.tsx';
+import FixElecWater from './components/pageAdmin/rent-page/fixElecWater.tsx';
+import ManageUserAdd from './components/pageAdmin/manageUser-page/manageUserAdd.tsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -72,7 +78,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/manageUser/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/permission/detail" element={<Navbar component={<PermissionSetting />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
-        <Route path="/setting" element={<Navbar component={<SettingPage />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
+        <Route path="/setting" element={<Navbar component={<SettingPage />} title={"กำหนดค่าใช้จ่ายเพิ่มเติม"} />} />
 
 
         <Route path="/apartment/:apartId/roomlist/:roomId/form" element={<Navbar component={<RoomListFromAdd />} title={"เพิ่มผู้เช่า"} />} />
@@ -85,19 +91,26 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
         <Route path="/apartment/:apartId/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
         <Route path="/apartment/:apartId/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
-        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"ประกาศทั้งหมด"}/>} />
         <Route path="/apartment/:apartId/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
 
         <Route path="/apartment/:apartId/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />
         <Route path="/apartment/:apartId/report" element={<Navbar component={<ReportPage />} title={"แจ้งปัญหา"}/>} />
         <Route path="/apartment/:apartId/yourPacket" element={<Navbar component={<YourpacketPage />} title={"พัสดุของคุณ"}/>} />
 
+
+        <Route path="/apartment/:apartId/manageUser/add" element={<Navbar component={<ManageUserAdd />} title={"เพิ่มผู้ใช้"} />} />
+        <Route path="/apartment/:apartId/manageUser/:userId/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+        <Route path="/apartment/:apartId/rentdetail" element={<Navbar component={<RentDetailPage />} title={"รายละเอียดหอพัก"} />} />
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
-        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
-        <Route path="/apartment/:apartId/services/:serviceId" element={<Navbar component={<ServiceRoomSetting />} title={"ตั้งค่าค่าใช้จ่าย"} />} />
+        <Route path="/apartment/:apartId/permission/:profileId/detail" element={<Navbar component={<PermissionDetail />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/apartment/:apartId/permission/create-profile" element={<Navbar component={<PermissionSetting />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
+        <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"กำหนดค่าใช้จ่ายเพิ่มเติม"} />} />
+        <Route path="/apartment/:apartId/services/:serviceId" element={<Navbar component={<ServiceRoomSetting />} title={"กำหนดค่าใช้จ่ายเพิ่มเติม"} />} />
         <Route path='/apartment/:apartId/waterElec' element={<Navbar component={<WaterElecPage />} title={"กรอกค่าน้ำค่าไฟ"} />} />
+        <Route path='/apartment/:apartId/fixElecwater'element={<Navbar component={<FixElecWater />} title={"แก้ไขค่าน้ำค่าไฟ"} />} />
         <Route path="/test" element={<TestUpload />} />
 
       </Routes>

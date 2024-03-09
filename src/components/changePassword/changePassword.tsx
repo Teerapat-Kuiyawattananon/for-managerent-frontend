@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Form, Input, message, Image } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import './changePassword.css';
 import AuthService from '../../services/auth.service';
 
@@ -9,13 +9,26 @@ interface ChangePasswordFormData {
     passwordConfirm: string;
 }
 
+interface ChangePasswordRequest {
+    new_password: string;
+    token: string | null;
+}
 
 const ChangePassword: React.FC = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState<ChangePasswordFormData>({
         password: '',
         passwordConfirm: '',
     });
+    const [request, setRequest] = useState<ChangePasswordRequest>({
+        new_password: '',
+        token: '',
+    });
+
+    const token = searchParams.get('token');
+    console.log(token)
+
     const onChange = (currentSlide: number) => {
         console.log(currentSlide);
     };
@@ -35,16 +48,21 @@ const ChangePassword: React.FC = () => {
     const handleSubmit = async () => {
         try {
             console.log(formData);
-            const response = await AuthService.changePassword(formData);
+            setRequest({
+                new_password: formData.password,
+                token: token
+            })
+            const response = await AuthService.changePassword(request);
             if (response.status === 200) {
                 console.log('Change password successful:', response.data);
                 message.success('You have successfully registered your account!');
-                navigate('/register');
+                navigate('/login');
             }
         } catch (error) {
+            console.log("request", request)
             message.open({
                 type: 'error',
-                content: 'Username or password is incorrect',
+                content: 'Token is invalid or expired! Please try again.',
                 duration: 8
             });
         }

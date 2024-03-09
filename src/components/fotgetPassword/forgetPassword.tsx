@@ -5,14 +5,14 @@ import './ForgetPassword.css';
 import AuthService from '../../services/auth.service';
 
 interface ForgetPasswordFormData {
-    emailAdress: string;
+    email: string;
 }
 
 
 const ForgetPassword: React.FC = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState<ForgetPasswordFormData>({
-        emailAdress: '',
+        email: '',
     });
     const onChange = (currentSlide: number) => {
         console.log(currentSlide);
@@ -32,17 +32,17 @@ const ForgetPassword: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
-            console.log(formData);
-            const response = await AuthService.forgetPassword(formData);
+            console.log("formData", formData);
+            const response = await AuthService.forgotPassword(formData);
             if (response.status === 200) {
-                console.log('Change password successful:', response.data);
-                message.success('You have successfully registered your account!');
-                navigate('/register');
+                console.log('Change password successful:', response);
+                message.success('Send email successful! Please check your email to reset password');
+                navigate('/login');
             }
         } catch (error) {
             message.open({
                 type: 'error',
-                content: 'Username or password is incorrect',
+                content: 'Email not found! Please try again',
                 duration: 8
             });
         }
@@ -86,15 +86,15 @@ const ForgetPassword: React.FC = () => {
                             </span>
                             <Form.Item<ForgetPasswordFormData>
                                 label="Please Enter Email"
-                                name='emailAdress'
+                                name='email'
                                 rules={[
                                     { required: true, message: 'Please Enter Your Email!' },
                                 ]}
                             >
                                 <Input
                                     placeholder='Please Enter Email'
-                                    name='emailAdress'
-                                    value={formData.emailAdress}
+                                    name='email'
+                                    value={formData.email}
                                     onChange={handleChange}
                                 />
                             </Form.Item>

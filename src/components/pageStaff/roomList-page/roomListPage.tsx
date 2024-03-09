@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { Button, Space, } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Button, Space, Modal, Upload, message, Image,  Carousel  } from 'antd';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import RoomListTable from './roomListTable';
 import RoomService from './../../../services/room.service';
+import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { useParams } from 'react-router-dom';
 
 interface Room {
-  // key: number;
   id: number;
   floor_name: string;
   room_name: string;
@@ -24,55 +24,45 @@ interface RoomData {
   roomStatus: string;
 }
 
-const data = [
-  {
-    key: '1',
-    floor: '1',
-    roomName: '101',
-    tenantName: 'สมโชค',
-    roomRent: 5000,
-    roomStatus: 'available',
-  },
-  {
-    key: '2',
-    floor: '1',
-    roomName: '102',
-    tenantName: 'สมหมาย',
-    roomRent: 4500,
-    roomStatus: 'unavailable',
-  },
-  {
-    key: '3',
-    floor: '1',
-    roomName: '103',
-    tenantName: 'สมชาย',
-    roomRent: 5000,
-    roomStatus: 'unavailable',
-  },
-  {
-    key: '4',
-    floor: '2',
-    roomName: '104',
-    tenantName: 'สมเพรช',
-    roomRent: 5000,
-    roomStatus: 'unavailable',
-  },
-  {
-    key: '5',
-    floor: '3',
-    roomName: '104',
-    tenantName: 'สมเพรช',
-    roomRent: 5000,
-    roomStatus: 'unavailable',
-  },
-];
+const contentStyle: React.CSSProperties = {
+  margin: 0,
+  height: '160px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
+};
 
 
 const RoomListPage: React.FC = () => {
   const [rooms, setRooms] = React.useState<Room[]>([]);
   const [roomsData, setRoomsData] = React.useState<RoomData[]>([]);
   const { apartId } = useParams()
-  
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const onChange = (currentSlide: number) => {
+    console.log(currentSlide);
+  };
+
+  const props: UploadProps = {
+    name: 'file',
+    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+        setFileList([info.file]);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,15 +74,16 @@ const RoomListPage: React.FC = () => {
     fetchData()
       .catch(console.error)
   }, [])
+
+
   return (
     <>
       <div>
-        <Space style={{ marginBottom: 16 }}>
+        {/* <Space style={{ marginBottom: 16 }}>
           <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
-        </Space>
+        </Space> */}
         <RoomListTable data={roomsData}/>
       </div>
-
     </>
   );
 };
