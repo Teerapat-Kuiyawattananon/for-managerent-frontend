@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import authHeader from "./auth-header";
 const API_URL = "http://localhost:3232/api/apartments/";
 
 class ApartmentService {
@@ -114,6 +114,44 @@ class ApartmentService {
                 return response.data;
             });
     }
+
+    postAnnounce(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/announce", data, { headers: {
+                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}').access_token
+            } })
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getAnnounce(apartId: Number) {
+        return axios
+            .get(API_URL + apartId + "/announce")
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getYourAnnounce(apartId: Number) {
+        return axios
+            .get(API_URL + apartId + "/announce/your", {headers: {
+                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}').access_token
+            }})
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    deleteAnnounce(apartId: Number, announceId: Number) {
+        return axios
+            .delete(API_URL + apartId + "/announce/" + announceId, {headers: {
+                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}').access_token
+            }})
+            .then(response => {
+                return response.data;
+            });
+        }
 }
 
 export default new ApartmentService();
