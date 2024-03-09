@@ -180,9 +180,12 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
           }} />
         </Form.Item>
         </div>
-        <div className='w-1/2 h-1'>
-          <Upload {...props}>
-              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </div>
+
+      <div className='flex  justify-start mt-4'>
+        <div className='w-1/2 mr-3'>
+          <Upload {...props} >
+              <Button type="primary" icon={<UploadOutlined />}>เพิ่มรูป QR CODE บัญชีธนาคาร</Button>
           </Upload>
         </div>
       </div>
