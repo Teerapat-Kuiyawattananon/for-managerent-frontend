@@ -1,6 +1,9 @@
-import { Form, Input, Button, Select } from 'antd'
+import { Form, Input, Button, Select , message, Upload } from 'antd'
 import axios from 'axios'
+import type { UploadProps } from 'antd'
+import { UploadOutlined } from '@ant-design/icons';
 import React, {useState} from 'react'
+import ApartmentService from '../../../../services/apartment.service'
 
 interface FormBankAccountData {
     apartment_id: number
@@ -17,6 +20,7 @@ interface FormBankAccountProps {
 }
 
 
+
 const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccountProps) => {
     // const [formData, setFormData] = useState<FormBankAccount>(
     //     {
@@ -28,6 +32,25 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
     // );
 
     const [formData, setFormData] = useState<FormBankAccountData>(valueData.form3);
+    const [fileUp, setFileUp] = useState<File>()
+    const props: UploadProps = {
+      name: 'file',
+      action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+      headers: {
+        authorization: 'authorization-text',
+      },
+      onChange(info) {
+        setFileUp(info.file.originFileObj)
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
 
     const handleNext = () => {
         console.log(currentState)
@@ -51,7 +74,7 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
             ...formData,
             bank_name: value
         })
-        console.log(formData)
+        // console.log(formData)
       }
 
       const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -70,11 +93,31 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
                 const apartment_id = response.data.data.id
                 valueData.form1.apartment_id = apartment_id
                 console.log("apartment_id", apartment_id)
-                // next()
+                if (apartment_id === 0 || apartment_id === undefined || apartment_id === null || fileUp === undefined) { 
+                  // upload file
+                  message.error('ไม่สารถเพิ่มรูปภาพได้')
+                  next()
+                  return
+                }
+                const formImageData = new FormData()
+                formImageData.append('info', "QRCODE")
+                formImageData.append('files', fileUp)
+                try {
+                  const resImage = await ApartmentService.uploadImage(Number(apartment_id), formImageData)
+                  console.log('resImage', resImage)
+                  if (resImage.status === 200) {
+                    message.success('เพิ่มรูปภาพสำเร็จ');
+                    next()
+                  }
+                }
+                catch (error) {
+                  console.log('Failed:', formData);
+                }
+                next()
                     // Handle successful registration (e.g., clear form, redirect)
                 } else {
                     console.log('Failed:', formData);
-            
+                
             }
             // console.log('response in FormBankAccount', response.data)
             // console.log('valueData in FormBankAccount', valueData)
@@ -158,7 +201,14 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
           }} />
         </Form.Item>
         </div>
-    
+      </div>
+
+      <div className='flex  justify-start mt-4'>
+        <div className='w-1/2 mr-3 mb-5'>
+          <Upload {...props} >
+              <Button type="primary" icon={<UploadOutlined />}>เพิ่มรูป QR CODE บัญชีธนาคาร</Button>
+          </Upload>
+        </div>
       </div>
       <Button type="primary" htmlType='submit' style={{
             // background: "711DB0",
@@ -167,10 +217,10 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
           onClick={handleNext}
           >
             เสร็จสิ้น
-          </Button>
-          <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
+        </Button>
+        <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
             ย้อนกลับ
-          </Button>
+        </Button>
     
   </Form>
   

@@ -1,30 +1,13 @@
 import React from 'react';
-import { Button, message, Steps, theme, Modal } from 'antd'
+import { Button, Steps, theme, Modal } from 'antd'
 import { useState } from 'react';
 import './rentPage.css'
 import FormApartment from './formApartment/FormApartment';
 import FormRoomCreate from './formApartment/FormRoomCreate';
 import FormBankAccount from './formApartment/FormBankAccount';
 import SummaryApartment from './formApartment/SummaryApartment';
-import { Link, useNavigate } from 'react-router-dom';
-// const steps = [
-//     {
-//       title: 'กรอกรายละเอียดหอพัก',
-//       content: <FormApartment handleNext={next}/>,
-//     },
-//     {
-//       title: 'กำหนดรายละเอียดห้องพัก',
-//       content: 'Second-content',
-//     },
-//     {
-//       title: 'ช่องทางการชำระเงิน',
-//       content: 'Third-content',
-//     },
-//     {
-//         title: 'สรุปข้อมูล',
-//         content: 'Last-content',
-//     }
-//   ];
+import {  useNavigate } from 'react-router-dom';
+
 
 interface Form1ApartmentState {
     apartment_id: number

@@ -41,7 +41,11 @@ import CreatePassword from './components/createPassword/createPassword.tsx';
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 import ServiceRoomSetting from './components/pageAdmin/setting-Page/ServiceRoomSetting.tsx';
 import WaterElecPage from './components/pageStaff/water-elec-page/WaterElecPage.tsx';
+
+import RentDetailPage from './components/pageAdmin/rent-page/rentDetailPage.tsx';
+import FixElecWater from './components/pageAdmin/rent-page/fixElecWater.tsx';
 import ManageUserAdd from './components/pageAdmin/manageUser-page/manageUserAdd.tsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -98,6 +102,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/manageUser/add" element={<Navbar component={<ManageUserAdd />} title={"เพิ่มผู้ใช้"} />} />
         <Route path="/apartment/:apartId/manageUser/:userId/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
+        <Route path="/apartment/:apartId/rentdetail" element={<Navbar component={<RentDetailPage />} title={"รายละเอียดหอพัก"} />} />
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
         <Route path="/apartment/:apartId/permission/:profileId/detail" element={<Navbar component={<PermissionDetail />} title={"รายละเอียดสิทธิ์การเข้าใช้งาน"} />} />
@@ -105,6 +110,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/setting" element={<Navbar component={<SettingPage />} title={"กำหนดค่าใช้จ่ายเพิ่มเติม"} />} />
         <Route path="/apartment/:apartId/services/:serviceId" element={<Navbar component={<ServiceRoomSetting />} title={"กำหนดค่าใช้จ่ายเพิ่มเติม"} />} />
         <Route path='/apartment/:apartId/waterElec' element={<Navbar component={<WaterElecPage />} title={"กรอกค่าน้ำค่าไฟ"} />} />
+        <Route path='/apartment/:apartId/fixElecwater'element={<Navbar component={<FixElecWater />} title={"แก้ไขค่าน้ำค่าไฟ"} />} />
         <Route path="/test" element={<TestUpload />} />
 
       </Routes>
