@@ -49,6 +49,26 @@ class AuthService {
         return JSON.parse(localStorage.getItem('user') || '{}');
     }
 
+    forgotPassword(email: any) {
+        return axios.post(API_URL + "forgot-password", email)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    changePassword(formData: any) {
+        return axios.post(API_URL + "reset-password", formData)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    createPassword(formData: any) {
+        return axios.post(API_URL + "setup-password", formData)
+            .then(response => {
+                return response.data;
+            });
+    }
 
 }
 
