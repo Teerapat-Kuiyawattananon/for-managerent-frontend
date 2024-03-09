@@ -55,7 +55,7 @@ const CreatePassword: React.FC = () => {
     return (
         <div className="flex">
             <section className="w-full h-screen bg-purple-theme justify-center hidden lg:block">
-                <section className="w-full my-40">
+                <section className="w-full my-20">
                     <div className="mb-16 mt-6">
                         <h1 className='text-4xl text-center text-white font-extrabold'>For ManageRent</h1>
                     </div>
