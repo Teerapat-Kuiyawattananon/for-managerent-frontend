@@ -38,12 +38,12 @@ const items: MenuItem[] = [
     getItem('กรอกค่าน้ำค่าไฟ', 'waterElec'),
     getItem('กำหนดค่าใช้จ่ายเพิ่มเติม', 'setting'),
     // getItem('กระดานสรุปรายงานผล', 'dashboard'),
-    getItem('จัดการประกาศและคำร้อง', 'anouncn'),
+    getItem('ประกาศทั้งหมด', 'anouncn'),
     // getItem('แจ้งเตือนพัสดุและยืนยัน', 'packet'),
   ]),
   getItem('ระบบจัดการสำหรับผู้เช่า', 'sub2', <TeamOutlined />, [
     getItem('ใบแจ้งหนี้ของคุณ', 'yourBill'),
-    getItem('แจ้งปัญหา', 'report'),
+    getItem('ประกาศของคุณ', 'report'),
     // getItem('พัสดุของคุณ', 'yourPacket'),
   ]),
   getItem('การบริหารระบบ', 'sub3', <FileOutlined />, [

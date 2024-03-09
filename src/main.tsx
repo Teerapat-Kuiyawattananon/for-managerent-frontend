@@ -86,7 +86,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/roomlist" element={<Navbar component={<RoomListPage />} title={"รายการห้องเช่า"} />} />
         <Route path="/apartment/:apartId/bill" element={<Navbar component={<BillPage/>} title={"ใบแจ้งหนี้"} />} />
         <Route path="/apartment/:apartId/dashboard" element={<Navbar component={<DashBoardPage />} title={"กระดานสรุปรายงานผล"}/>} />'
-        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"จัดการประกาศและคำร้อง"}/>} />
+        <Route path="/apartment/:apartId/anouncn" element={<Navbar component={<AnouncePage />} title={"ประกาศทั้งหมด"}/>} />
         <Route path="/apartment/:apartId/packet" element={<Navbar component={<PacketPage />} title={"แจ้งเตือนพัสดุและยืนยัน"}/>} />
 
         <Route path="/apartment/:apartId/yourBill" element={<Navbar component={<YourBillPage />} title={"ใบแจ้งหนี้ของคุณ"}/>} />

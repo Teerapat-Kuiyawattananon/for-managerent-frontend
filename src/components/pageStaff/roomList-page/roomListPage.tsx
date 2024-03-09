@@ -87,9 +87,9 @@ const RoomListPage: React.FC = () => {
   return (
     <>
       <div>
-        <Space style={{ marginBottom: 16 }}>
+        {/* <Space style={{ marginBottom: 16 }}>
           <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
-        </Space>
+        </Space> */}
         <RoomListTable data={roomsData}/>
       </div>
 
