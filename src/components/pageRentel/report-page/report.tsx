@@ -3,6 +3,7 @@ import { NotificationOutlined , UploadOutlined } from '@ant-design/icons';
 import { Button , Modal , Form, Input, Upload, Image, message} from 'antd';
 import { useParams } from 'react-router-dom';
 import ApartmentService from '../../../services/apartment.service';
+import dayjs from 'dayjs';
 
 const dataTest = [
     {
@@ -49,6 +50,9 @@ const dataTest = [
     id: number;
     title: string;
     description: string;
+    role :string;
+    author_name: string;
+    created_at: string;
     images: ImageFile[];
   }
   
@@ -117,7 +121,30 @@ const ReportPage: React.FC = () => {
       const handleCancel = () => {
         setIsModalOpen(false);
       };
-    
+      
+
+      const handlerDelete = async (id: number) => {
+        console.log("id", id)
+        try {
+            const res = await ApartmentService.deleteAnnounce(Number(apartId), id)
+            console.log('res', res)
+            if (res.status === 200) {
+                message.success('ลบประกาศสำเร็จ');
+                const fetchData = async () => {
+                    const resData = await ApartmentService.getAnnounce(Number(apartId))
+                    console.log("resData", resData)
+                    setData(resData.data)
+                    form.resetFields()
+                }
+                fetchData()
+            } 
+        }
+        catch (error) {
+            message.error('ลบประกาศไม่สำเร็จ');
+        }   
+      }
+
+
       const normFile = (e: any) => {
         console.log('Upload event:', e);
         console.log("file list", e?.fileList)
@@ -145,7 +172,7 @@ const ReportPage: React.FC = () => {
             <div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span><NotificationOutlined /> ข้อมูลข่าวสาร</span>
+                <span className='text-xl '><NotificationOutlined /> ข้อมูลข่าวสาร</span>
                 <Button type="primary" onClick={showModal}>
                     เพิ่มประกาศ
                 </Button>
@@ -200,8 +227,23 @@ const ReportPage: React.FC = () => {
             {data.map((data, indexPost) => {
                     return (
                         <div className="dataContainer" key={indexPost}>
-                            <h2 className='text-xl font-bold'>ชื่อประกาศ: {data.title}</h2>
-                            <p className='text-lg'>{data.description}</p>
+                            <div className='flex border-b border-violet-700 py-5 mb-5 '>
+                                <div className='w-1/2'>
+                                    <p className='text-lg '>ตำแหน่ง: {data.role} </p>
+                                    <p className=''>ชื่อผู้ประกาศ: {data.author_name}</p>
+                                    <p className=''>วันที่ประกาศ: {dayjs(data.created_at).format('DD/MM/YYYY')}</p>
+                                </div>
+                            <div className='flex w-1/2 justify-end '>
+                                <Button className='' danger onClick={() => handlerDelete(data.id)}>ลบประกาศ</Button>
+                            </div>    
+                            </div>
+
+
+
+
+
+                            <h2 className=''>หัวข้อประกาศ: {data.title}</h2>
+                            <p className=''>{data.description}</p>
                             <div className="imageContainer">
                                 {/* <p>คำอธิบาย</p> */}
                                 {/* รูปภาพจะอยู่ในสี่เหลี่ยมผืนผ้า */}
