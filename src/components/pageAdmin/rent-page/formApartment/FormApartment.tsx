@@ -234,7 +234,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
 
       <div className='flex  justify-start'>
         <div className='w-1/2 mr-3'>
-              <Form.Item name="ค่าเช่ารายเดือน" label="ค่าเช่ารายเดือน" rules={[{ required: true }]}>
+              <Form.Item name="ค่าเช่ารายเดือน" label="ค่าเช่ารายเดือนโดยเฉลี่ย" rules={[{ required: true }]}>
           <Input 
           name='rent_amount'
           type='number'
