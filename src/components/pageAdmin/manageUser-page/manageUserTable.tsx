@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, ConfigProvider, message, Popconfirm} from 'antd';
 import { FileOutlined ,DeleteOutlined } from '@ant-design/icons';
 import type { TableColumnsType, TableProps } from 'antd';
-
-import { Link } from 'react-router-dom';
+import ProfileService from '../../../services/profile.service';
+import { Link, useParams } from 'react-router-dom';
 
 type TableRowSelection<T> = TableProps<T>['rowSelection'];
 
@@ -13,16 +13,16 @@ interface ManageUserTableProps {
 
 export interface ManageUserTableData {
     key: React.Key;
-    roleName: string;
-    roomName: string;
+    role_name: string;
+    room_name: string;
     name: string;
     email: string;
 }
 
 const ManageUserTable: React.FC<ManageUserTableProps> = ({ data }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [tableData, setTableData] = useState<ManageUserTableData[]>(data);
-    
+    const [tableData, setTableData] = useState<ManageUserTableData[]>([]);
+    const { apartId } = useParams();
 const cancel = () => {
     console.log("Canceled");
   };
@@ -46,24 +46,31 @@ const rowSelection: TableRowSelection<ManageUserTableData> = {
     onChange: onSelectChange,
 };
 
-    
+    useEffect(() => {
+       const fetchData = async () => {
+        const res = await ProfileService.getProfileUserList(Number(apartId))
+        console.log(res)
+        setTableData(res.data)
+       }
+       fetchData()
+    }, []);
 
     
     const columns: TableColumnsType<ManageUserTableData> = [
         {
             title: 'ชื่อตำแหน่ง',
-            dataIndex: 'roleName',
-            key: 'roleName',
+            dataIndex: 'role_name',
+            key: 'role_name',
         },
         {
             title: 'ห้อง',
-            dataIndex: 'roomName',
-            key: 'roomName',
+            dataIndex: 'room_name',
+            key: 'room_name',
         },
         {
             title: 'ชื่อ-นามสกุล',
-            dataIndex: 'name',
-            key: 'name',
+            dataIndex: 'full_name',
+            key: 'full_name',
         },
         {
             title: 'อีเมล',
@@ -76,7 +83,7 @@ const rowSelection: TableRowSelection<ManageUserTableData> = {
             key: 'action',
             render: (_, record) => (
                 <>
-                  <Link to= "/manageUser/detail"> 
+                  <Link to= {`/apartment/${apartId}/manageUser/${record.key}/detail`}> 
                         <Button>
                             <FileOutlined />
                          </Button>
@@ -90,9 +97,9 @@ const rowSelection: TableRowSelection<ManageUserTableData> = {
                         okText="ลบผู้ใช้"
                         cancelText="ยกเลิก"
                     >
-                        <Button>
+                        {/* <Button>
                             <DeleteOutlined />
-                        </Button>
+                        </Button> */}
                     </Popconfirm>
                 </>
             ),

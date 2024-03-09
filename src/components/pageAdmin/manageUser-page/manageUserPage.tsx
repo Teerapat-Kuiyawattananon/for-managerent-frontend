@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ManageUserTable from './manageUserTable';
 import { Button , Modal , Form, Input, } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const data = [
     {
@@ -50,11 +50,11 @@ const data = [
   ];
 
 const ManageUserPage: React.FC = () => {
-    
+    const { apartId } = useParams();
       return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "10px"}}>
-                    < Link to= "/apartment/:apartId/manageUser/add"> 
+                    < Link to= {`/apartment/${apartId}/manageUser/add`}> 
                         <Button type="primary">
                             เพิ่มผู้ใช้
                          </Button>

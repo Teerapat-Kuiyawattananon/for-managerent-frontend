@@ -95,6 +95,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 
         <Route path="/apartment/:apartId/manageUser/add" element={<Navbar component={<ManageUserAdd />} title={"เพิ่มผู้ใช้"} />} />
+        <Route path="/apartment/:apartId/manageUser/:userId/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
