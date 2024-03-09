@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
+import { Button, Form, Input} from 'antd';
 
 const SettingElecWater: React.FC = () => {
     return (
@@ -13,15 +13,17 @@ const SettingElecWater: React.FC = () => {
         >
             <div className='flex  justify-start'>
                 <div className='w-1/2 mr-3'>
-                    <Form.Item name="ค่าน้ำ" label="ค่าน้ำ" rules={[{ required: true }]}>
+                    <Form.Item name="ค่าน้ำ" label="ค่าน้ำ/หน่วย" rules={[{ required: true }]}>
                         <Input
+                            type='number'
                             name='name'
                             style={{ width: '85%', }} placeholder='ค่าน้ำ' />
                     </Form.Item>
                 </div>
                 <div className='w-1/2 h-1'>
-                    <Form.Item name="ค่าไฟ" label="ค่าไฟ" rules={[{ required: true }]}>
+                    <Form.Item name="ค่าไฟ" label="ค่าไฟ/หน่วย" rules={[{ required: true }]}>
                         <Input
+                            type='number'
                             name='address'
                             style={{
                                 width: '85%',
@@ -42,7 +44,9 @@ const SettingElecWater: React.FC = () => {
                 </div>
             </div>
             <div className='flex justify-end'>
-                <Button type="primary" htmlType='submit'>บันทึก
+                <Button 
+                    type="primary" 
+                    htmlType='submit'>บันทึก
                 </Button>
             </div>
         </Form>

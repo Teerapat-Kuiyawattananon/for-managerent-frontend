@@ -1,5 +1,7 @@
-import { Form, Input, Button, Select } from 'antd'
+import { Form, Input, Button, Select , message, Upload } from 'antd'
 import axios from 'axios'
+import type { UploadProps } from 'antd'
+import { UploadOutlined } from '@ant-design/icons';
 import React, {useState} from 'react'
 
 interface FormBankAccountData {
@@ -15,6 +17,26 @@ interface FormBankAccountProps {
     currentState: number
     valueData : any
 }
+
+
+const props: UploadProps = {
+  name: 'file',
+  action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
+
 
 
 const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccountProps) => {
@@ -158,7 +180,11 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
           }} />
         </Form.Item>
         </div>
-    
+        <div className='w-1/2 h-1'>
+          <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </div>
       </div>
       <Button type="primary" htmlType='submit' style={{
             // background: "711DB0",
@@ -167,10 +193,10 @@ const FormBankAccount = ({next, prev, currentState, valueData} : FormBankAccount
           onClick={handleNext}
           >
             เสร็จสิ้น
-          </Button>
-          <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
+        </Button>
+        <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
             ย้อนกลับ
-          </Button>
+        </Button>
     
   </Form>
   
