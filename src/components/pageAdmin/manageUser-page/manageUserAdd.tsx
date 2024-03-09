@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ProfileService from '../../../services/profile.service';
 import dayjs from 'dayjs'
 
-interface ManageUserDetailState {
+interface ManageUserAddState {
   name: string
   last_name: string
   nick_name: string
@@ -41,10 +41,11 @@ interface ProfileRole {
 }
 
 
-const ManageUserDetail: React.FC = () => {
+const ManageUserAdd: React.FC = () => {
   const [form] = Form.useForm();
+  const nevigate = useNavigate()
   const [profileData, setProfileData] = useState<ProfileRole[]>([])
-  const [formData, setFormData] = useState<ManageUserDetailState>({
+  const [formData, setFormData] = useState<ManageUserAddState>({
     name: '',
     last_name: '',
     nick_name: '',
@@ -53,14 +54,14 @@ const ManageUserDetail: React.FC = () => {
     line_id: '',
     email: '',
     mobile_number: '',
-    profile_id: 3,
+    profile_id: 0,
     permanent_address: '',
     full_name: '',
     username: '',
     password: '',
   })
-  const [isEditing, setIsEditing] = useState(true);
-  const { apartId, userId } = useParams();
+  const [isEditing, setIsEditing] = useState(false);
+  const { apartId } = useParams();
 
   const handleEditSave = () => {
     if (isEditing) {
@@ -70,12 +71,6 @@ const ManageUserDetail: React.FC = () => {
     }
     setIsEditing(!isEditing);
   };
-
-  const handlerSave = (values : any) => {
-    // console.log("value", values)
-    console.log("formData", formData)
-    setIsEditing(!isEditing);
-  }
   
 
   const handleChange = (e: any) => {
@@ -86,6 +81,21 @@ const ManageUserDetail: React.FC = () => {
     })
   }
   const onFinish = async (values: any) => {
+    // setFormData({
+    //   name: values['ชื่อจริง'],
+    //   last_name: values['นามสกุล'],
+    //   nick_name: values['ชื่อเล่น'],
+    //   birth_day: new Date(values['วันเกิด'].format('YYYY-MM-DD')),
+    //   id_card_number: values['เลขบัตรประชาชน'],
+    //   line_id: values['Line ID'],
+    //   email: values['อีเมล'],
+    //   mobile_number: values['เบอร์โทรศัพท์'],
+    //   profile_id: values['โปรไฟล์'],
+    //   permanent_address: values['ที่อยู่'],
+    //   full_name: values['ชื่อจริง'] + " " + values['นามสกุล'],
+    //   username: values['อีเมล'],
+    //   password: values['Password'],
+    // })
     try {
       // check is empty
       if (values['ชื่อจริง'] === undefined || values['นามสกุล'] === undefined || values['ชื่อเล่น'] === undefined || values['วันเกิด'] === undefined 
@@ -109,13 +119,12 @@ const ManageUserDetail: React.FC = () => {
       formData.password = values['Password']
       console.log('Success: FormData', formData);
       console.log("pass")
-      const res = await ProfileService.updateUserWithProfile(Number(apartId), Number(userId), formData)
+      const res = await ProfileService.addUserWithProfile(Number(apartId), formData)
       console.log('Success: res', res);
       if (res.status === 200) {
-        message.success('แก้ไขผู้ใช้สำเร็จ')
-        // nevigate(`/apartment/${apartId}/manageUser`)
-      } else
-        message.error('แก้ไขผู้ใช้ไม่สำเร็จ')
+        message.success('เพิ่มผู้ใช้สำเร็จ')
+        nevigate(`/apartment/${apartId}/manageUser`)
+      }
     }
     catch (error) {
       console.log('Failed:', formData);
@@ -128,7 +137,6 @@ const ManageUserDetail: React.FC = () => {
   
   useEffect(() => {
     // โค้ดที่ต้องการให้ทำงานหลังจากการ render
-    console.log("from useeffect")
     const fetchData = async () => {
       try {
         // โค้ดที่ใช้ในการดึงข้อมูลจาก server
@@ -136,14 +144,6 @@ const ManageUserDetail: React.FC = () => {
         console.log(res)
         if (res.status == 200) {
           setProfileData(res.add_user)
-          // form.resetFields()
-        }
-        const resUser = await ProfileService.getProfileUserDetail(Number(apartId), Number(userId))
-        console.log(resUser)
-        if (resUser.status == 200) {
-          setFormData(resUser.data)
-          console.log('formData', formData)
-          // console.log('resUser.data', resUser.data)
           form.resetFields()
         }
         // setProfileData(response.data);
@@ -152,14 +152,13 @@ const ManageUserDetail: React.FC = () => {
       }
     }
     fetchData()
-    form.resetFields()
   }, [])
     return (
         <>
           <Form  
+            name="validateOnly" 
             layout="vertical" 
             autoComplete="off"
-            disabled={isEditing}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             form={form}
@@ -169,11 +168,9 @@ const ManageUserDetail: React.FC = () => {
             </div>
             <div className='flex  justify-start'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.name} name="ชื่อจริง" label="ชื่อจริง" rules={[{ required: true }]}>
+                <Form.Item name="ชื่อจริง" label="ชื่อจริง" rules={[{ required: true }]}>
                   <Input 
                     name='name'
-                    // defaultValue={formData.name}
-                    value={formData.name}
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='ชื่อจริง'
@@ -181,10 +178,9 @@ const ManageUserDetail: React.FC = () => {
                 </Form.Item>
               </div>
               <div className='w-1/2 h-1'>
-                <Form.Item initialValue={formData.last_name} name="นามสกุล" label="นามสกุล" rules={[{ required: true }]}>
+                <Form.Item name="นามสกุล" label="นามสกุล" rules={[{ required: true }]}>
                   <Input
-                    // name='last_name'
-                    defaultValue={formData.last_name}
+                    name='lastname '
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='นามสกุล'
@@ -195,10 +191,9 @@ const ManageUserDetail: React.FC = () => {
       
             <div className='flex  justify-start mt4'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.nick_name} name="ชื่อเล่น" label="ชื่อเล่น" rules={[{ required: true }]}>
+                <Form.Item name="ชื่อเล่น" label="ชื่อเล่น" rules={[{ required: true }]}>
                   <Input 
-                    name='nick_name'
-                    // defaultValue={formData.nick_name}
+                    name='nickname'
                     onChange={handleChange}
                     placeholder='ชื่อเล่น'
                     style={{ width: '85%' }}
@@ -206,11 +201,10 @@ const ManageUserDetail: React.FC = () => {
                 </Form.Item>
               </div>
               <div className='w-1/2'>
-                <Form.Item initialValue={dayjs(formData.birth_day)} name="วันเกิด" label="วันเกิด" rules={[{ required: true },]}>
+                <Form.Item name="วันเกิด" label="วันเกิด" rules={[{ required: true },]}>
                   <DatePicker 
                     name='birth_day'
                     type='number'
-                    // defaultValue={dayjs(formData.birth_day)}
                     // onChange={handleChange}
                     placeholder='วันเกิด' 
                     style={{ width: '85%' }}
@@ -221,21 +215,19 @@ const ManageUserDetail: React.FC = () => {
       
             <div className='flex  justify-start'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.id_card_number} name="เลขบัตรประชาชน" label="เลขบัตรประชาชน" rules={[{ required: true }, ]}>
+                <Form.Item name="เลขบัตรประชาชน" label="เลขบัตรประชาชน" rules={[{ required: true }, ]}>
                   <Input  
-                    name='id_card_number'
+                    name='id_card'
                     onChange={handleChange}
-                    // defaultValue={formData.id_card_number}
                     placeholder='เลขบัตรประชาชน' 
                     style={{ width: '85%' }}
                   />
                 </Form.Item>
               </div>
               <div className='w-1/2'>
-                <Form.Item initialValue={formData.line_id} name="Line ID" label="Line ID" rules={[{ required: true }]}>
+                <Form.Item name="Line ID" label="Line ID" rules={[{ required: true }]}>
                   <Input
-                    name='line_id'
-                    // defaultValue={formData.line_id}
+                    name='id_line'
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='Line ID'
@@ -246,10 +238,9 @@ const ManageUserDetail: React.FC = () => {
             
             <div className='flex  justify-start'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.email} name="อีเมล" label="อีเมล" rules={[{ required: true }]}>
+                <Form.Item name="อีเมล" label="อีเมล" rules={[{ required: true }]}>
                   <Input 
                     name='email'
-                    // defaultValue={formData.email}
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='อีเมล'
@@ -257,10 +248,9 @@ const ManageUserDetail: React.FC = () => {
                 </Form.Item>
               </div>
               <div className='w-1/2'>
-                <Form.Item initialValue={formData.mobile_number} name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: true }]}>
+                <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: true }]}>
                   <Input
-                    name='mobile_number'
-                    // defaultValue={formData.mobile_number}
+                    name='tel'
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='เบอร์โทรศัพท์'
@@ -270,7 +260,7 @@ const ManageUserDetail: React.FC = () => {
             </div>
             <div className='flex  justify-start'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.profile_id} name="โปรไฟล์" label="ตำแหน่ง" rules={[{ required: true }]}>
+                <Form.Item name="โปรไฟล์" label="ตำแหน่ง" rules={[{ required: true }]}>
                   {/* <Input 
                     name='email'
                     onChange={handleChange}
@@ -280,7 +270,6 @@ const ManageUserDetail: React.FC = () => {
                   <Select
                     style={{ width: '85%' }}
                     // onChange={handleChange}
-                    // defaultValue={formData.profile_id}
                     options={profileData}
                     placeholder="ตำแหน่ง"
                   />
@@ -288,10 +277,9 @@ const ManageUserDetail: React.FC = () => {
         
               </div>
               <div className='w-1/2'>
-                <Form.Item initialValue={formData.password} name="Password" label="รหัสผ่าน" rules={[{ required: true }]}>
+                <Form.Item name="Password" label="รหัสผ่าน" rules={[{ required: true }]}>
                   <Input
-                    name='password'
-                    // defaultValue={formData.password}
+                    name='tel'
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='รหัสผ่าน'
@@ -301,10 +289,9 @@ const ManageUserDetail: React.FC = () => {
             </div>
             <div className='flex  justify-start'>
               <div className='w-1/2 mr-3'>
-                <Form.Item initialValue={formData.permanent_address} name="ที่อยู่" label="ที่อยู่" rules={[{ required: true }]}>
+                <Form.Item name="ที่อยู่" label="ที่อยู่" rules={[{ required: true }]}>
                   <Input.TextArea 
-                    name='permanent_address'
-                    // defaultValue={formData.permanent_address}
+                    name='email'
                     onChange={handleChange}
                     style={{ width: '85%' }} 
                     placeholder='ที่อยู่'
@@ -344,19 +331,14 @@ const ManageUserDetail: React.FC = () => {
                 </Button>
               </Link> */}
               {/* ปุ่มแก้ไข/บันทึกด้านล่างขวา */}
-              
+              <Button type="primary" htmlType='submit' onClick={onFinish} style={{ marginBottom: '10px', marginRight: '10px' }}>
+                เพิ่มผู้ใช้
+              </Button>
             </div>
-
-            {isEditing ? <Button disabled={false} htmlType='submit' type="primary" onClick={handleEditSave} style={{ marginBottom: '10px', marginRight: '10px' }}>
-                แก้ไข
-            </Button>
-          : <Button disabled={false} type="primary" onClick={handlerSave} style={{ marginBottom: '10px', marginRight: '10px' }}>
-          บันทึก
-      </Button> }
           </Form>
-          
+        
         </>
       );
     }
   
-  export default ManageUserDetail;
+  export default ManageUserAdd;

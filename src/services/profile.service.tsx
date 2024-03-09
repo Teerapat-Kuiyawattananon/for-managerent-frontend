@@ -42,6 +42,38 @@ class ProfileService {
                 return response.data;
             });
     }
+
+    getProfileUserList(apartId: Number) {
+        return axios
+            .get(API_URL + apartId + "/profiles/user")
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    addUserWithProfile(apartId: Number, data: any) {
+        return axios
+            .post(API_URL + apartId + "/profiles/user", data)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    getProfileUserDetail(apartId: Number, userId: Number) {
+        return axios
+            .get(API_URL + apartId + "/profiles/user/" + userId)
+            .then(response => {
+                return response.data;
+            });
+    }
+
+    updateUserWithProfile(apartId: Number, userId: Number, data: any) {
+        return axios
+            .put(API_URL + apartId + "/profiles/user/" + userId, data)
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 
 export default new ProfileService();

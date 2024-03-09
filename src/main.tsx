@@ -41,6 +41,7 @@ import CreatePassword from './components/createPassword/createPassword.tsx';
 import TestUpload from './components/pageStaff/roomList-page/addTenant/roomlistformadd1-4/testUpload.tsx';
 import ServiceRoomSetting from './components/pageAdmin/setting-Page/ServiceRoomSetting.tsx';
 import WaterElecPage from './components/pageStaff/water-elec-page/WaterElecPage.tsx';
+import ManageUserAdd from './components/pageAdmin/manageUser-page/manageUserAdd.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -93,6 +94,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/apartment/:apartId/report" element={<Navbar component={<ReportPage />} title={"แจ้งปัญหา"}/>} />
         <Route path="/apartment/:apartId/yourPacket" element={<Navbar component={<YourpacketPage />} title={"พัสดุของคุณ"}/>} />
 
+
+        <Route path="/apartment/:apartId/manageUser/add" element={<Navbar component={<ManageUserAdd />} title={"เพิ่มผู้ใช้"} />} />
+        <Route path="/apartment/:apartId/manageUser/:userId/detail" element={<Navbar component={<ManageUserDetail />} title={"รายละเอียดผู้ใช้"} />} />
         <Route path="/apartment/:apartId/create-apartment" element={<Navbar component={<RentPage />} title={"สร้างหอพัก"} />} />
         <Route path="/apartment/:apartId/manageUser" element={<Navbar component={<ManageUserPage />} title={"การจัดการผู้ใช้"} />} />
         <Route path="/apartment/:apartId/permission" element={<Navbar component={<PermissionPage />} title={"ตั้งค่าสิทธิ์การเข้าใช้งาน"} />} />
