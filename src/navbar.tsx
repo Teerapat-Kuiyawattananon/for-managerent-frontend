@@ -222,7 +222,7 @@ const Navbar = ({component, title} : Page) => {
           <div className="top-menu">
             <Avatar className="avatar" size={40} icon={<UserOutlined/>} />
             <span className="username-topmenu" style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.full_name }</span>
-            <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.roll ? currentUser.roll: "ตำแหน่ง"}</span>
+            <span className="role-topmenu " style={{ color: '#fff', marginLeft: 10 }}>{ currentUser.role ? <p>{currentUser.role}</p>: null}</span>
           </div>
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={itemTest} style={{ background: '#253141' }} onClick={handleMenuClick}></Menu>
         </Sider>

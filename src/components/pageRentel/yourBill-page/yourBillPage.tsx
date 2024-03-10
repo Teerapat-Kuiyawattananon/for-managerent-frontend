@@ -12,7 +12,7 @@ export interface BillStatus {
 }
   
   const singleBillData: Bill = {
-    key: 1,
+    key: 0,
     floor_name: "3",
     room_name: "C303",
     total_amount: 2500,
