@@ -165,6 +165,22 @@ const ElecTab = () => {
         console.log("newData", newData)
     }
   }
+  const handleChangeStartReading = (index: number, indexFloor: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const newData = [...data];
+    const floor = newData[indexFloor];
+    const target = floor.rooms[index];
+    console.log('event', event.target.name)
+    if (target) {
+        target.start_reading = Number(event.target.value);
+        target.used_amount = target.end_reading - target.start_reading;
+        // check if the used_amount is negative, if it is, set it to 0
+        if (target.used_amount < 0) {
+            target.used_amount = 0;
+        }
+        setData(newData);
+        console.log("newData", newData)
+    }
+  }
 
   const handleSave = async () => {
     try {
@@ -218,10 +234,10 @@ const ElecTab = () => {
                                     ชื่อห้อง
                                 </th>
                                 <th scope="col" className="px-6 py-3 bg-yellow-100">
-                                    เลขมิเตอร์ไฟก่อนหน้า <br /> กุมภาพันธ์/2024
+                                    เลขมิเตอร์ไฟเดือนก่อนหน้า <br /> 
                                 </th>
                                 <th scope="col" className="px-6 py-3 bg-yellow-100">
-                                    เลขมิเตอร์ไฟล่าสุด <br /> มีนาคม/2024
+                                    เลขมิเตอร์ไฟเดือนปัจจุบัน <br />
                                 </th>
                                 <th scope="col" className="px-6 py-3 bg-yellow-100">
                                     ค่าไฟหน่วยที่ใช้
@@ -238,8 +254,16 @@ const ElecTab = () => {
                                     <td className=" px-6 py-4 font-black text-gray-900 whitespace-nowrap dark:text-gray-700">
                                         {room.room_name}
                                     </td>
-                                    <td className="px-11 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-700">
-                                    {room.start_reading}
+                                    <td className="">
+                                    {/* {room.start_reading} */}
+                                    <Input
+                                                type="number"
+                                                name="rent_amount"
+                                                className="my-3 w-1/2 bg-yellow-50"
+                                                // defaultValue={room.end_reading}
+                                                value={room.start_reading}
+                                                onChange={(event) => handleChangeStartReading(index, indexFloor, event)}
+                                            />
                                     </td>
                                     <td className=''>
                                         {!editingKey ? (
