@@ -68,7 +68,7 @@ const Register = () => {
           if (response.status === 200) {
             console.log('Registration successful:', response.data);
             message.success('You have successfully registered your account!');
-            navigate('/home');
+            navigate('/create-apartment');
             // Handle successful registration (e.g., clear form, redirect)
           } else if (response.status === 400){
             console.error('Registration failed:', response.data);

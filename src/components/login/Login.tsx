@@ -42,7 +42,7 @@ const Login = () => {
                 // Handle successful registration (e.g., clear form, store token, redirect)
                 // const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
                 // await wait(2000);
-                navigate('/home');
+                navigate('/apartment/1/home');
               }
               // Handle successful registration (e.g., clear form, redirect)
             } catch (error) {

@@ -173,7 +173,11 @@ class ApartmentService {
         
     getAnnounce(apartId: Number) {
         return axios
-            .get(API_URL + apartId + "/announce")
+            .get(API_URL + apartId + "/announce" , {
+                headers: {
+                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}').access_token
+                }
+            })
             .then(response => {
                 return response.data;
             });
