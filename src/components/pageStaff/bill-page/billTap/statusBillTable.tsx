@@ -318,6 +318,7 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
     };
     
     const handleCancel = () => {
+        console.log('cancel')
         setIsModalOpen1(false)
         setIsModalOpen2(false)
         setIsModalOpen3(false)
@@ -606,8 +607,8 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
                       
                       <p className='text-right '>
                       <Image 
-                          width={150}
-                          height={150}
+                        //   width={150}
+                        //   height={150}
                           src={`http://localhost:3232/api/file-image?file=${apartInfo.qr_code_path}`}
                       />
                       </p>
@@ -619,10 +620,14 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
                 title= {(<div className='flex justify-center text-2xl font-bold '>ตรวจสอบสถานะการจ่ายเงินห้อง {modalData.room_name} </div>)} 
                 open={isModalOpen2} 
                 onOk={handleSubmitBill} 
-                onCancel={handleRejectBill} 
+                onCancel={handleCancel} 
                 okText="ยืนยันยอดเงิน" 
                 cancelText="ปฎิเสธการชำระเงิน"
                 cancelButtonProps={{ className: 'custom-cancel-button' }}
+                footer={[
+                    <Button key="reject" onClick={handleRejectBill} className="custom-cancel-button" >ปฎิเสธการชำระเงิน</Button>,
+                    <Button key="ok" type="primary" onClick={handleSubmitBill}>ยืนยันยอดเงิน</Button>
+                  ]}
                 >
                 <div className='flex text-lg'>
                     <p className='ml-12 '> วันเวลาที่โอนเงิน: </p>
@@ -637,8 +642,8 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
                 </div>
                 <p className='flex justify-center mt-4 mb-10'>
                     <Image 
-                        width={350}
-                        height={450}
+                        // width={350}
+                        // height={450}
                         src={`http://localhost:3232/api/file-image?file=${modalData.evidence}`}
                     />
                 </p>

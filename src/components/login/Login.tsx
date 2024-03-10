@@ -42,6 +42,9 @@ const Login = () => {
                 // Handle successful registration (e.g., clear form, store token, redirect)
                 // const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
                 // await wait(2000);
+                if (response.data.apart_id !== 0) {
+                  navigate(`/apartment/${response.data.apart_id}/home`);
+                }
                 navigate('/apartment/1/home');
               }
               // Handle successful registration (e.g., clear form, redirect)

@@ -278,11 +278,17 @@ const apartInfoTestData: ApartInfo = {
     const fetchData = async () => {
         try {
             const res = await ApartmentService.getYourBillPayment(Number(apartId), monthDate)
-            console.log(res)
-            if (res.statsu === 200 && res.message !== "Bill not found") {
-                setBillData(res.data);
-                setApartInfo(res.apart_info)
+            console.log("res",res)
+            setBillData(res.data);
+            setApartInfo(res.apart_info)
+            if (res.message === "Bill not found") {
+                setBillData(singleBillData);
             }
+            // if (res.statsu === 200 ) {
+            //     setBillData(res.data);
+            //     setApartInfo(res.apart_info)
+            //     console.log("true ------------- ")
+            // }
         }
         catch (err) {
             console.error(err)
@@ -290,6 +296,8 @@ const apartInfoTestData: ApartInfo = {
         }
     }
     fetchData();
+    console.log("bill", billData)
+    console.log("key", billData.key)
   }, [monthDate]);
   // ส่วนของ return
   return (
@@ -422,20 +430,19 @@ const apartInfoTestData: ApartInfo = {
                     
                     <p className='text-right '>
                     {(apartInfo.qr_code_path === "" ? null : <Image 
-                        width={150}
-                        height={150}
+                        // width={150}
+                        // height={150}
                         src={`http://localhost:3232/api/file-image?file=${apartInfo.qr_code_path}`}
                         />)}
                     </p>
                 </div>
             </div>
-          <div className='flex justify-center'style={{ marginTop: 'auto' }}>
-              <Button >
-                  บันทึกรูปภาพ
-              </Button>
+          <div className='flex justify-end'style={{ marginTop: 'auto' }}>
+            {billData.bill_status === 'ชำระค่าเช่าเรียบร้อยแล้ว' ? null :
               <Button className='ml-2'type='primary'onClick={showModal}>
                   ยืนยันการชำระ
               </Button>
+            }
               <Modal 
                   title="รายละเอียดการชำระเงิน" 
                   open={isModalOpen} 

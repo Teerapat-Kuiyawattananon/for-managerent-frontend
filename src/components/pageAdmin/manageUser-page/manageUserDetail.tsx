@@ -289,7 +289,7 @@ const ManageUserDetail: React.FC = () => {
               </div>
               <div className='w-1/2'>
                 <Form.Item initialValue={formData.password} name="Password" label="รหัสผ่าน" rules={[{ required: true }]}>
-                  <Input
+                  <Input.Password
                     name='password'
                     // defaultValue={formData.password}
                     onChange={handleChange}
