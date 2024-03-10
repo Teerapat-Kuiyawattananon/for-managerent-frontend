@@ -85,6 +85,7 @@ const ServiceRoomSetting = () => {
             title: 'ค่าเช่าห้อง',
             dataIndex: 'roomRent',
             key: 'roomRent',
+            render : (text) => (text.toFixed(2))
         },
         {
             title: 'สถานะห้องเช่า',
@@ -202,6 +203,8 @@ const ServiceRoomSetting = () => {
                 }
                 fetch()
                 fetchRoom()
+                setIsUse(!isUse)
+
                 // window.location.reload()
             }
         }
@@ -238,6 +241,7 @@ const ServiceRoomSetting = () => {
                 }
                 fetch()
                 fetchRoom()
+                setIsUse(!isUse)
                 // window.location.reload()
             }
         }
@@ -264,7 +268,8 @@ const ServiceRoomSetting = () => {
             <h2>ค่าบริการ: {serviceData?.amount} บาท/เดือน</h2>  
         </div>
         <div className='flex mt-2 mb-3 justify-center'>
-            <h2 className='text-lg'>{!isUse ? "กำหนดห้องที่ใช้ค่าบริการ" : "ห้องที่ใช้ค่าบริการนี้อยู่"}</h2>
+            {/* <h2 className='text-lg'>{!isUse ? "กำหนดห้องที่ใช้ค่าบริการ" : "ห้องที่ใช้ค่าบริการนี้อยู่"}</h2> */}
+            {!isUse ? <p className='text-rose-600 text-2xl font-bold' > ห้องที่ไม่ได้ใช้ค่าบริการนี้ </p>: <p className='text-green-500 text-2xl font-bold'> ห้องที่ใช้ค่าบริการนี้อยู่ </p>}
         </div>
         <div className='flex w-full justify-end'>
             <div className='flex justify-end mb-2'>
@@ -280,7 +285,7 @@ const ServiceRoomSetting = () => {
         
         <div>
             {!isUse ?
-                <Table columns={columns} dataSource={removeByKeys(roomData, roomUsed)} pagination={false} rowSelection={rowSelection} />
+                <Table className='bg-yellow-100' columns={columns} dataSource={removeByKeys(roomData, roomUsed)} pagination={false} rowSelection={rowSelection} />
                 :
                 <Table columns={columns} dataSource={filterByKeys(roomData, roomUsed)} pagination={false} rowSelection={rowSelection} />
                 }

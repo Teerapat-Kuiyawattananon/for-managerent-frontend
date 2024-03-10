@@ -6,6 +6,7 @@ import RoomService from './../../../services/room.service';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { useParams } from 'react-router-dom';
 
+
 interface Room {
   id: number;
   floor_name: string;
@@ -82,7 +83,7 @@ const RoomListPage: React.FC = () => {
         {/* <Space style={{ marginBottom: 16 }}>
           <Button type="primary" icon={<PlusOutlined />}>เพิ่มรูปภาพผังห้องพัก</Button>
         </Space> */}
-        <RoomListTable data={roomsData}/>
+        <RoomListTable data={roomsData.filter(room => room.roomName.trim() !== '')} />
       </div>
     </>
   );

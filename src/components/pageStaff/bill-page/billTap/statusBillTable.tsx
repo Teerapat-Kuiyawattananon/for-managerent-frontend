@@ -439,6 +439,7 @@ const StatusBillTable: React.FC<StatusBillTableProps> = ({ data }) => {
             title: 'ค่าเช่าห้อง',
             dataIndex: 'total_amount',
             key: 'total_amount',
+            render : (text) => (text.toFixed(2))
         },
         {
             title: 'วันที่จ่ายบิล',

@@ -99,6 +99,7 @@ const RoomListTable: React.FC<RoomListTableProps> = ({ data }) => {
             title: 'ค่าเช่าห้อง',
             dataIndex: 'roomRent',
             key: 'roomRent',
+            render : (text) => (text.toFixed(2))
         },
         {
             title: 'สถานะห้องเช่า',

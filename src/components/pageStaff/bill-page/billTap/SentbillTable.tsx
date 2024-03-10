@@ -310,6 +310,7 @@ const SendBillTable: React.FC<SendBillTableProps> = ({ data }) => {
             title: 'ค่าใช้จ่ายทั้งหมด',
             dataIndex: 'total_amount',
             key: 'total_amount',
+            render : (text) => (text.toFixed(2))
         },
         // {
         //     title: 'วันที่ส่งบิล',
