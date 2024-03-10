@@ -283,6 +283,7 @@ const apartInfoTestData: ApartInfo = {
             setApartInfo(res.apart_info)
             if (res.message === "Bill not found") {
                 setBillData(singleBillData);
+                setApartInfo(apartInfoTestData)
             }
             // if (res.statsu === 200 ) {
             //     setBillData(res.data);
