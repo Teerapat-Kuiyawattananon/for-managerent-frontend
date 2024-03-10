@@ -145,13 +145,10 @@ const Navbar = ({component, title} : Page) => {
     // Chekc role
     // let permissonsStr = ""
       const fetchPermission = async () => {
-        const res = await ProfileService.getPermissionByUserId(Number(apartId), currentUser.id)
+        const res = await ProfileService.getPermissionByUserId(Number(apartId), currentUser.user_id)
         if (res.status === 200) {
           setPermissionStr(res.data)
-          // permissonsStr = res.data
         }
-        // console.log("res", res)
-        // console.log("test", permissonsStr)
       }
       fetchPermission()
       // fetchPermission()

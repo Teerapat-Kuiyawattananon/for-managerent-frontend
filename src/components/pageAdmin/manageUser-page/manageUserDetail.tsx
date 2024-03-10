@@ -152,7 +152,7 @@ const ManageUserDetail: React.FC = () => {
       }
     }
     fetchData()
-    form.resetFields()
+    // form.resetFields()
   }, [])
     return (
         <>
