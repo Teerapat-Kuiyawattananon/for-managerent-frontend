@@ -44,9 +44,9 @@ const RoomListPageAdd1= ({next, currentState, valueData} : RoomListPageAdd1Props
         })
       }
 
-      const testDateTime = (e: any) => {
-        console.log(e.target.value, e.target.type)
-      }
+      // const testDateTime = (e: any) => {
+      //   console.log(e.target.value, e.target.type)
+      // }
     
       
     
@@ -131,7 +131,20 @@ const RoomListPageAdd1= ({next, currentState, valueData} : RoomListPageAdd1Props
 
           <div className='flex  justify-start'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="เลขบัตรประชาชน" label="เลขบัตรประชาชน" rules={[{ required: true }, ]}>
+                <Form.Item name="เลขบัตรประชาชน" label="เลขบัตรประชาชน" 
+                          rules={[
+                            { required: true }, 
+                            {
+                              validator: (_, value) => {
+                                if (!value) return Promise.resolve();
+                                const isWithinLengthLimit = value.length == 13; 
+                                if (!isWithinLengthLimit) {
+                                  return Promise.reject(new Error('กรอกเลขบัตรประชาชนให้ครบ 13 หลัก'));
+                                }
+                                return Promise.resolve();
+                              },
+                            },
+                          ]}                      >
                     <Input  
                         name='id_card_number'
                         onChange={handleChange}
@@ -164,7 +177,20 @@ const RoomListPageAdd1= ({next, currentState, valueData} : RoomListPageAdd1Props
                 </Form.Item>
             </div>
             <div className='w-1/2'>
-                <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" rules={[{ required: true }]}>
+                <Form.Item name="เบอร์โทรศัพท์" label="เบอร์โทรศัพท์" 
+                    rules={[{ required: true },
+                      {
+                        validator: (_, value) => {
+                          if (!value) return Promise.resolve();
+                          const isWithinLengthLimit = value.length == 10; 
+                          if (!isWithinLengthLimit) {
+                            return Promise.reject(new Error('กรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก'));
+                          }
+                          return Promise.resolve();
+                        },
+                      },
+                    
+                    ]}>
                     <Input
                         name='mobile_number'
                         onChange={handleChange}

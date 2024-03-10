@@ -106,14 +106,14 @@ const FormRoomCreate = ({next, currentState, valueData} : FormRoomCreateProps) =
   return (
     <>
     <div className='relative overflow-x-auto'>
-        <div className='flex w-full justify-end mb-3'>
+        {/* <div className='flex w-full justify-end mb-3'> */}
             {/* <Button onClick={handleEdit}>{editingKey ? 'Save' : 'Edit'}</Button> */}
-            <Button type='primary' onClick={ () => {
+            {/* <Button type='primary' onClick={ () => {
                 console.log("data", JSON.stringify(data))
                 // valueData.form2 = data;
                 console.log("valueData", valueData.form2)
-            }} >Send</Button>
-        </div>
+            }} >Send</Button> */}
+        {/* </div> */}
         {FLOORS.map((item, indexFloor) => (
             <Collapse
             key={indexFloor}

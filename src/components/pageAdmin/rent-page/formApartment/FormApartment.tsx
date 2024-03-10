@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Form, Input, InputNumber, Space, DatePicker } from 'antd';
+import { Button, Form, Input, InputNumber, Space } from 'antd';
 
 interface Form1ApartmentProps {
   next : () => void
@@ -18,7 +18,7 @@ interface Form1ApartmentState {
   information: string
   electricity_unit_price: number
   late_bill_price: number
-  bill_date: Date
+  // bill_date: Date
   late_bill_free_day: number
 }
 
@@ -82,7 +82,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
         // e.preventDeafault()
         // e.preventDefault()
         valueData.form1 = formData
-        valueData.form1.bill_date = new Date(values['รอบวันที่เรียกเก็บเงิน'].format('YYYY-MM-DD'))
+        // valueData.form1.bill_date = new Date(values['รอบวันที่เรียกเก็บเงิน'].format('YYYY-MM-DD'))
         const FLOORS: Floor[] = [];
         for (let i = 1; i <= valueData.form1.number_of_floor ; i++) {
           let RoomData: Room[] = [];
@@ -244,7 +244,7 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
           }} placeholder='ค่าเช่ารายเดือน'/>
         </Form.Item>
         </div>
-        <div className='w-1/2'>
+        {/* <div className='w-1/2'>
         <Form.Item name="ค่าปรับจ่ายบิลล่าช้า/วัน" label="ค่าปรับจ่ายบิลล่าช้า/วัน" rules={[{ required: true }]}>
           <Input 
           name='late_bill_price'
@@ -254,22 +254,22 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
             width: '85%',
           }} placeholder='ค่าปรับจ่ายบิลล่าช้า/วัน'/>
         </Form.Item>
-        </div>
+        </div> */}
       </div>
       
       
-      <div className='flex  justify-start'>
+      {/* <div className='flex  justify-start'>
         <div className='w-1/2 mr-3'>
             <Form.Item name="รอบวันที่เรียกเก็บเงิน" label="รอบวันที่เรียกเก็บเงิน" rules={[{ required: true }]}>
-        <DatePicker 
+        <Input
         // name='bill_date'
         // onChange={handleChange}
         style={{
           width: '85%',
         }} placeholder='รอบวันที่เรียกเก็บเงิน'/>
       </Form.Item>
-        </div>
-        <div className='w-1/2'>
+        </div> */}
+        {/* <div className='w-1/2'>
          <Form.Item name="หลังออกบิลแล้วจ่ายบิลโดยไม่เสียค่าปรับได้กี่วัน" label="หลังออกบิลแล้วจ่ายบิลโดยไม่เสียค่าปรับได้กี่วัน" rules={[{ required: true }]}>
         <Input  
         name='late_bill_free_day'
@@ -279,8 +279,8 @@ const Form1Apartment = ({next, currentState, valueData} : Form1ApartmentProps) =
           width: '85%',
         }} placeholder='หลังออกบิลแล้วจ่ายบิลโดยไม่เสียค่าปรับได้กี่วัน'/>
       </Form.Item>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       <Button type="primary" htmlType='submit' style={{
             // background: "711DB0",
             // backgroundColor: "yellow"

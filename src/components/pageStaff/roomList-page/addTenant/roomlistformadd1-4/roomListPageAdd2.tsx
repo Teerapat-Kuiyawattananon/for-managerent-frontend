@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import { FormInstance } from 'antd/lib/form';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -27,7 +26,7 @@ interface RoomListPageAdd3State {
 }
 
 const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Props) => {
-  const { apartId, roomId} = useParams()
+  const {roomId} = useParams()
   const [formData, setFormData] = useState<RoomListPageAdd3State>({
     address_p1: '',
     address_p2: '',
@@ -44,12 +43,12 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
     zipcode_h: '',
   });
 
-  const handleCopyAddress = () => {
-    const newFormData = formData
-    newFormData.address_h1 = formData.address_p1
-    setFormData(newFormData) 
-    console.log(formData)
-  };
+  // const handleCopyAddress = () => {
+  //   const newFormData = formData
+  //   newFormData.address_h1 = formData.address_p1
+  //   setFormData(newFormData) 
+  //   console.log(formData)
+  // };
 
   const handleNext = () => {
     console.log(currentState)
@@ -100,7 +99,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
           <span className='text-lg font-bold' > ที่อยู่ตามทะเบียนบ้าน </span>
           <div className='flex  justify-start mt-1'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="address_p1" label="ที่อยู่" rules={[{ required: true }]}>
+                <Form.Item name="ที่อยู่" label="ที่อยู่" rules={[{ required: true }]}>
                     <Input 
                         name = "address_p1"
                         value={formData.address_p1}
@@ -110,21 +109,11 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
                         }} placeholder='ที่อยู่'/>
                 </Form.Item>
             </div>
-            {/* <div className='w-1/2 h-1'>
-                <Form.Item name="address_p2" label="ที่อยู่ บรรทัดที่ 2" rules={[{ required: true }]}>
-                    <Input
-                        onChange={handleChange}
-                        style={{
-                        width: '85%',
-                        // height: '120px',
-                        }} placeholder='ที่อยู่ บรรทัดที่ 2'/>
-                </Form.Item>
-            </div> */}
           </div>
 
           <div className='flex  justify-start mt4'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="province_p" label="จังหวัด" rules={[{ required: true }]}>
+                <Form.Item name="จังหวัด" label="จังหวัด" rules={[{ required: true }]}>
                     <Input 
                         name='province_p'
                         onChange={handleChange}
@@ -135,7 +124,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
                 </Form.Item>
             </div>
             <div className='w-1/2'>
-                <Form.Item name="district_p" label="อำเภอ/เขต" rules={[{ required: true },]}>
+                <Form.Item name="อำเภอ/เขต" label="อำเภอ/เขต" rules={[{ required: true },]}>
                     <Input 
                         name='district_p'
                         onChange={handleChange}
@@ -148,7 +137,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
 
           <div className='flex  justify-start'>
             <div className='w-1/2 mr-3'>
-                <Form.Item name="county_p" label="ตำบล/แขวง" rules={[{ required: true }, ]}>
+                <Form.Item name="ตำบล/แขวง" label="ตำบล/แขวง" rules={[{ required: true }, ]}>
                     <Input  
                         name='county_p'
                         onChange={handleChange}
@@ -158,7 +147,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
                 </Form.Item>
             </div>
             <div className='w-1/2'>
-                <Form.Item name="zipcode_p" label="รหัสไปรษณีย์" rules={[{ required: true }]}>
+                <Form.Item name="รหัสไปรษณีย์" label="รหัสไปรษณีย์" rules={[{ required: true }]}>
                     <Input
                         name='zipcode_p'
                         onChange={handleChange}

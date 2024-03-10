@@ -68,24 +68,24 @@ const Navbar = ({component, title} : Page) => {
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
 
-  const handleSearch = (value: string) => {
-    console.log('Searching for:', value);
-    // ปุ่มค้นหา
-  };
+  // const handleSearch = (value: string) => {
+  //   console.log('Searching for:', value);
+  //   // ปุ่มค้นหา
+  // };
 
   // ------------------------------
 
 
 
   // -------------------------------
-  const showNotification = () => {
-    notification.open({
-      message: 'ไม่มีการแจ้งเตือน',
-      description: 'ไม่มีการแจ้งเตือนในขณะนี้',
-      duration: 3, // วินาที
-      icon: <BellOutlined style={{ color: '#ff4d4f' }} />,
-    });
-  };
+  // const showNotification = () => {
+  //   notification.open({
+  //     message: 'ไม่มีการแจ้งเตือน',
+  //     description: 'ไม่มีการแจ้งเตือนในขณะนี้',
+  //     duration: 3, // วินาที
+  //     icon: <BellOutlined style={{ color: '#ff4d4f' }} />,
+  //   });
+  // };
   
   const handleMenuClick = ({ key }: { key: React.Key }) => {
     if (key === 'home') {
