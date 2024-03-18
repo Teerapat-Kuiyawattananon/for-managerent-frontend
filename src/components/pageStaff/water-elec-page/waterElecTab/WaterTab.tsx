@@ -230,7 +230,12 @@ const WaterTab = () => {
         try {
             const res = await ApartmentService.getRoomsWaterServices(Number(apartId), monthDate)
             console.log("res",res.data);
-            setData(res.data);
+            const sortedData = res.data.map((floor) => ({
+              ...floor,
+              rooms: floor.rooms.sort((a, b) => a.id - b.id), // เรียงลำดับข้อมูลห้องตาม id
+            }));
+            setData(sortedData);
+            // setData(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -288,7 +293,7 @@ const WaterTab = () => {
                                         <Input
                                                 type="number"
                                                 name="rent_amount"
-                                                className="my-3 w-1/2 bg-yellow-50"
+                                                className="my-3 w-1/2 bg-blue-50"
                                                 // defaultValue={room.end_reading}
                                                 value={room.start_reading}
                                                 onChange={(event) => handleChangeStartReading(index, indexFloor, event)}

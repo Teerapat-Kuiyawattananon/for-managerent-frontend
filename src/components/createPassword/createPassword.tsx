@@ -57,11 +57,11 @@ const CreatePassword: React.FC = () => {
                 navigate('/login');
             }
         } catch (error) {
-            message.open({
-                type: 'error',
-                content: 'Token is invalid or expired! Please try again.',
-                duration: 8
-            });
+            // message.open({
+            //     type: 'error',
+            //     content: 'Token is invalid or expired! Please try again.',
+            //     duration: 8
+            // });
         }
     };
 

@@ -201,7 +201,12 @@ const ElecTab = () => {
         try {
         const res = await ApartmentService.getRoomsElecServices(Number(apartId), monthDate)
         console.log("res", res.data)
-        setData(res.data);
+        const sortedData = res.data.map((floor) => ({
+          ...floor,
+          rooms: floor.rooms.sort((a, b) => a.id - b.id), // เรียงลำดับข้อมูลห้องตาม id
+        }));
+        setData(sortedData);
+        // setData(res.data);
         }
         catch (error) {
             console.log(error);

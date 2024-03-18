@@ -60,11 +60,11 @@ const ChangePassword: React.FC = () => {
             }
         } catch (error) {
             console.log("request", request)
-            message.open({
-                type: 'error',
-                content: 'Token is invalid or expired! Please try again.',
-                duration: 8
-            });
+            // message.open({
+            //     type: 'error',
+            //     content: 'Token is invalid or expired! Please try again.',
+            //     duration: 8
+            // });
         }
     };
 

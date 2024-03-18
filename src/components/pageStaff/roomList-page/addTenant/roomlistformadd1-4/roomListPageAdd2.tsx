@@ -64,7 +64,7 @@ const RoomListPageAdd3 = ({ next, currentState, valueData}: RoomListPageAdd3Prop
   }
 
   const getPermanentAddress = (data : any) => {
-    return  data.address_p1 + " ตำบล "  + data.county_p + " อำเภอ " + data.district_p + " จังหวัด " + data.province_p + " รหัสไปรษณีย์ " + data.zipcode_p
+    return  data['ที่อยู่'] + " ตำบล "  + data['ตำบล/แขวง'] + " อำเภอ " + data['อำเภอ/เขต'] + " จังหวัด " + data['จังหวัด'] + " รหัสไปรษณีย์ " + data['รหัสไปรษณีย์']
   }
 
   const handleSubmit = async (values : any) => {

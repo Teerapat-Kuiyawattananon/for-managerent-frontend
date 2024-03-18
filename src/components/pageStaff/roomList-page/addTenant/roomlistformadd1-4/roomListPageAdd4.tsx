@@ -85,20 +85,20 @@ const RoomListPageAdd4= ({next, currentState, valueData} : RoomListPageAdd4Props
                     ที่อยู่
                 </p>
                 <p className='text-gray-500 mb-2'>
-                    {valueData.form2.address_p1 ? valueData.form2.address_p1 : 'ไม่มีที่อยู่'}
+                    {valueData.form2.ที่อยู่ ? valueData.form2.ที่อยู่ : 'ไม่มีที่อยู่'}
                 </p>
                 <p className='text-gray-800 font-bold'>
                     อำเภอ/เขต
                 </p>
                 <p className='text-gray-500 mb-2'>
-                  {valueData.form2.district_p ? valueData.form2.district_p : 'ไม่มีอำเภอ/เขต'}
+                  {valueData.form2['อำเภอ/เขต'] ? valueData.form2['อำเภอ/เขต'] : 'ไม่มีอำเภอ/เขต'}
                 </p>
                
                 <p className='text-gray-800 font-bold'>
                     รหัสไปรษณีย์
                 </p>
                 <p className='text-gray-500 '>
-                    {valueData.form2.zipcode_p ? valueData.form2.zipcode_p : 'ไม่มีรหัสไปรษณีย์'}
+                    {valueData.form2.รหัสไปรษณีย์ ? valueData.form2.รหัสไปรษณีย์ : 'ไม่มีรหัสไปรษณีย์'}
                 </p>
             </div>
             <div>
@@ -106,14 +106,14 @@ const RoomListPageAdd4= ({next, currentState, valueData} : RoomListPageAdd4Props
                     ตำบล/แขวง
                 </p>
                 <p className='text-gray-500 mb-2'>
-                    {valueData.form2.county_p ? valueData.form2.county_p : 'ไม่มีตำบล/แขวง'}
+                    {valueData.form2['ตำบล/แขวง'] ? valueData.form2['ตำบล/แขวง'] : 'ไม่มีตำบล/แขวง'}
                 </p>
         
                 <p className='text-gray-800 font-bold'>
                     จังหวัด
                 </p>
                 <p className='text-gray-500 mb-2'>
-                    {valueData.form2.province_p ? valueData.form2.province_p : 'ไม่มีจังหวัด'}
+                    {valueData.form2.จังหวัด ? valueData.form2.จังหวัด : 'ไม่มีจังหวัด'}
                 </p>
             </div>
            </div>

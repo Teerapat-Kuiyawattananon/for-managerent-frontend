@@ -120,12 +120,12 @@ const SummaryApartment = ({valueData} : SummaryApartmentProps) => {
             <p className='text-gray-500 mb-2'>
                 {valueData.form1.electricity_unit_price} บาท
             </p>
-            <p className='text-gray-800 font-bold'>
+            {/* <p className='text-gray-800 font-bold'>
                 วันที่เรียกเก็บเงิน
             </p>
             <p className='text-gray-500'>
                 ทุกวันที่ {date.getDate()} ของเดือน
-            </p>
+            </p> */}
         </div>
         <div>
         <p className='text-gray-800 font-bold'>

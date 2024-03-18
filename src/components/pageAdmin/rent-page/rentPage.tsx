@@ -192,11 +192,11 @@ const RentPage: React.FC = () => {
           {contextHolder}
             </>
         )}
-        {current > 0 && !(current === steps.length - 2) && (
+        {/* {current > 0 && !(current === steps.length - 2) && (
           <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
             ย้อนกลับ
           </Button>
-        )}
+        )} */}
         
       </div>
     </>

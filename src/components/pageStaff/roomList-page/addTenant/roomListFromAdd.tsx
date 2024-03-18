@@ -135,11 +135,11 @@ const RoomListFromAdd : React.FC = () => {
           </Button>
         </Link>
         )}
-        {current > 0 && (
+        {/* {current > 0 && (
           <Button style={{ margin: '0 8px', background: "gray" , color: "white"}} onClick={() => prev()}>
             ย้อนกลับ
           </Button>
-        )}
+        )} */}
       </div>
     </>
     );
